@@ -267,6 +267,9 @@ setTimeout(function() {
       created_at: new Date()
     });
     this.newMessage = "";
+    setTimeout(function(){
+      $('#mainInput').blur();
+    }, 100);
   };
   
   $scope.onRefresh = function() {

@@ -2298,6 +2298,8 @@ window.ionic = {
     fullScreen: function(showFullScreen, showStatusBar) {
       // showFullScreen: default is true if no param provided
       this.isFullScreen = (showFullScreen !== false);
+      // connie
+      // ionic.Platform.isFullScreen = true;
 
       // add/remove the fullscreen classname to the body
       ionic.DomUtil.ready(function(){
