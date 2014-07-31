@@ -12,6 +12,7 @@
 
 .item-message {
   background-color: #DEF;
+  border-radius: 3px;
 }
 
 .item-message-header {
@@ -38,14 +39,26 @@
 }
 
 .list .item:nth-child(odd){
-  background-color:#FFD15A;
+  background-color:#FFDE89;
 }
 
+/** connie **/
 .list .item {
   border: 0px;
   border-radius: 3px;
   margin-bottom: 3px;
   opacity: 0.9;
+}
+
+.item-input{
+  background-color: white !important;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+input.convoInput{
+  background-color: #EBE8E3;
+  border-radius: 3px;
 }
 
 @font-face {

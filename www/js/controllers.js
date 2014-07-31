@@ -16,6 +16,10 @@ angular.module('chatRoom.controllers', [])
     $location.path('/rooms/new');
     $scope.toggleSideMenu();
   };
+
+  $scope.goToNewRoomDirect = function() {
+    $location.path('/rooms/new');
+  };
   
   $scope.goToAbout = function() {
     $location.path('/about');
@@ -29,11 +33,12 @@ angular.module('chatRoom.controllers', [])
   $scope.toggleSideMenu = function() {
     $scope.sideMenuController.toggleLeft();
   };
+
 })
 
 .controller('MainCtrl', function($scope, $timeout, angularFire) {
   $scope.rooms = [];
-  var ref = new Firebase('https://talk2.firebaseio.com/opened_rooms');  
+  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/opened_rooms');  
   
 
  /*
@@ -208,7 +213,7 @@ jGlob = $scope;
 
 .controller('NewRoomCtrl', function($scope, $location, angularFire) {      
   $scope.rooms = [];
-  var ref = new Firebase('https://talk2.firebaseio.com/opened_rooms');  
+  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/opened_rooms');  
   var promise = angularFire(ref, $scope, "rooms");
   
   $scope.newRoomName = "";
@@ -244,7 +249,7 @@ setTimeout(function() {
     // rest of related code included here...
 
 },10);
-  var ref = new Firebase('https://talk2.firebaseio.com/rooms/' + $routeParams.roomId);
+  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/' + $routeParams.roomId);
    ref.on('value', function(dataSnapshot) {
   // code to handle new value.
 
@@ -259,7 +264,7 @@ setTimeout(function() {
   });
 });
   
-  var ref = new Firebase('https://talk2.firebaseio.com/rooms/' + $routeParams.roomId);
+  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/' + $routeParams.roomId);
   var promise = angularFire(ref, $scope, "messages");
   
   $scope.username = 'User' + Math.floor(Math.random() * 501);
