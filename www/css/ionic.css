@@ -2546,7 +2546,7 @@ body, .ionic-body {
   color: black;
   word-wrap: break-word;
   font-size: 14px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Lato", "Droid Sans", "PT Mono", "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 20px;
   text-rendering: optimizeLegibility;
   -webkit-user-drag: none; }
@@ -3041,7 +3041,10 @@ a.subdued {
   border-top: 1px solid transparent;
   border-bottom: 1px solid #dddddd;
   background-color: white;
+  /** connie
   padding-top:10px;
+  **/
+  padding-top: 5px;
   /* border-width: 1px will actually create 2 device pixels on retina */
   /* this nifty trick sets an actual 1px border on hi-res displays */
   background-size: 0; }
@@ -3129,7 +3132,7 @@ a.subdued {
     .bar.bar-dark .title {
       color: white; }
   .bar .title {
-    padding-top:5px;
+    /** padding-top:5px; **/
     position: absolute;
     top: 0;
     right: 0;
@@ -5130,15 +5133,27 @@ input[type="range"] {
         box-shadow: none; }
   .button.button-positive {
     color: white;
-    background-color: #4a87ee;
-    border-color: #145dd7; }
+    /** background-color: #4a87ee;
+    border-color: #145dd7; **/ 
+    background-color: #FF5A70;
+    opacity: 0.90;
+    border-color: white; 
+  }
     .button.button-positive:hover {
       color: white;
-      text-decoration: none; }
+      background-color: #F10746;
+      opacity: 0.90;
+      text-decoration: none; 
+    }
     .button.button-positive.active, .button.button-positive:active {
+      /**
       background-color: #145dd7;
+      border-color: #145dd7;
+      **/
+      background-color: #F10746;
+      border-color: white;
       box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.15);
-      border-color: #145dd7; }
+       }
     .button.button-positive.button-clear {
       color: #4a87ee;
       background: none;

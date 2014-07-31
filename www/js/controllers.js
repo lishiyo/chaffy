@@ -251,9 +251,12 @@ setTimeout(function() {
 
   setTimeout(function(){
  $(".scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-250)+"px"+', 0px)');
-    
+    },500);
 
-    },500)
+// connie
+  $('#mainInput').on('focus', function(){
+     $(".scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-190)+"px"+', 0px)');
+  });
 });
   
   var ref = new Firebase('https://talk2.firebaseio.com/rooms/' + $routeParams.roomId);
@@ -261,6 +264,7 @@ setTimeout(function() {
   
   $scope.username = 'User' + Math.floor(Math.random() * 501);
   $scope.submitAddMessage = function() {
+  
     $scope.messages.push({
       created_by: this.username,
       content: this.newMessage,
