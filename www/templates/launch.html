@@ -1,0 +1,29 @@
+
+<header class="bar bar-header bar-calm">
+  <button class="button button-icon" ng-click="goToHome()"><i class="icon ion-home"></i></button>
+  <h1 class="title">chaffy</h1>
+</header>
+
+<content has-header="true">        
+  <form ui-keypress="{13:'createRoom()'}">
+    <div class="list list-inset">
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Gender</span>
+        <input type="text" placeholder="this will be M/F buttons" data-ng-model="newRoomName" data-ng-change="setNewRoomNameId()"class="convoInput">
+      </label>
+      
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Age</span>              
+        <input type="text" placeholder="three ranges: 18-29; 30-49; 49+" data-ng-model="newRoomNameId">
+      </label>
+                       
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Map</span>              
+        <input type="text" placeholder="circle radius" data-ng-model="newRoomDescription" class="convoInput">
+      </label>
+    </div>
+    <div class="padding">
+      <button class="button button-full button-positive" ng-click="createRoom()">GO</button>
+    </div>
+  </form>
+</content>

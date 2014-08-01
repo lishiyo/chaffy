@@ -29,6 +29,11 @@ angular.module('chatRoom.controllers', [])
   $scope.goToHome = function() {
     $location.path('/home');
   };  
+
+  $scope.goToLaunch = function() {
+    $location.path('/launch');
+    $scope.toggleSideMenu();
+  }; 
     
   $scope.toggleSideMenu = function() {
     $scope.sideMenuController.toggleLeft();
@@ -257,7 +262,7 @@ setTimeout(function() {
  $(".scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-250)+"px"+', 0px)');
     },500);
 
-     
+
 // connie
   $('#mainInput').on('focus', function(){
      $(".scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-190)+"px"+', 0px)');
@@ -277,9 +282,10 @@ setTimeout(function() {
       created_at: new Date()
     });
     this.newMessage = "";
+
     setTimeout(function(){
       $('#mainInput').blur();
-    }, 100);
+    }, 10);
   };
   
   $scope.onRefresh = function() {
@@ -290,4 +296,7 @@ setTimeout(function() {
 })
 
 .controller('AboutCtrl', function($scope) {
+})
+
+.controller('LaunchCtrl', function($scope) {
 });

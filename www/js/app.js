@@ -183,12 +183,17 @@ angular.module('chatRoom', ['ionic', 'ngRoute', 'ngAnimate', 'chatRoom.services'
     templateUrl: 'templates/room.html',
     controller: 'RoomCtrl'
   });
-
   
   $routeProvider.when('/about', {
     templateUrl: 'templates/about.html',
     controller: 'AboutCtrl'
   });    
+
+  // connie
+   $routeProvider.when('/launch', {
+    templateUrl: 'templates/launch.html',
+    controller: 'LaunchCtrl'
+  });   
   
   $routeProvider.otherwise({
     redirectTo: '/home'
