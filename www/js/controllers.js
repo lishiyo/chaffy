@@ -168,6 +168,7 @@ messageListQuery.on('child_added', function(snapshot) {
 
     window.location=theUrl;
   }
+  
   $scope.distanceFromHere = function (_item, _startPoint) {
 /*
     var start = null;
@@ -401,7 +402,9 @@ $scope.currentLocation=$scope.getUserLocation();
 
 /** map **/  
 
+/**
 var userPosition =[40.777225004040009, -73.95218489597806];
+**/
 
 document.addEventListener("deviceready", onDeviceReady, false);
 

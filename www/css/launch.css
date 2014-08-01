@@ -1,7 +1,7 @@
 /** map **/
 
 .angular-google-map-container{ 
-  height: 200px; 
+  height: 220px; 
   border-radius: 4px;
 }
 
@@ -53,7 +53,7 @@
 
 .bar-gender-item {
 	display:inline-block;
-	width: 25%;
+	width: 30%;
 	border: 1px solid #dddddd !important;
 	/** font-family: 'Pacifico', Arial, sans-serif; **/
 	font-family: 'Lato', 'Pacifico', Arial, sans-serif;
@@ -106,7 +106,7 @@
 }
 .bar-age-item {
 	display:inline-block;
-	width: 20%;
+	width: 24%;
 	border: 1px solid #dddddd !important;
 }
 
