@@ -11,7 +11,7 @@
 }
 
 .item-message {
-  background-color: #DEF;
+  background-color: #FDCFF5;
   border-radius: 3px;
 }
 
@@ -39,7 +39,7 @@
 }
 
 .list .item:nth-child(odd){
-  background-color:#FFDE89;
+  background-color:#FFDC96;
 }
 
 /** connie **/
@@ -79,6 +79,6 @@ input.convoInput{
 
 #app-page{
   /** background-color:#FE642E **/
-  background-color:#F5B432;
+  background-color:#FAB133;
   opacity: 0.85;
 }

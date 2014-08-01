@@ -253,16 +253,17 @@ setTimeout(function() {
    ref.on('value', function(dataSnapshot) {
   // code to handle new value.
 
-
   setTimeout(function(){
  $(".scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-250)+"px"+', 0px)');
     },500);
 
+     
 // connie
   $('#mainInput').on('focus', function(){
      $(".scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-190)+"px"+', 0px)');
   });
 });
+
   
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/' + $routeParams.roomId);
   var promise = angularFire(ref, $scope, "messages");
