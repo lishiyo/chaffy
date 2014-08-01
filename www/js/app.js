@@ -20,7 +20,7 @@ document.addEventListener("resume", onDeviceReady, false);
 
     }, 2000);
 
-       locErrorShown=false;
+      locErrorShown=false;
 
 
       //clear old intervals that were running
@@ -64,7 +64,7 @@ catch(errrr){
       localStorage.setItem("lat", position.coords.latitude );
       localStorage.setItem("lon", position.coords.longitude);
       
-      jGlob.onRefresh();
+      // jGlob.onRefresh();
 
         var element = document.getElementById('geolocation');
         console.log ( 'Latitude: '           + position.coords.latitude              + '<br />' +

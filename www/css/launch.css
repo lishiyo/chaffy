@@ -25,6 +25,21 @@
 	margin-left: auto;
 	margin-right: auto;
 }
+
+#userAlias {
+	width: 75%;
+	text-align: center;
+	margin: 0 auto;
+	font-family: 'Lato', 'Pacifico', Arial, sans-serif;
+	background-color: rgba(0,0,0, 0.50);
+	color: white;
+}
+
+#userAlias::-webkit-input-placeholder {
+   color: white;
+   opacity: 0.7;
+}
+
 .item-radio .item-content {
 	padding-right: 15px;
 }
@@ -40,7 +55,8 @@
 	display:inline-block;
 	width: 25%;
 	border: 1px solid #dddddd !important;
-	font-family: 'Pacifico', Arial, sans-serif;
+	/** font-family: 'Pacifico', Arial, sans-serif; **/
+	font-family: 'Lato', 'Pacifico', Arial, sans-serif;
 }
 
 .bar-gender-item:nth-last-child(1) {
@@ -53,21 +69,23 @@
 
 .list .item[id="radio-sec"] {
 	background-color: white;
+	font-family: 'Pacifico', Arial, sans-serif;
 }
 
 .list .item[id="radio-age-sec"] {
 	background-color: white;
+	font-family: 'Pacifico', Arial, sans-serif;
 }
 
 #radio-male input:checked ~ .item-content {
 	background-color: #0BA4F7;
-	opacity: 0.4;
+	opacity: 0.6;
 	color: white;
 }
 
 #radio-fem input:checked ~ .item-content {
 	background-color: #FF103C;
-	opacity: 0.4;
+	opacity: 0.6;
 	color: white;
 }
 

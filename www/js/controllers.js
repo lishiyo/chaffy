@@ -362,7 +362,8 @@ $scope.currentLocation=$scope.getUserLocation();
 
   $scope.findChats = function() {
     
-    $scope.username = 'User' + Math.floor(Math.random() * 501);
+    // $scope.username = 'User' + Math.floor(Math.random() * 501);
+    $scope.username = $scope.userAlias;
     localStorage.setItem("localusername", $scope.username );
 
 
@@ -399,6 +400,43 @@ $scope.currentLocation=$scope.getUserLocation();
   };
 
 /** map **/  
+
+var userPosition =[40.777225004040009, -73.95218489597806];
+
+document.addEventListener("deviceready", onDeviceReady, false);
+
+function onDeviceReady() {
+  setTimeout(function(){
+      navigator.splashscreen.hide();
+    }, 2000);
+      locErrorShown=false;
+      logout();
+      setupWatch(10000);
+
+/**
+      if(navigator.network.connection.type== "none"){
+              userOffline();
+      }
+**/
+      navigator.geolocation.getCurrentPosition(onSuccess, onError);
+
+} // onDeviceReady()
+
+/**
+ CordovaService.ready.then(function() {
+            navigator.geolocation.getCurrentPosition(onSuccessLoc, onErrorLoc);
+        });
+**/
+        onSuccess = function(position) {
+            userPosition = [position.coords.latitude, position.coords.longitude];
+        }
+
+        // Location not found, show error
+        onError = function(error) {
+            alert("code : " + error.code + "\n message : " + error.message + "\n");
+        }
+
+
 $scope.map = {
     center: {
       latitude: userPosition[0],

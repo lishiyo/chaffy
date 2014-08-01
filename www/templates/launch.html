@@ -7,7 +7,9 @@
 <content has-header="true">        
   <form ui-keypress="{13:'findChats()'}">
     <div class="list list-inset">
-    <h1 id="launch-title">I'M ... </h1>
+    <div class="form-bar">
+    <input type="text" placeholder="alias" data-ng-model="userAlias" class="convoInput" id="userAlias">
+    </div>
     <div class="form-bar">
       <label class="item item-radio bar-gender-item" id="radio-male">
         <!--
