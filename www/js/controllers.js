@@ -272,6 +272,7 @@ jGlob = $scope;
 .controller('RoomCtrl', function($scope, $routeParams, $timeout, angularFire) {
   $scope.newMessage = "";
   $scope.messages = [];
+
 setTimeout(function() {
   //alert();
   //  var delegate = $ionicScrollDelegate.$getByHandle('myScroll');
@@ -298,13 +299,20 @@ setTimeout(function() {
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/' + $routeParams.roomId);
   var promise = angularFire(ref, $scope, "messages");
   
-  $scope.username = 'User' + Math.floor(Math.random() * 501);
+  // $scope.username = 'User' + Math.floor(Math.random() * 501);
+
+  $scope.username = localStorage.getItem("localusername");
+  $scope.userGender = localStorage.getItem("localuserGender");
+  $scope.userAge = localStorage.getItem("localuserAge");
+
   $scope.submitAddMessage = function() {
   
     $scope.messages.push({
       created_by: this.username,
       content: this.newMessage,
-      created_at: new Date()
+      created_at: new Date(),
+      userGender: this.userGender,
+      userAge: this.userAge
     });
     this.newMessage = "";
 
@@ -348,40 +356,15 @@ $scope.currentLocation=$scope.getUserLocation();
   var userRef = ref.child("users");
   $scope.userRef = [];
   $scope.userGender = "";
+  $scope.userAge = "";
+  /** what's this variable used for? **/
   var promise = angularFire(userRef, $scope, "userRef");
-  var myGender = "";
-  /** ;
-  
-  var promise = angularFire(ref, $scope, "userRef");
-  **/
-  
-  /**
-
-  $scope.newRoomName = "";
-  $scope.newRoomNameId = "";
-  $scope.newRoomDescription = "";
-  $scope.setNewRoomNameId = function() {
-    this.newRoomNameId = this.newRoomName.toLowerCase().replace(/\s/g,"-").replace(/[^a-z0-9\-]/g, '');
-  };
-  **/
 
   $scope.findChats = function() {
-    /**
-    $scope.userProfiles.push({
-      
-      id: Math.floor(Math.random() * 5000001),
-      title: $scope.newRoomName,
-      slug: $scope.newRoomNameId, 
-      location:userPosition,
-      longitude: userPosition[1],
-      latitude: userPosition[0],
-      description: $scope.newRoomDescription
-      
-      gender: $scope.userGender
-    });
-    **/
     
     $scope.username = 'User' + Math.floor(Math.random() * 501);
+    localStorage.setItem("localusername", $scope.username );
+
 
     $scope.setUserGender = function(){
        if ($scope.userGender==0) {
@@ -392,10 +375,24 @@ $scope.currentLocation=$scope.getUserLocation();
         return 'anon';
       }
     }
+    localStorage.setItem("localuserGender", $scope.setUserGender());
+    $scope.setUserAge = function(){
+       if ($scope.userAge==0) {
+        return '18-29';
+      } else if ($scope.userAge==1) {
+        return '30-49';
+      } else if ($scope.userAge==2) {
+        return '49+';
+      } else {
+        return 'anon';
+      }
+    }
+    localStorage.setItem("localuserAge", $scope.setUserAge());
 
     userRef.push({
-      username: $scope.username,
-      gender: $scope.setUserGender()
+      username: localStorage.getItem("localusername"),
+      gender: $scope.setUserGender(),
+      age: $scope.setUserAge()
     });
 
     $location.path('/home');

@@ -166,6 +166,11 @@ angular.module('chatRoom', ['ionic', 'ngRoute', 'ngAnimate', 'chatRoom.services'
 })
 
 .config(function($routeProvider, $locationProvider) {
+  $routeProvider.when('/', {
+    templateUrl: 'templates/launch.html',
+    controller: 'LaunchCtrl'
+  });
+
   $routeProvider.when('/home', {
     templateUrl: 'templates/home.html',
     controller: 'MainCtrl'

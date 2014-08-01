@@ -7,7 +7,7 @@
 <content has-header="true">        
   <form ui-keypress="{13:'findChats()'}">
     <div class="list list-inset">
-    <h1 id="launch-title">I'M A ...</h1>
+    <h1 id="launch-title">I'M ... </h1>
     <div class="form-bar">
       <label class="item item-radio bar-gender-item" id="radio-male">
         <!--
@@ -19,7 +19,7 @@
           <a class="button button-energized button-f">Female</a>
         </div>
         -->
-        <input type="radio" name="userGender" data-ng-model="userGender" data-ng-value="0" data-ng-change="setUserGender()">
+        <input type="radio" name="userGender" data-ng-model="userGender" data-ng-value="0">
         <div class="item-content">male
         </div>
         <!--<i class="radio-icon ion-checkmark"></i>-->
@@ -44,22 +44,22 @@
         <!--<span class="input-label">Age</span>              
         <input type="text" placeholder="three ranges: 18-29; 30-49; 49+" data-ng-model="newRoomNameId">
         -->
-        <input type="radio" name="group-age">
+        <input type="radio" name="group-age" data-ng-model="userAge" data-ng-value="0">
         <div class="item-content">18-29
         </div>
       </label>
       <label class="item item-radio bar-age-item" id="radio-age-1">
-        <input type="radio" name="group-age">
+        <input type="radio" name="group-age" data-ng-model="userAge" data-ng-value="1">
         <div class="item-content">30-49
         </div>
       </label>
       <label class="item item-radio bar-age-item" id="radio-age-2">
-        <input type="radio" name="group-age">
+        <input type="radio" name="group-age" data-ng-model="userAge" data-ng-value="2">
         <div class="item-content">49+
         </div>
       </label>
       <label class="item item-radio bar-age-item" id="radio-age-sec">
-        <input type="radio" name="group-age">
+        <input type="radio" name="group-age" data-ng-model="userAge" data-ng-value="3">
         <div class="item-content">secret
         </div>
       </label>
