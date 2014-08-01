@@ -5,25 +5,79 @@
 </header>
 
 <content has-header="true">        
-  <form ui-keypress="{13:'createRoom()'}">
+  <form ui-keypress="{13:'findChats()'}">
     <div class="list list-inset">
-      <label class="item item-input item-stacked-label">
+    <h1 id="launch-title">I'M A ...</h1>
+    <div class="form-bar">
+      <label class="item item-radio bar-gender-item" id="radio-male">
+        <!--
         <span class="input-label">Gender</span>
         <input type="text" placeholder="this will be M/F buttons" data-ng-model="newRoomName" data-ng-change="setNewRoomNameId()"class="convoInput">
+        
+        <div class="button-bar">
+          <a class="button button-calm button-m">Male</a>
+          <a class="button button-energized button-f">Female</a>
+        </div>
+        -->
+        <input type="radio" name="userGender" data-ng-model="userGender" data-ng-value="0" data-ng-change="setUserGender()">
+        <div class="item-content">male
+        </div>
+        <!--<i class="radio-icon ion-checkmark"></i>-->
       </label>
-      
-      <label class="item item-input item-stacked-label">
-        <span class="input-label">Age</span>              
+
+<label class="item item-radio bar-gender-item" id="radio-fem">
+      <input type="radio" name="userGender" data-ng-model="userGender" data-ng-value="1">
+        <div class="item-content">female
+        </div>
+</label>     
+
+<label class="item item-radio bar-gender-item" id="radio-sec">
+      <input type="radio" name="userGender" data-ng-model="userGender" data-ng-value="2">
+        <div class="item-content">secret
+        </div>
+</label>
+
+</div>
+
+<div class="form-bar">
+      <label class="item item-radio bar-age-item" id="radio-age-0">
+        <!--<span class="input-label">Age</span>              
         <input type="text" placeholder="three ranges: 18-29; 30-49; 49+" data-ng-model="newRoomNameId">
+        -->
+        <input type="radio" name="group-age">
+        <div class="item-content">18-29
+        </div>
       </label>
-                       
+      <label class="item item-radio bar-age-item" id="radio-age-1">
+        <input type="radio" name="group-age">
+        <div class="item-content">30-49
+        </div>
+      </label>
+      <label class="item item-radio bar-age-item" id="radio-age-2">
+        <input type="radio" name="group-age">
+        <div class="item-content">49+
+        </div>
+      </label>
+      <label class="item item-radio bar-age-item" id="radio-age-sec">
+        <input type="radio" name="group-age">
+        <div class="item-content">secret
+        </div>
+      </label>
+</div>           
       <label class="item item-input item-stacked-label">
-        <span class="input-label">Map</span>              
+        <!--<span class="input-label">Map</span>
+                      
         <input type="text" placeholder="circle radius" data-ng-model="newRoomDescription" class="convoInput">
+        -->
+
+        <google-map center="map.center" zoom="map.zoom" draggable="true" dragging="map.dragging">
+        <circle center="circle.center" visible="true" radius="circle.radius" fill="circle.fill" draggable="true" editable="true" stroke="circle.stroke"></circle>
+        </google-map>
       </label>
+
     </div>
     <div class="padding">
-      <button class="button button-full button-positive" ng-click="createRoom()">GO</button>
+      <button class="button button-full button-positive" ng-click="findChats()">GO</button>
     </div>
   </form>
 </content>

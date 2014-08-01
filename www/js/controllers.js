@@ -1,7 +1,33 @@
 var jGlob;
 
 angular.module('chatRoom.controllers', [])
+/**
+.factory('getLoc', function ($scope, $timeout, angularFire) {
+        $scope.getUserLocation = function(){
+          return [parseFloat(localStorage.getItem('lat')), parseFloat(localStorage.getItem('lon'))]; 
+        }
 
+        $scope.currentLocation=$scope.getUserLocation();
+
+        return {
+            getLat: function() {
+              if($scope.currentLocation) {
+        // =[position.coords.latitude, position.coords.longitude]
+                return $scope.getUserLocation()[0];
+              } else {
+                return 40.777225004040009;
+              }
+            },
+            getLon: function() {
+              if($scope.currentLocation) {
+                return $scope.getUserLocation()[1];
+              } else {
+                return -73.95218489597806;
+            }
+        }
+  }
+})
+**/
 .controller('LoadingCtrl', function($scope, $ionicLoading) {
   $scope.show = function() {
     $ionicLoading.show({
@@ -128,9 +154,7 @@ messageListQuery.on('child_added', function(snapshot) {
     return 2;
   }
 
-   $scope.getUserLocation = function(){
-
-   
+  $scope.getUserLocation = function(){
 
   return [parseFloat(localStorage.getItem('lat')), parseFloat(localStorage.getItem('lon'))]; 
 
@@ -189,10 +213,10 @@ messageListQuery.on('child_added', function(snapshot) {
   
 */
 
-lat2 =$scope.getUserLocation()[0];
-lon2 = $scope.getUserLocation()[1]
+lat2 = $scope.getUserLocation()[0];
+lon2 = $scope.getUserLocation()[1];
 lat1 =_item.latitude;
-lon1= _item.longitude;
+lon1 = _item.longitude;
 console.log(lon1);
 var R = 6371; // Radius of the earth in km
    var dLat = deg2rad(lat2-lat1);  // deg2rad below
@@ -224,6 +248,7 @@ jGlob = $scope;
   $scope.newRoomName = "";
   $scope.newRoomNameId = "";
   $scope.newRoomDescription = "";
+
 
   $scope.setNewRoomNameId = function() {
     this.newRoomNameId = this.newRoomName.toLowerCase().replace(/\s/g,"-").replace(/[^a-z0-9\-]/g, '');
@@ -298,5 +323,109 @@ setTimeout(function() {
 .controller('AboutCtrl', function($scope) {
 })
 
-.controller('LaunchCtrl', function($scope) {
+.controller('LaunchCtrl', function($scope, $location, angularFire) {
+/**
+$scope.getUserLocation = function(){
+  return [parseFloat(localStorage.getItem('lat')), parseFloat(localStorage.getItem('lon'))]; 
+  }
+
+$scope.currentLocation=$scope.getUserLocation();
+
+  if($scope.currentLocation) {
+        // =[position.coords.latitude, position.coords.longitude]
+        var lat = $scope.getUserLocation()[0];
+        var lon = $scope.getUserLocation()[1];
+  } else {
+        //default from app.js
+        var lat = 40.777225004040009;
+        var lon = -73.95218489597806;
+  }
+**/
+
+  
+  
+  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com');  
+  var userRef = ref.child("users");
+  $scope.userRef = [];
+  $scope.userGender = "";
+  var promise = angularFire(userRef, $scope, "userRef");
+  var myGender = "";
+  /** ;
+  
+  var promise = angularFire(ref, $scope, "userRef");
+  **/
+  
+  /**
+
+  $scope.newRoomName = "";
+  $scope.newRoomNameId = "";
+  $scope.newRoomDescription = "";
+  $scope.setNewRoomNameId = function() {
+    this.newRoomNameId = this.newRoomName.toLowerCase().replace(/\s/g,"-").replace(/[^a-z0-9\-]/g, '');
+  };
+  **/
+
+  $scope.findChats = function() {
+    /**
+    $scope.userProfiles.push({
+      
+      id: Math.floor(Math.random() * 5000001),
+      title: $scope.newRoomName,
+      slug: $scope.newRoomNameId, 
+      location:userPosition,
+      longitude: userPosition[1],
+      latitude: userPosition[0],
+      description: $scope.newRoomDescription
+      
+      gender: $scope.userGender
+    });
+    **/
+    
+    $scope.username = 'User' + Math.floor(Math.random() * 501);
+
+    $scope.setUserGender = function(){
+       if ($scope.userGender==0) {
+        return 'male';
+      } else if ($scope.userGender==1) {
+        return 'female';
+      } else {
+        return 'anon';
+      }
+    }
+
+    userRef.push({
+      username: $scope.username,
+      gender: $scope.setUserGender()
+    });
+
+    $location.path('/home');
+  };
+
+/** map **/  
+$scope.map = {
+    center: {
+      latitude: userPosition[0],
+      longitude: userPosition[1]
+    },
+    zoom: 13
+};
+
+$scope.circle = {
+  center: {
+      latitude: userPosition[0],
+      longitude: userPosition[1]
+    },
+  fill: {
+    color: "#FF2A58",
+    opacity: 0.40
+  },
+  stroke: {
+    weight: 2,
+    color: "#FF2A58",
+    opacity: 1
+  },
+  radius: 1000,
+  geodesic: true
+};
+
 });

@@ -1,10 +1,10 @@
 //global default user position
-userPosition =[40.777225004040009, 73.95218489597806];
+userPosition =[40.777225004040009, -73.95218489597806];
 
 //active watch...
 var activeWatch;
 
-userPosition =[40.777225004040009, 73.95218489597806];
+userPosition =[40.777225004040009, -73.95218489597806];
 document.addEventListener("deviceready", onDeviceReady, false);
 document.addEventListener("resume", onDeviceReady, false);
   
@@ -57,11 +57,8 @@ catch(errrr){
       }
 
 
-
+// from navigator.geolocation.getCurrentPosition(onSuccess, onError);
    function onSuccess(position) {
-
-    
-
 
       userPosition=[position.coords.latitude, position.coords.longitude];
       localStorage.setItem("lat", position.coords.latitude );
@@ -162,7 +159,7 @@ function userAgreed(){
 }
 
 
-angular.module('chatRoom', ['ionic', 'ngRoute', 'ngAnimate', 'chatRoom.services', 'chatRoom.controllers', 'firebase'])
+angular.module('chatRoom', ['ionic', 'ngRoute', 'ngAnimate', 'chatRoom.services', 'chatRoom.controllers', 'firebase', 'google-maps'])
 
 .config(function ($compileProvider){
   $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
@@ -200,8 +197,34 @@ angular.module('chatRoom', ['ionic', 'ngRoute', 'ngAnimate', 'chatRoom.services'
   });
 
 });
+/**
+.service('getLoc', function () {
+        $scope.getUserLocation = function(){
+          return [parseFloat(localStorage.getItem('lat')), parseFloat(localStorage.getItem('lon'))]; 
+        }
 
+        $scope.currentLocation=$scope.getUserLocation();
 
+        return {
+            getLat: function() {
+              if($scope.currentLocation) {
+        // =[position.coords.latitude, position.coords.longitude]
+                return $scope.getUserLocation()[0];
+              } else {
+                return 40.777225004040009;
+              }
+            },
+            getLon: function() {
+              if($scope.currentLocation) {
+                return $scope.getUserLocation()[1];
+              } else {
+                return -73.95218489597806;
+            }
+        }
+  }
+});
+
+**/
 angular.module('myApp.filters', [])
    .filter('interpolate', ['version', function(version) {
       return function(text) {

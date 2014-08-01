@@ -1,0 +1,143 @@
+/** map **/
+
+.angular-google-map-container{ 
+  height: 200px; 
+  border-radius: 4px;
+}
+
+/** form **/
+
+.padding .button-positive {
+	background-color: orange;
+}
+
+.padding .button-positive:hover {
+	background-color: #656565;
+}
+
+.padding .button-positive:active {
+	background-color: #656565;
+}
+
+#launch-title {
+	font-family: 'Lato', 'Pacifico', Arial, sans-serif;
+	font-size: 1rem;
+	margin-left: auto;
+	margin-right: auto;
+}
+.item-radio .item-content {
+	padding-right: 15px;
+}
+
+.form-bar {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.bar-gender-item {
+	display:inline-block;
+	width: 25%;
+	border: 1px solid #dddddd !important;
+	font-family: 'Pacifico', Arial, sans-serif;
+}
+
+.bar-gender-item:nth-last-child(1) {
+	margin-bottom: 3px !important;
+}
+
+.list .item[id="radio-male"] {
+	background-color: white;
+}
+
+.list .item[id="radio-sec"] {
+	background-color: white;
+}
+
+.list .item[id="radio-age-sec"] {
+	background-color: white;
+}
+
+#radio-male input:checked ~ .item-content {
+	background-color: #0BA4F7;
+	opacity: 0.4;
+	color: white;
+}
+
+#radio-fem input:checked ~ .item-content {
+	background-color: #FF103C;
+	opacity: 0.4;
+	color: white;
+}
+
+#radio-sec, #radio-age-sec {
+	width: 15%;
+}
+
+#radio-sec input:checked ~ .item-content {
+	background-color: #999999;
+	opacity: 0.7;
+	color: white;
+}
+
+#radio-age-sec input:checked ~ .item-content {
+	background-color: #999999;
+	opacity: 0.7;
+	color: white;
+}
+.bar-age-item {
+	display:inline-block;
+	width: 20%;
+	border: 1px solid #dddddd !important;
+}
+
+.bar-age-item:nth-last-child(1) {
+	margin-bottom: 3px !important;
+}
+
+
+/**
+.button-bar {
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+	border-radius: 10px;
+}
+
+.button-bar .button {
+	border: 3px solid white;
+	border-radius: 5px !important;	
+}
+
+.button-bar .button-m {
+	background-color: #70E0F7;
+	opacity: 0.6;
+}
+
+.button-bar .button-m:hover {
+	background-color: #0076B5;
+	opacity: 1;
+}
+
+.button-bar .button-m:active {
+	background-color: #0076B5;
+	opacity: 1;
+}
+
+.button-bar .button-f {
+	background-color: #FF6183;
+	opacity: 0.6;
+}
+
+.button-bar .button-f:hover {
+	background-color: #FF2A78;
+	opacity: 1;
+}
+
+.button-bar .button-f:active {
+	background-color: #FF2A78;
+	opacity: 1;
+}
+
+**/
