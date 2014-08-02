@@ -11,6 +11,9 @@
  * Licensed under the MIT license. Please see LICENSE for more information.
  *
  */
+//bs for chaffy not ionic next line
+      
+connieDrag=false;
 
 (function() {
 
@@ -1738,6 +1741,14 @@ window.ionic = {
     },
     triggered: false,
     handler: function dragGesture(ev, inst) {
+
+      //added for bs in chaffy app... not part of ionic
+     if(connieDrag==true){
+      
+      return;
+
+     }
+      
       // current gesture isnt drag, but dragged is true
       // this means an other gesture is busy. now call dragend
       if(ionic.Gestures.detection.current.name != this.name && this.triggered) {
@@ -6929,6 +6940,8 @@ ionic.scroll = {
 
   ionic.views.SideMenuContent = ionic.views.View.inherit({
     initialize: function(opts) {
+
+     
       var _this = this;
 
       ionic.extend(this, {
