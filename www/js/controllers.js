@@ -1,5 +1,6 @@
 var jGlob;
 
+
 angular.module('chatRoom.controllers', [])
 /**
 .factory('getLoc', function ($scope, $timeout, angularFire) {
@@ -59,6 +60,10 @@ angular.module('chatRoom.controllers', [])
   $scope.goToLaunch = function() {
     $location.path('/launch');
     $scope.toggleSideMenu();
+  }; 
+
+   $scope.updateMap = function() {
+    $location.path('/launch');
   }; 
     
   $scope.toggleSideMenu = function() {
@@ -406,38 +411,6 @@ $scope.currentLocation=$scope.getUserLocation();
 var userPosition =[40.777225004040009, -73.95218489597806];
 **/
 
-document.addEventListener("deviceready", onDeviceReady, false);
-
-function onDeviceReady() {
-  setTimeout(function(){
-      navigator.splashscreen.hide();
-    }, 2000);
-      locErrorShown=false;
-      logout();
-      setupWatch(10000);
-
-/**
-      if(navigator.network.connection.type== "none"){
-              userOffline();
-      }
-**/
-      navigator.geolocation.getCurrentPosition(onSuccess, onError);
-
-} // onDeviceReady()
-
-/**
- CordovaService.ready.then(function() {
-            navigator.geolocation.getCurrentPosition(onSuccessLoc, onErrorLoc);
-        });
-**/
-        onSuccess = function(position) {
-            userPosition = [position.coords.latitude, position.coords.longitude];
-        }
-
-        // Location not found, show error
-        onError = function(error) {
-            alert("code : " + error.code + "\n message : " + error.message + "\n");
-        }
 
 
 $scope.map = {
@@ -465,5 +438,9 @@ $scope.circle = {
   radius: 1000,
   geodesic: true
 };
+
+
+
+
 
 });

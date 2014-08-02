@@ -14,7 +14,6 @@ document.addEventListener("resume", onDeviceReady, false);
    
     function onDeviceReady() {
 
-
       setTimeout(function(){
       navigator.splashscreen.hide();
 
@@ -63,6 +62,13 @@ catch(errrr){
       userPosition=[position.coords.latitude, position.coords.longitude];
       localStorage.setItem("lat", position.coords.latitude );
       localStorage.setItem("lon", position.coords.longitude);
+// mike's not crazy
+
+
+
+       angular.element(document.getElementById('main')).scope().updateMap()
+
+   
       
       // jGlob.onRefresh();
 
@@ -103,13 +109,17 @@ catch(errrr){
 
 // sets up the interval at the specified frequency
 function setupWatch(freq) {
+
+
+   
+
     // global var here so it can be cleared on logout (or whenever).
     activeWatch = setInterval(watchLocation, freq);
 }
 
 // this is what gets called on the interval.
 function watchLocation() {
-  
+
     var gcp = navigator.geolocation.getCurrentPosition(
             onSuccess, onError);
 
