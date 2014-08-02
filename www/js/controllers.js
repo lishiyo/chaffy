@@ -43,41 +43,32 @@ angular.module('chatRoom.controllers', [])
   }})
 .controller('AppCtrl', function($scope, $location) {
 
-<<<<<<< HEAD
-=======
   clearInterval(cInt);
->>>>>>> c824285071a02ac00a387a9217c0c66f38e38cae
   $scope.goToNewRoom = function() {
     $location.path('/rooms/new');
     $scope.toggleSideMenu();
-    $scope.main.dragContent = true;
   };
 
   $scope.goToNewRoomDirect = function() {
     $location.path('/rooms/new');
-    $scope.main.dragContent = true;
   };
   
   $scope.goToAbout = function() {
     $location.path('/about');
     $scope.toggleSideMenu();
-    $scope.main.dragContent = true;
   };
   
   $scope.goToHome = function() {
     $location.path('/home');
-    $scope.main.dragContent = true;
   };  
 
   $scope.goToLaunch = function() {
     $location.path('/launch');
     $scope.toggleSideMenu();
-    $scope.main.dragContent = true;
   }; 
 
    $scope.updateMap = function() {
     $location.path('/launch');
-    $scope.main.dragContent = true;
   }; 
     
   $scope.toggleSideMenu = function() {
@@ -86,9 +77,6 @@ angular.module('chatRoom.controllers', [])
 
 })
 
-<<<<<<< HEAD
-.controller('MainCtrl', function($scope, $timeout, angularFire, $rootScope) {
-=======
 .controller('MainCtrl', function($scope, $timeout, angularFire) {
 clearInterval(cInt);
 
@@ -96,7 +84,6 @@ clearInterval(cInt);
 
 
   
->>>>>>> c824285071a02ac00a387a9217c0c66f38e38cae
 
   $scope.rooms = [];
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/opened_rooms');  
@@ -362,7 +349,7 @@ setTimeout(function() {
 .controller('AboutCtrl', function($scope) {
 })
 
-.controller('LaunchCtrl', function($scope, $location, $rootScope, angularFire) {
+.controller('LaunchCtrl', function($scope, $location, angularFire) {
 /**
 $scope.getUserLocation = function(){
   return [parseFloat(localStorage.getItem('lat')), parseFloat(localStorage.getItem('lon'))]; 
@@ -380,8 +367,6 @@ $scope.currentLocation=$scope.getUserLocation();
         var lon = -73.95218489597806;
   }
 **/
-<<<<<<< HEAD
-=======
 
 clearInterval(cInt);
 cInt = setInterval(function(){
@@ -408,7 +393,6 @@ cInt = setInterval(function(){
 
 
   
->>>>>>> c824285071a02ac00a387a9217c0c66f38e38cae
   
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com');  
   var userRef = ref.child("users");
@@ -463,6 +447,8 @@ cInt = setInterval(function(){
 var userPosition =[40.777225004040009, -73.95218489597806];
 **/
 
+
+
 $scope.map = {
     center: {
       latitude: userPosition[0],
@@ -493,21 +479,10 @@ $scope.circle = {
 /*
 setTimeout(function(){
 
-<<<<<<< HEAD
-/**
-
-google.maps.event.addDomListener(element[0], 'mousedown', function(e) {
-e.preventDefault();
-return false;
-});
-
-**/
-=======
   alert('about to change!')
 
   $('.angular-google-map-container').css({width:"auto", "height":"200px"})
 }, 2000)
 */
 
->>>>>>> c824285071a02ac00a387a9217c0c66f38e38cae
 });

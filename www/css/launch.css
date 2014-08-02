@@ -1,9 +1,10 @@
 /** map **/
 
 .angular-google-map-container{ 
- // height: 220px; 
-  //width:100px;
+	height: 250px;
+	width: 250px;
   border-radius: 4px;
+  margin: 0 auto;
 }
 
 #map_canvas{

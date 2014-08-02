@@ -284,4 +284,3 @@ angular.module('myApp.filters', [])
          return toArray(items).slice().reverse();
       };
    });
-
