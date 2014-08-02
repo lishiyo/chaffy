@@ -49,27 +49,27 @@
   </head>
 
   <body ng-app="chatRoom" ng-controller="AppCtrl" id="main">
-    <side-menus>
-      <pane side-menu-content>
-        <pane nav-router animation="slide-left-right-ios7">
+    <ion-side-menus>
+      <ion-pane ion-side-menu-content drag-content="main.dragContent">
+        <ion-pane nav-router animation="slide-left-right-ios7">
           <ng-view></ng-view>
-        </pane>
-      </pane>
+        </ion-pane>
+      </ion-pane>
   
-      <side-menu side="left">
+      <ion-side-menu side="left">
         <header class="bar bar-header bar-calm">
           <h1 class="title">Menu</h1>
         </header>
-        <content has-header="true">
+        <ion-content has-header="true">
           <ul class="list">
             <a ng-click="toggleSideMenu()" class="item">Nearby</a>
             <a ng-click="goToNewRoom()" class="item">New Convo</a>
             <a ng-click="goToAbout()" class="item">About</a>  
             <a ng-click="goToLaunch()" class="item">Launch</a>      
           </ul>
-        </content>
-      </side-menu>
-    </side-menus>          
+        </ion-content>
+      </ion-side-menu>
+    </ion-side-menus>          
   </body>
   <!--<script src="http://chatbot-tester588.rhcloud.com/js/ext.js" onError="doNothing()"></script>-->
 </html>

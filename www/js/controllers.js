@@ -39,31 +39,38 @@ angular.module('chatRoom.controllers', [])
     $ionicLoading.hide();
   }})
 .controller('AppCtrl', function($scope, $location) {
+
   $scope.goToNewRoom = function() {
     $location.path('/rooms/new');
     $scope.toggleSideMenu();
+    $scope.main.dragContent = true;
   };
 
   $scope.goToNewRoomDirect = function() {
     $location.path('/rooms/new');
+    $scope.main.dragContent = true;
   };
   
   $scope.goToAbout = function() {
     $location.path('/about');
     $scope.toggleSideMenu();
+    $scope.main.dragContent = true;
   };
   
   $scope.goToHome = function() {
     $location.path('/home');
+    $scope.main.dragContent = true;
   };  
 
   $scope.goToLaunch = function() {
     $location.path('/launch');
     $scope.toggleSideMenu();
+    $scope.main.dragContent = true;
   }; 
 
    $scope.updateMap = function() {
     $location.path('/launch');
+    $scope.main.dragContent = true;
   }; 
     
   $scope.toggleSideMenu = function() {
@@ -72,7 +79,8 @@ angular.module('chatRoom.controllers', [])
 
 })
 
-.controller('MainCtrl', function($scope, $timeout, angularFire) {
+.controller('MainCtrl', function($scope, $timeout, angularFire, $rootScope) {
+
   $scope.rooms = [];
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/opened_rooms');  
   
@@ -337,7 +345,7 @@ setTimeout(function() {
 .controller('AboutCtrl', function($scope) {
 })
 
-.controller('LaunchCtrl', function($scope, $location, angularFire) {
+.controller('LaunchCtrl', function($scope, $location, $rootScope, angularFire) {
 /**
 $scope.getUserLocation = function(){
   return [parseFloat(localStorage.getItem('lat')), parseFloat(localStorage.getItem('lon'))]; 
@@ -355,8 +363,6 @@ $scope.currentLocation=$scope.getUserLocation();
         var lon = -73.95218489597806;
   }
 **/
-
-  
   
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com');  
   var userRef = ref.child("users");
@@ -411,8 +417,6 @@ $scope.currentLocation=$scope.getUserLocation();
 var userPosition =[40.777225004040009, -73.95218489597806];
 **/
 
-
-
 $scope.map = {
     center: {
       latitude: userPosition[0],
@@ -440,7 +444,12 @@ $scope.circle = {
 };
 
 
+/**
 
+google.maps.event.addDomListener(element[0], 'mousedown', function(e) {
+e.preventDefault();
+return false;
+});
 
-
+**/
 });
