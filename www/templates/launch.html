@@ -4,7 +4,7 @@
   <h1 class="title">chaffy</h1>
 </header>
 
-<content has-header="true">        
+<content has-header="true" id="firstElem">        
   <form> <!-- form ui-keypress="{13:'findChats()'}" -->
     <div class="list list-inset">
     <div class="form-bar">
@@ -72,7 +72,7 @@
         <input type="text" placeholder="circle radius" data-ng-model="newRoomDescription" class="convoInput">
         -->
 
-        <google-map center="map.center" zoom="map.zoom" draggable="true" dragging="map.dragging">
+        <google-map center="map.center" zoom="map.zoom" draggable="true" dragging="map.dragging" id="map_canvas" events="drag"> 
         <circle center="circle.center" visible="true" radius="circle.radius" fill="circle.fill" draggable="true" editable="true" stroke="circle.stroke"></circle>
         </google-map>
       </label>
