@@ -189,7 +189,7 @@ function userAgreed(){
 }
 
 
-angular.module('chatRoom', ['ionic', 'ngRoute', 'ngAnimate', 'chatRoom.services', 'chatRoom.controllers', 'firebase', 'google-maps'])
+angular.module('chatRoom', ['ionic', 'ngRoute', 'ngAnimate', 'chatRoom.services', 'chatRoom.controllers', 'firebase', 'google-maps', 'ionic.contrib.ui.cards'])
 
 .config(function ($compileProvider){
   $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
@@ -225,7 +225,12 @@ angular.module('chatRoom', ['ionic', 'ngRoute', 'ngAnimate', 'chatRoom.services'
    $routeProvider.when('/launch', {
     templateUrl: 'templates/launch.html',
     controller: 'LaunchCtrl'
-  });   
+  }); 
+
+  $routeProvider.when('/swipe', {
+    templateUrl: 'templates/swipe.html',
+    controller: 'CardsCtrl'
+  });     
   
   $routeProvider.otherwise({
     redirectTo: '/home'

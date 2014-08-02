@@ -72,6 +72,11 @@ angular.module('chatRoom.controllers', [])
     $scope.toggleSideMenu();
   }; 
 
+  $scope.goToCards = function() {
+    $location.path('/swipe');
+    $scope.toggleSideMenu();
+  }; 
+
    $scope.updateMap = function() {
     $location.path('/launch');
   }; 
@@ -319,7 +324,7 @@ setTimeout(function() {
     },500);
 
 
-// connie
+// connie - for android
   $('#mainInput').on('focus', function(){
      $(".scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-190)+"px"+', 0px)');
   });
@@ -364,7 +369,7 @@ setTimeout(function() {
   connieDrag= false;
 })
 
-.controller('LaunchCtrl', function($scope, $location, angularFire) {
+.controller('LaunchCtrl', function($scope, $location, angularFire, $rootScope) {
 
   connieDrag=true;
 /**
@@ -385,6 +390,7 @@ $scope.currentLocation=$scope.getUserLocation();
   }
 **/
 
+/**
 clearInterval(cInt);
 cInt = setInterval(function(){
 
@@ -406,7 +412,7 @@ cInt = setInterval(function(){
 
   }, 1000)
 
-  
+  **/
 
 
   
@@ -471,9 +477,29 @@ $scope.map = {
       latitude: userPosition[0],
       longitude: userPosition[1]
     },
-    zoom: 13,
+    zoom: 9,
     refresh:true
 };
+
+$scope.events = {
+               dragend: function (marker) {
+                  $rootScope.$apply(function () {
+                    /**
+                     console.log(marker.position.lat());
+                     console.log(marker.position.lng());
+                     **/
+                     $scope.map.center = $scope.circle.center;
+                     var lat = $scope.circle.center.latitude;
+                     var lon = $scope.circle.center.longitude;
+
+                     userPosition[0] = parseFloat(lat);
+                     userPosition[1] = parseFloat(lon);
+
+                     localStorage.setItem('lat', lat);
+                     localStorage.setItem('lon', lon);
+                  });
+               }
+            }
 
 $scope.circle = {
   center: {
@@ -489,7 +515,7 @@ $scope.circle = {
     color: "#FF2A58",
     opacity: 1
   },
-  radius: 1000,
+  radius: 10000,
   geodesic: true
 };
 
@@ -502,4 +528,40 @@ setTimeout(function(){
 }, 2000)
 */
 
+}) //LaunchCtrl
+
+.controller('CardsCtrl', function($scope, $ionicSwipeCardDelegate) {
+
+  connieDrag=false;
+
+  var cardTypes = [
+    { title: 'Swipe down to clear the card', image: 'img/pic.png' },
+    { title: 'Where is this?', image: 'img/pic.png' },
+    { title: 'What kind of grass is this?', image: 'img/pic2.png' },
+    { title: 'What beach is this?', image: 'img/pic3.png' },
+    { title: 'What kind of clouds are these?', image: 'img/pic4.png' }
+  ];
+
+  $scope.cards = Array.prototype.slice.call(cardTypes, 0, 0);
+
+  $scope.cardSwiped = function(index) {
+    $scope.addCard();
+  };
+
+  $scope.cardDestroyed = function(index) {
+    $scope.cards.splice(index, 1);
+  };
+
+  $scope.addCard = function() {
+    var newCard = cardTypes[Math.floor(Math.random() * cardTypes.length)];
+    newCard.id = Math.random();
+    $scope.cards.push(angular.extend({}, newCard));
+  }
+})
+
+.controller('CardCtrl', function($scope, $ionicSwipeCardDelegate) {
+  $scope.goAway = function() {
+    var card = $ionicSwipeCardDelegate.getSwipebleCard($scope);
+    card.swipe();
+  };
 });
