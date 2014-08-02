@@ -1,14 +1,14 @@
 /** map **/
 
 .angular-google-map-container{ 
-  height: 220px; 
-  width:100px;
+ // height: 220px; 
+  //width:100px;
   border-radius: 4px;
 }
 
 #map_canvas{
 
-	
+
 }
 
 /** form **/
