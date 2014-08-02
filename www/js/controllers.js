@@ -264,6 +264,9 @@ jGlob = $scope;
 })
 
 .controller('NewRoomCtrl', function($scope, $location, angularFire) {      
+  // connie added
+  connieDrag= false;
+
   $scope.rooms = [];
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/opened_rooms');  
   var promise = angularFire(ref, $scope, "rooms");
@@ -293,6 +296,10 @@ jGlob = $scope;
 })
 
 .controller('RoomCtrl', function($scope, $routeParams, $timeout, angularFire) {
+
+// connie
+  connieDrag= false;
+
   $scope.newMessage = "";
   $scope.messages = [];
 
