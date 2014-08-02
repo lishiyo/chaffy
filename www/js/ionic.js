@@ -11,6 +11,9 @@
  * Licensed under the MIT license. Please see LICENSE for more information.
  *
  */
+//bs for chaffy not ionic next line
+      
+connieDrag=false;
 
 (function() {
 
@@ -1110,7 +1113,7 @@ window.ionic = {
      * also used for cloning when dest is an empty object
      * @param   {Object}    dest
      * @param   {Object}    src
-     * @param	{Boolean}	merge		do a merge
+     * @param {Boolean} merge   do a merge
      * @returns {Object}    dest
      */
     extend: function extend(dest, src, merge) {
@@ -1587,8 +1590,8 @@ window.ionic = {
     name: 'hold',
     index: 10,
     defaults: {
-      hold_timeout	: 500,
-      hold_threshold	: 1
+      hold_timeout  : 500,
+      hold_threshold  : 1
     },
     timer: null,
     handler: function holdGesture(ev, inst) {
@@ -1634,11 +1637,11 @@ window.ionic = {
     name: 'tap',
     index: 100,
     defaults: {
-      tap_max_touchtime	: 250,
-      tap_max_distance	: 10,
-      tap_always			: true,
-      doubletap_distance	: 20,
-      doubletap_interval	: 300
+      tap_max_touchtime : 250,
+      tap_max_distance  : 10,
+      tap_always      : true,
+      doubletap_distance  : 20,
+      doubletap_interval  : 300
     },
     handler: function tapGesture(ev, inst) {
       if(ev.eventType == ionic.Gestures.EVENT_END && ev.srcEvent.type != 'touchcancel') {
@@ -1738,6 +1741,14 @@ window.ionic = {
     },
     triggered: false,
     handler: function dragGesture(ev, inst) {
+
+      //added for bs in chaffy app... not part of ionic
+     if(connieDrag==true){
+      
+      return;
+
+     }
+      
       // current gesture isnt drag, but dragged is true
       // this means an other gesture is busy. now call dragend
       if(ionic.Gestures.detection.current.name != this.name && this.triggered) {
@@ -4152,7 +4163,7 @@ ionic.views.Scroll = ionic.views.View.inherit({
       scrollEventInterval: 10
 
      
-		};
+    };
     
   }
 
@@ -4962,8 +4973,8 @@ ionic.views.Scroll = ionic.views.View.inherit({
     // Update Scroller dimensions for changed content
     // Add padding to bottom of content
     this.setDimensions(
-    	this.__container.clientWidth,
-    	this.__container.clientHeight,
+      this.__container.clientWidth,
+      this.__container.clientHeight,
       this.options.getContentWidth(),
       this.options.getContentHeight()
     );
@@ -6929,6 +6940,8 @@ ionic.scroll = {
 
   ionic.views.SideMenuContent = ionic.views.View.inherit({
     initialize: function(opts) {
+
+     
       var _this = this;
 
       ionic.extend(this, {
@@ -8440,154 +8453,154 @@ ionic.views.Slider = ionic.views.View.inherit({
  * http://www.w3.org/TR/css3-transitions/#transition-timing-function
  */
 var Easing = (function(){
-	'use strict';
+  'use strict';
 
-	/*
-	 * @const
-	 */
-	var EASE_IN_OUT_CONST = 0.5 * Math.pow(0.5, 1.925);
+  /*
+   * @const
+   */
+  var EASE_IN_OUT_CONST = 0.5 * Math.pow(0.5, 1.925);
 
-	return {
+  return {
 
-		/*
-		 * @param x {number} the value of x along the curve, 0.0 <= x <= 1.0
-		 * @return {number} the y value along the curve
-		 */
-		linear: function(x) {
-			return x;
-		},
+    /*
+     * @param x {number} the value of x along the curve, 0.0 <= x <= 1.0
+     * @return {number} the y value along the curve
+     */
+    linear: function(x) {
+      return x;
+    },
 
-//		/*
-//		 * @param x {number} the value of x along the curve, 0.0 <= x <= 1.0
-//		 * @return {number} the y value along the curve
-//		 */
-//		ease: function(x) {
-//			// TODO: find fast approximations
-//			return x;
-//		},
+//    /*
+//     * @param x {number} the value of x along the curve, 0.0 <= x <= 1.0
+//     * @return {number} the y value along the curve
+//     */
+//    ease: function(x) {
+//      // TODO: find fast approximations
+//      return x;
+//    },
 
-		/*
-		 * @param x {number} the value of x along the curve, 0.0 <= x <= 1.0
-		 * @return {number} the y value along the curve
-		 */
-		easeInApprox: function(x) {
-			// very close approximation to cubic-bezier(0.42, 0, 1.0, 1.0)
-			return Math.pow(x, 1.685);
-		},
+    /*
+     * @param x {number} the value of x along the curve, 0.0 <= x <= 1.0
+     * @return {number} the y value along the curve
+     */
+    easeInApprox: function(x) {
+      // very close approximation to cubic-bezier(0.42, 0, 1.0, 1.0)
+      return Math.pow(x, 1.685);
+    },
 
-		/*
-		 * @param x {number} the value of x along the curve, 0.0 <= x <= 1.0
-		 * @return {number} the y value along the curve
-		 */
-		easeInQuadratic: function(x) {
-			return (x * x);
-		},
+    /*
+     * @param x {number} the value of x along the curve, 0.0 <= x <= 1.0
+     * @return {number} the y value along the curve
+     */
+    easeInQuadratic: function(x) {
+      return (x * x);
+    },
 
-		/*
-		 * @param x {number} the value of x along the curve, 0.0 <= x <= 1.0
-		 * @return {number} the y value along the curve
-		 */
-		easeInCubic: function(x) {
-			return (x * x * x);
-		},
+    /*
+     * @param x {number} the value of x along the curve, 0.0 <= x <= 1.0
+     * @return {number} the y value along the curve
+     */
+    easeInCubic: function(x) {
+      return (x * x * x);
+    },
 
-		/*
-		 * @param x {number} the value of x along the curve, 0.0 <= x <= 1.0
-		 * @return {number} the y value along the curve
-		 */
-		easeOutApprox: function(x) {
-			// very close approximation to cubic-bezier(0, 0, 0.58, 1.0)
-			return 1 - Math.pow(1-x, 1.685);
-		},
+    /*
+     * @param x {number} the value of x along the curve, 0.0 <= x <= 1.0
+     * @return {number} the y value along the curve
+     */
+    easeOutApprox: function(x) {
+      // very close approximation to cubic-bezier(0, 0, 0.58, 1.0)
+      return 1 - Math.pow(1-x, 1.685);
+    },
 
-		/*
-		 * @param x {number} the value of x along the curve, 0.0 <= x <= 1.0
-		 * @return {number} the y value along the curve
-		 */
-		easeOutQuadratic: function(x) {
-			x -= 1;
-			return 1 - (x * x);
-		},
+    /*
+     * @param x {number} the value of x along the curve, 0.0 <= x <= 1.0
+     * @return {number} the y value along the curve
+     */
+    easeOutQuadratic: function(x) {
+      x -= 1;
+      return 1 - (x * x);
+    },
 
-		/*
-		 * @param x {number} the value of x along the curve, 0.0 <= x <= 1.0
-		 * @return {number} the y value along the curve
-		 */
-		easeOutCubic: function(x) {
-			x -= 1;
-			return 1 + (x * x * x);
-		},
+    /*
+     * @param x {number} the value of x along the curve, 0.0 <= x <= 1.0
+     * @return {number} the y value along the curve
+     */
+    easeOutCubic: function(x) {
+      x -= 1;
+      return 1 + (x * x * x);
+    },
 
-		/*
-		 * @param x {number} the value of x along the curve, 0.0 <= x <= 1.0
-		 * @return {number} the y value along the curve
-		 */
-		easeInOutApprox: function(x) {
-			// very close approximation to cubic-bezier(0.42, 0, 0.58, 1.0)
-			if (x < 0.5) {
-				return EASE_IN_OUT_CONST * Math.pow(x, 1.925);
+    /*
+     * @param x {number} the value of x along the curve, 0.0 <= x <= 1.0
+     * @return {number} the y value along the curve
+     */
+    easeInOutApprox: function(x) {
+      // very close approximation to cubic-bezier(0.42, 0, 0.58, 1.0)
+      if (x < 0.5) {
+        return EASE_IN_OUT_CONST * Math.pow(x, 1.925);
 
-			} else {
-				return 1 - EASE_IN_OUT_CONST * Math.pow(1-x, 1.925);
-			}
-		},
+      } else {
+        return 1 - EASE_IN_OUT_CONST * Math.pow(1-x, 1.925);
+      }
+    },
 
-		/*
-		 * @param x {number} the value of x along the curve, 0.0 <= x <= 1.0
-		 * @return {number} the y value along the curve
-		 */
-		easeInOutQuadratic: function(x) {
-			if (x < 0.5) {
-				return (2 * x * x);
+    /*
+     * @param x {number} the value of x along the curve, 0.0 <= x <= 1.0
+     * @return {number} the y value along the curve
+     */
+    easeInOutQuadratic: function(x) {
+      if (x < 0.5) {
+        return (2 * x * x);
 
-			} else {
-				x -= 1;
-				return 1 - (2 * x * x);
-			}
-		},
+      } else {
+        x -= 1;
+        return 1 - (2 * x * x);
+      }
+    },
 
-		/*
-		 * @param x {number} the value of x along the curve, 0.0 <= x <= 1.0
-		 * @return {number} the y value along the curve
-		 */
-		easeInOutCubic: function(x) {
-			if (x < 0.5) {
-				return (4 * x * x * x);
+    /*
+     * @param x {number} the value of x along the curve, 0.0 <= x <= 1.0
+     * @return {number} the y value along the curve
+     */
+    easeInOutCubic: function(x) {
+      if (x < 0.5) {
+        return (4 * x * x * x);
 
-			} else {
-				x -= 1;
-				return 1 + (4 * x * x * x);
-			}
-		},
+      } else {
+        x -= 1;
+        return 1 + (4 * x * x * x);
+      }
+    },
 
-		/*
-		 * @param x {number} the value of x along the curve, 0.0 <= x <= 1.0
-		 * @return {number} the y value along the curve
-		 */
-		easeInOutQuartic: function(x) {
-			if (x < 0.5) {
-				return (8 * x * x * x * x);
+    /*
+     * @param x {number} the value of x along the curve, 0.0 <= x <= 1.0
+     * @return {number} the y value along the curve
+     */
+    easeInOutQuartic: function(x) {
+      if (x < 0.5) {
+        return (8 * x * x * x * x);
 
-			} else {
-				x -= 1;
-				return 1 + (8 * x * x * x * x);
-			}
-		},
+      } else {
+        x -= 1;
+        return 1 + (8 * x * x * x * x);
+      }
+    },
 
-		/*
-		 * @param x {number} the value of x along the curve, 0.0 <= x <= 1.0
-		 * @return {number} the y value along the curve
-		 */
-		easeInOutQuintic: function(x) {
-			if (x < 0.5) {
-				return (16 * x * x * x * x * x);
+    /*
+     * @param x {number} the value of x along the curve, 0.0 <= x <= 1.0
+     * @return {number} the y value along the curve
+     */
+    easeInOutQuintic: function(x) {
+      if (x < 0.5) {
+        return (16 * x * x * x * x * x);
 
-			} else {
-				x -= 1;
-				return 1 + (16 * x * x * x * x * x);
-			}
-		}
-	};
+      } else {
+        x -= 1;
+        return 1 + (16 * x * x * x * x * x);
+      }
+    }
+  };
 })();
 })(ionic);
 

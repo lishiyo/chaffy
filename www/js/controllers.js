@@ -43,6 +43,11 @@ angular.module('chatRoom.controllers', [])
   }})
 .controller('AppCtrl', function($scope, $location) {
 
+
+  //for chaffy to work with map not darggin all over
+      
+  connieDrag= false;
+
   clearInterval(cInt);
   $scope.goToNewRoom = function() {
     $location.path('/rooms/new');
@@ -81,7 +86,7 @@ angular.module('chatRoom.controllers', [])
 clearInterval(cInt);
 
   //get user location from map
-
+  connieDrag= false;
 
   
 
@@ -347,9 +352,14 @@ setTimeout(function() {
 })
 
 .controller('AboutCtrl', function($scope) {
+
+
+  connieDrag= false;
 })
 
 .controller('LaunchCtrl', function($scope, $location, angularFire) {
+
+  connieDrag=true;
 /**
 $scope.getUserLocation = function(){
   return [parseFloat(localStorage.getItem('lat')), parseFloat(localStorage.getItem('lon'))]; 

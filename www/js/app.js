@@ -1,4 +1,6 @@
 //global default user position
+
+
 userPosition =[40.777225004040009, -73.95218489597806];
 
 //active watch...
