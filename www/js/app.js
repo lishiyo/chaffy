@@ -25,7 +25,9 @@ document.addEventListener("resume", onDeviceReady, false);
       //clear old intervals that were running
       //logout();
       logout();
-      setupWatch(10000);
+
+      //disabling watch with connie on 8/1
+      //setupWatch(10000);
 
         if(navigator.network.connection.type== "none"){
               userOffline();
@@ -64,9 +66,25 @@ catch(errrr){
       localStorage.setItem("lon", position.coords.longitude);
 // mike's not crazy
 
+     
+
+     
+
+        map = angular.element(document.getElementById('firstElem')).scope().map;
+        $('#map_canvas').on('drag', function(e){
+
+         
+
+        })
 
 
-       angular.element(document.getElementById('main')).scope().updateMap()
+  //worky please!
+/*
+  $('#map_canvas').on('click', function(e){ e.stopPropagation()})
+
+  */
+       angular.element(document.getElementById('main')).scope().updateMap();
+       map.refresh=true;
 
    
       

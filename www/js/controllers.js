@@ -1,5 +1,8 @@
 var jGlob;
 
+//for the map drag interval below for map
+var cInt;
+
 
 angular.module('chatRoom.controllers', [])
 /**
@@ -40,6 +43,10 @@ angular.module('chatRoom.controllers', [])
   }})
 .controller('AppCtrl', function($scope, $location) {
 
+<<<<<<< HEAD
+=======
+  clearInterval(cInt);
+>>>>>>> c824285071a02ac00a387a9217c0c66f38e38cae
   $scope.goToNewRoom = function() {
     $location.path('/rooms/new');
     $scope.toggleSideMenu();
@@ -79,7 +86,17 @@ angular.module('chatRoom.controllers', [])
 
 })
 
+<<<<<<< HEAD
 .controller('MainCtrl', function($scope, $timeout, angularFire, $rootScope) {
+=======
+.controller('MainCtrl', function($scope, $timeout, angularFire) {
+clearInterval(cInt);
+
+  //get user location from map
+
+
+  
+>>>>>>> c824285071a02ac00a387a9217c0c66f38e38cae
 
   $scope.rooms = [];
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/opened_rooms');  
@@ -363,6 +380,35 @@ $scope.currentLocation=$scope.getUserLocation();
         var lon = -73.95218489597806;
   }
 **/
+<<<<<<< HEAD
+=======
+
+clearInterval(cInt);
+cInt = setInterval(function(){
+
+      
+   userPosition[0]= parseFloat(angular.element(document.getElementById('firstElem')).scope().circle.center.latitude);
+           userPosition[1]= parseFloat(angular.element(document.getElementById('firstElem')).scope().circle.center.longitude);
+          
+
+          localStorage.setItem('lat', userPosition[0])
+           localStorage.setItem('lon', userPosition[1])
+
+           
+
+           console.log('got location'+ userPosition[0] );
+
+           
+
+
+
+  }, 1000)
+
+  
+
+
+  
+>>>>>>> c824285071a02ac00a387a9217c0c66f38e38cae
   
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com');  
   var userRef = ref.child("users");
@@ -422,7 +468,8 @@ $scope.map = {
       latitude: userPosition[0],
       longitude: userPosition[1]
     },
-    zoom: 13
+    zoom: 13,
+    refresh:true
 };
 
 $scope.circle = {
@@ -443,7 +490,10 @@ $scope.circle = {
   geodesic: true
 };
 
+/*
+setTimeout(function(){
 
+<<<<<<< HEAD
 /**
 
 google.maps.event.addDomListener(element[0], 'mousedown', function(e) {
@@ -452,4 +502,12 @@ return false;
 });
 
 **/
+=======
+  alert('about to change!')
+
+  $('.angular-google-map-container').css({width:"auto", "height":"200px"})
+}, 2000)
+*/
+
+>>>>>>> c824285071a02ac00a387a9217c0c66f38e38cae
 });
