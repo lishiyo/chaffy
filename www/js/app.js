@@ -189,7 +189,7 @@ function userAgreed(){
 }
 
 
-angular.module('chatRoom', ['ionic', 'ngRoute', 'ngAnimate', 'chatRoom.services', 'chatRoom.controllers', 'firebase', 'google-maps', 'ionic.contrib.ui.cards'])
+angular.module('chatRoom', ['ionic', 'ngRoute', 'ngAnimate', 'chatRoom.services', 'chatRoom.controllers', 'firebase', 'google-maps', 'ionic.contrib.ui.cards', 'chatRoom.filters'])
 
 .config(function ($compileProvider){
   $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
@@ -265,7 +265,7 @@ angular.module('chatRoom', ['ionic', 'ngRoute', 'ngAnimate', 'chatRoom.services'
 });
 
 **/
-angular.module('myApp.filters', [])
+angular.module('chatRoom.filters', [])
    .filter('interpolate', ['version', function(version) {
       return function(text) {
          return String(text).replace(/\%VERSION\%/mg, version);
@@ -291,3 +291,23 @@ angular.module('myApp.filters', [])
          return toArray(items).slice().reverse();
       };
    });
+/**
+   .filter('withinRadius', function(){
+
+return function(item) {
+  return true;
+  var localNewRadius = localStorage.getItem('localNewRadius');
+  var localroomDist = localStorage.getItem('localroomDist');
+
+ console.log(localroomDist + "is room dist");
+ console.log(localNewRadius + "is radius");
+
+  if (localroomDist < localNewRadius) {
+      return true;
+    } else {
+      return false;
+    }
+}
+      
+   });
+**/

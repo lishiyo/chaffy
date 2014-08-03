@@ -25,7 +25,7 @@
     
       <link-item ng-repeat="room in rooms | orderBy:'id':true | limitTo:30 |  orderBy:distanceFromHere: false" type="item-text-wrap" ng-click="goToIt('#/rooms/{{room.id}}');" style="z-index:50000" ng-controller="MainCtrl">
 --> 
-<link-item ng-repeat="room in rooms | orderBy:'id':true | limitTo:30 | orderBy:distanceFromHere: false" type="item-text-wrap" ng-click="goToIt('#/rooms/{{room.id}}');" style="z-index:50000" ng-controller="MainCtrl">
+<link-item ng-repeat="room in rooms | orderBy:'id':true | limitTo:30 | orderBy:distanceFromHere: false" type="item-text-wrap" ng-click="goToIt('#/rooms/{{room.id}}');" style="z-index:50000" ng-controller="MainCtrl" ng-hide="{{distanceFromHere(room) > {{newRadius}} }}">
           <h3>{{room.title}}</h3>
           <p>{{distanceFromHere(room)}} mi. | {{room.description}}</p>
       </link-item>
