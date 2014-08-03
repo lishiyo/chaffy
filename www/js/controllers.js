@@ -88,10 +88,28 @@ angular.module('chatRoom.controllers', [])
 })
 
 .controller('MainCtrl', function($scope, $timeout, angularFire) {
+  localStorage.setItem('localNewRadius', (parseFloat(angular.element(document.getElementById('firstElem')).scope().circle.radius) / 1609));
 clearInterval(cInt);
 
   //get user location from map
   connieDrag= false;
+
+  function radius() {
+    newRadius = parseFloat(localStorage.getItem('localNewRadius'));
+    console.log('\n \n \n \n new radius = ' + newRadius);
+    if(distanceFromHere(room) > newRadius) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+// localStorage.setItem('localNewRadius', angular.element(document.getElementById('firstElem')).scope().circle.radius)
+  $scope.radius = parseFloat(localStorage.getItem('localNewRadius'));
+
+
+
+
 
   
 
@@ -195,7 +213,7 @@ messageListQuery.on('child_added', function(snapshot) {
 
     window.location=theUrl;
   }
-  
+ 
   $scope.distanceFromHere = function (_item, _startPoint) {
 /*
     var start = null;
@@ -302,6 +320,10 @@ jGlob = $scope;
 
 .controller('RoomCtrl', function($scope, $routeParams, $timeout, angularFire) {
 
+
+// localStorage.getItem('localNewRadius')
+
+// var radius = parseFloat(angular.element(document.getElementById('firstElem')).scope().circle.radius);
 // connie
   connieDrag= false;
 
@@ -426,6 +448,13 @@ cInt = setInterval(function(){
   var promise = angularFire(userRef, $scope, "userRef");
 
   $scope.findChats = function() {
+
+
+
+
+    newRadius = localStorage.setItem('localNewRadius', parseFloat(($scope.circle.radius) / 1609));
+
+    console.log("\n\n\n\n newRadius=" + newRadius);
     
     // $scope.username = 'User' + Math.floor(Math.random() * 501);
     $scope.username = $scope.userAlias;
@@ -497,6 +526,8 @@ $scope.events = {
 
                      localStorage.setItem('lat', lat);
                      localStorage.setItem('lon', lon);
+
+                     localStorage.setItem('localNewRadius', (parseFloat(angular.element(document.getElementById('firstElem')).scope().circle.radius) / 1609));
                   });
                }
             }
