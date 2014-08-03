@@ -14,7 +14,12 @@
     -->
 <body ng-app="chatRoom" animation="slide-left-right-ios7" no-scroll>
     <pane ng-controller="CardsCtrl">
-      <header-bar type="bar-transparent" title="'Help out'"></header-bar>
+     <!-- <header-bar type="bar-transparent" title="'Help out'"></header-bar> -->
+
+<header class="bar bar-header bar-calm">
+    <button class="button button-icon" ng-click="goToHome()"><i class="icon ion-home"></i></button>
+    <h1 class="title">Chaffy</h1>
+  </header>
 
       <swipe-cards>
         <swipe-card on-swipe="cardSwiped()" id="start-card">
@@ -24,7 +29,6 @@
         <swipe-card ng-repeat="card in cards" on-destroy="cardDestroyed($index)" on-swipe="cardSwiped($index)">
           <div ng-controller="CardsCtrl">
             <div class="title">
-            <p> my card title</p>
               {{card.title}}
             </div>
             <div class="image">
@@ -40,9 +44,6 @@
     </pane>
   </body>
 
-  </content>
-        
-</nav-page>
 <!--
 
   <body ng-app="chatRoom" animation="slide-left-right-ios7" no-scroll>
