@@ -1,4 +1,18 @@
-<body ng-app="starter" animation="slide-left-right-ios7" no-scroll>
+<head>
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+<link href="css/cards.css" rel="stylesheet">
+</head>
+
+<!--
+<nav-page id="app-page">
+  <header class="bar bar-header bar-calm">
+    <button class="button button-icon" ng-click="goToHome()"><i class="icon ion-home"></i></button>
+    <h1 class="title">Chaffy</h1>
+  </header>
+  <content has-header="true" padding="true">
+    <h3>chaffy is<br> the anonymous mobile chatroom</h3>
+    -->
+<body ng-app="chatRoom" animation="slide-left-right-ios7" no-scroll>
     <pane ng-controller="CardsCtrl">
       <header-bar type="bar-transparent" title="'Help out'"></header-bar>
 
@@ -6,9 +20,11 @@
         <swipe-card on-swipe="cardSwiped()" id="start-card">
           Swipe down for a new card
         </swipe-card>
+
         <swipe-card ng-repeat="card in cards" on-destroy="cardDestroyed($index)" on-swipe="cardSwiped($index)">
-          <div ng-controller="CardCtrl">
+          <div ng-controller="CardsCtrl">
             <div class="title">
+            <p> my card title</p>
               {{card.title}}
             </div>
             <div class="image">
@@ -23,3 +39,40 @@
       </swipe-cards>
     </pane>
   </body>
+
+  </content>
+        
+</nav-page>
+<!--
+
+  <body ng-app="chatRoom" animation="slide-left-right-ios7" no-scroll>
+    <pane ng-controller="CardsCtrl">
+      <header-bar type="bar-transparent" title="'Help out'"></header-bar>
+<p> </p>
+<p> ""</p>
+
+      <swipe-cards>
+        <swipe-card on-swipe="cardSwiped()" id="start-card">
+          Swipe down for a new card
+        </swipe-card>
+        <swipe-card ng-repeat="card in cards" on-destroy="cardDestroyed($index)" on-swipe="cardSwiped($index)">
+          <div ng-controller="CardCtrl">
+            <div class="title">
+            <p> my card title</p>
+              {{card.title}}
+            </div>
+            <div class="image">
+              <img ng-src="{{card.image}}">
+            </div>
+            <div class="button-bar">
+              <button class="button button-clear button-positive" ng-click="goAway()">Answer</button>
+              <button class="button button-clear button-positive" ng-click="goAway()">Decline</button>
+            </div>
+          </div>
+        </swipe-card>
+      </swipe-cards>
+    </pane>
+  </body>
+</content>
+</nav-page>
+-->

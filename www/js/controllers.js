@@ -33,6 +33,7 @@ angular.module('chatRoom.controllers', [])
 })
 **/
 .controller('LoadingCtrl', function($scope, $ionicLoading) {
+  connieDrag= false;
   $scope.show = function() {
     $ionicLoading.show({
       template: 'Loading...'
@@ -42,8 +43,6 @@ angular.module('chatRoom.controllers', [])
     $ionicLoading.hide();
   }})
 .controller('AppCtrl', function($scope, $location) {
-
-
   //for chaffy to work with map not darggin all over
       
   connieDrag= false;
@@ -387,7 +386,6 @@ setTimeout(function() {
 
 .controller('AboutCtrl', function($scope) {
 
-
   connieDrag= false;
 })
 
@@ -558,25 +556,14 @@ $scope.circle = {
   geodesic: true
 };
 
-
-
-/*
-setTimeout(function(){
-
-  alert('about to change!')
-
-  $('.angular-google-map-container').css({width:"auto", "height":"200px"})
-}, 2000)
-*/
-
-}) //LaunchCtrl
+})
 
 .controller('CardsCtrl', function($scope, $ionicSwipeCardDelegate) {
 
   connieDrag=false;
 
   var cardTypes = [
-    { title: 'Swipe down to clear the card', image: 'img/pic.png' },
+    { title: 'My first bitchin card', image: 'img/pic.png' },
     { title: 'Where is this?', image: 'img/pic.png' },
     { title: 'What kind of grass is this?', image: 'img/pic2.png' },
     { title: 'What beach is this?', image: 'img/pic3.png' },
@@ -584,7 +571,11 @@ setTimeout(function(){
   ];
 
   $scope.cards = Array.prototype.slice.call(cardTypes, 0, 0);
-
+/**
+  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com');  
+  var cardsRef = ref.child("cards");
+  $scope.cards = [];
+**/
   $scope.cardSwiped = function(index) {
     $scope.addCard();
   };
@@ -597,10 +588,14 @@ setTimeout(function(){
     var newCard = cardTypes[Math.floor(Math.random() * cardTypes.length)];
     newCard.id = Math.random();
     $scope.cards.push(angular.extend({}, newCard));
+   //$scope.cards.push(newCard);
   }
 })
 
 .controller('CardCtrl', function($scope, $ionicSwipeCardDelegate) {
+
+  connieDrag=false;
+
   $scope.goAway = function() {
     var card = $ionicSwipeCardDelegate.getSwipebleCard($scope);
     card.swipe();
