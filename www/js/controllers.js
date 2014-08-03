@@ -88,25 +88,32 @@ angular.module('chatRoom.controllers', [])
 })
 
 .controller('MainCtrl', function($scope, $timeout, angularFire) {
-clearInterval(cInt);
 
-  //get user location from map
   connieDrag= false;
 
-var newRadius= localStorage.getItem("localNewRadius");
+  // set localNewRadius whenever switch view to MainCtrl
+  localStorage.setItem('localNewRadius', (parseFloat(angular.element(document.getElementById('firstElem')).scope().circle.radius) / 1609));
+clearInterval(cInt);
 
-  // class="ng-hide" remove ng-hide class if distanceFromHere < 
-  /**
-  $scope.withinRadius = function() {
-  return function( item ) {
-    newRadius = localStorage.getItem('localNewRadius');
-    localroomDist = localStorage.getItem('localroomDist');
-    console.log(newRadius);
-    console.log('distance is ' + localroomDist);
-    return localroomDist < 2.0;
-  };
-};
-**/
+  function radius() {
+    newRadius = parseFloat(localStorage.getItem('localNewRadius'));
+    console.log('\n \n \n \n new radius = ' + newRadius);
+    if(distanceFromHere(room) > newRadius) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+// localStorage.setItem('localNewRadius', angular.element(document.getElementById('firstElem')).scope().circle.radius)
+  $scope.radius = parseFloat(localStorage.getItem('localNewRadius'));
+
+
+
+
+
+  
+
   $scope.rooms = [];
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/opened_rooms');  
   
@@ -207,7 +214,7 @@ messageListQuery.on('child_added', function(snapshot) {
 
     window.location=theUrl;
   }
-  
+ 
   $scope.distanceFromHere = function (_item, _startPoint) {
 /*
     var start = null;
@@ -268,10 +275,7 @@ var R = 6371; // Radius of the earth in km
     ; 
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
   var d = R * c; // Distance in km
-
-  var roomDistance = (d* 0.621371).toFixed(2);
-  localStorage.setItem('localroomDist', roomDistance);
-  return roomDistance;
+  return (d* 0.621371).toFixed(2);
   }
 
 jGlob = $scope; 
@@ -317,6 +321,10 @@ jGlob = $scope;
 
 .controller('RoomCtrl', function($scope, $routeParams, $timeout, angularFire) {
 
+
+// localStorage.getItem('localNewRadius')
+
+// var radius = parseFloat(angular.element(document.getElementById('firstElem')).scope().circle.radius);
 // connie
   connieDrag= false;
 
@@ -441,13 +449,14 @@ cInt = setInterval(function(){
   var promise = angularFire(userRef, $scope, "userRef");
 
   $scope.findChats = function() {
+
+
+
+
+    newRadius = localStorage.setItem('localNewRadius', parseFloat(($scope.circle.radius) / 1609));
+
+    console.log("\n\n\n\n newRadius=" + newRadius);
     
-    // take the user's submitted radius
-    var newRadius = parseFloat(($scope.circle.radius) / 1609.34);
-
-    localStorage.setItem("localNewRadius", newRadius);
-
-
     // $scope.username = 'User' + Math.floor(Math.random() * 501);
     $scope.username = $scope.userAlias;
     localStorage.setItem("localusername", $scope.username );
@@ -518,18 +527,11 @@ $scope.events = {
 
                      localStorage.setItem('lat', lat);
                      localStorage.setItem('lon', lon);
+
+                     localStorage.setItem('localNewRadius', (parseFloat(angular.element(document.getElementById('firstElem')).scope().circle.radius) / 1609));
                   });
                }
-               /**
-               mouseout: function(circle) {
-                $rootScope.$apply(function(){
-                  var newRadius = $scope.circle.radius;
-                  console.log(newRadius);
-                });
-               }
-               **/
             }
-
 
 $scope.circle = {
   center: {
@@ -548,11 +550,6 @@ $scope.circle = {
   radius: 10000,
   geodesic: true
 };
-
-
-  
-
-
 
 /*
 setTimeout(function(){
