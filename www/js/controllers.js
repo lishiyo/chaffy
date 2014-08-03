@@ -92,27 +92,26 @@ angular.module('chatRoom.controllers', [])
   connieDrag= false;
 
   // set localNewRadius whenever switch view to MainCtrl
-  localStorage.setItem('localNewRadius', (parseFloat(angular.element(document.getElementById('firstElem')).scope().circle.radius) / 1609));
-clearInterval(cInt);
+  // localStorage.setItem('localNewRadius', (parseFloat(angular.element(document.getElementById('firstElem')).scope().circle.radius) / 1609));
 
+  clearInterval(cInt);
+
+/** not getting called
   function radius() {
     newRadius = parseFloat(localStorage.getItem('localNewRadius'));
-    console.log('\n \n \n \n new radius = ' + newRadius);
+    alert('\n \n \n \n new radius = ' + newRadius);
     if(distanceFromHere(room) > newRadius) {
       return true;
     } else {
       return false;
     }
   }
+**/ 
+
+ $scope.radius = parseFloat(localStorage.getItem('localNewRadius'));
 
 // localStorage.setItem('localNewRadius', angular.element(document.getElementById('firstElem')).scope().circle.radius)
-  $scope.radius = parseFloat(localStorage.getItem('localNewRadius'));
-
-
-
-
-
-  
+ 
 
   $scope.rooms = [];
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/opened_rooms');  
@@ -264,7 +263,7 @@ lat2 = $scope.getUserLocation()[0];
 lon2 = $scope.getUserLocation()[1];
 lat1 =_item.latitude;
 lon1 = _item.longitude;
-console.log(lon1);
+// console.log(lon1);
 var R = 6371; // Radius of the earth in km
    var dLat = deg2rad(lat2-lat1);  // deg2rad below
   var dLon = deg2rad(lon2-lon1);  
@@ -395,6 +394,7 @@ setTimeout(function() {
 .controller('LaunchCtrl', function($scope, $location, angularFire, $rootScope) {
 
   connieDrag=true;
+
 /**
 $scope.getUserLocation = function(){
   return [parseFloat(localStorage.getItem('lat')), parseFloat(localStorage.getItem('lon'))]; 
@@ -450,12 +450,10 @@ cInt = setInterval(function(){
 
   $scope.findChats = function() {
 
-
-
-
-    newRadius = localStorage.setItem('localNewRadius', parseFloat(($scope.circle.radius) / 1609));
-
-    console.log("\n\n\n\n newRadius=" + newRadius);
+// set localNewRadius when user clicks GO
+    var newRadius = parseFloat(($scope.circle.radius) / 1609);
+    localStorage.setItem('localNewRadius', newRadius);
+    console.log("\n\n\n\n newRadius=" + localStorage.getItem('localNewRadius'));
     
     // $scope.username = 'User' + Math.floor(Math.random() * 501);
     $scope.username = $scope.userAlias;
@@ -501,7 +499,6 @@ var userPosition =[40.777225004040009, -73.95218489597806];
 **/
 
 
-
 $scope.map = {
     center: {
       latitude: userPosition[0],
@@ -511,6 +508,14 @@ $scope.map = {
     refresh:true
 };
 
+/**
+$scope.mapevents = {
+  drag: function(){
+    //$scope.map.center = {latitude: userPosition[0], longitude: userPosition[1]};
+    $scope.map.center = $scope.circle.center;
+  }
+}
+**/
 $scope.events = {
                dragend: function (marker) {
                   $rootScope.$apply(function () {
@@ -518,7 +523,7 @@ $scope.events = {
                      console.log(marker.position.lat());
                      console.log(marker.position.lng());
                      **/
-                     $scope.map.center = $scope.circle.center;
+                    
                      var lat = $scope.circle.center.latitude;
                      var lon = $scope.circle.center.longitude;
 
@@ -527,6 +532,8 @@ $scope.events = {
 
                      localStorage.setItem('lat', lat);
                      localStorage.setItem('lon', lon);
+
+                    $scope.map.center = $scope.circle.center;
 
                      localStorage.setItem('localNewRadius', (parseFloat(angular.element(document.getElementById('firstElem')).scope().circle.radius) / 1609));
                   });
@@ -550,6 +557,8 @@ $scope.circle = {
   radius: 10000,
   geodesic: true
 };
+
+
 
 /*
 setTimeout(function(){
