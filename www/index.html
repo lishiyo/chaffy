@@ -10,6 +10,7 @@
 
     <!-- your app's css -->
     <link href="css/app.css" rel="stylesheet">
+    <link href="css/sidemenu.css" rel="stylesheet">
 
     <!-- ionic/angularjs scripts -->
     <script src="js/ionic.js"></script>
@@ -59,13 +60,26 @@
         </header>
         <content has-header="true">
           <ul class="list">
-            <a ng-click="goToCards()" class="item">find a chat</a> 
-            <a ng-click="toggleSideMenu()" class="item">near me</a>
-            <a ng-click="goToNewRoom()" class="item">new chat 
-              <i class="icon ion-plus-round"></i>
+            <a ng-click="goToCards()" class="item">
+            <i class="icon ion-flash" style="font-size: 1.3rem; color: #43cee6;"></i>
+             &nbsp; &nbsp; find a chat
+            </a> 
+            <a ng-click="toggleSideMenu()" class="item">
+            <i class="icon ion-android-locate" style="font-size: 1.3rem; color: #43cee6;"></i>
+             &nbsp; &nbsp; all chats around
             </a>
-            <a ng-click="goToLaunch()" class="item">refresh profile</a>     
-            <a ng-click="goToAbout()" class="item">about chaffy</a>  
+            <a ng-click="goToNewRoom()" class="item">
+              <i class="icon ion-plus-round" style="font-size: 1.3rem; color: #43cee6;"></i>
+             &nbsp; &nbsp; create a chat  
+            </a>
+            <a ng-click="goToLaunch()" class="item">
+            <i class="icon ion-android-contact" style="font-size: 1.3rem; color: #43cee6;"></i>
+             &nbsp; &nbsp; refresh user 
+            </a>     
+            <a ng-click="goToAbout()" class="item">
+            <i class="icon ion-ionic" style="font-size: 1.3rem; color: #43cee6;"></i>
+             &nbsp; &nbsp; about chaffy
+            </a>  
           </ul>
         </content>
       </side-menu>

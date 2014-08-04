@@ -22,8 +22,12 @@
   </header>
 
       <swipe-cards>
+      
         <swipe-card on-swipe="cardSwiped()" id="start-card">
-          swipe down to see the chats in your area!
+          swipe down
+          <span>
+          <i class="icon ion-android-contact" style="font-size: 1.3rem; color: #43cee6;"></i>
+        </span>
         </swipe-card>
 
         <swipe-card ng-repeat="card in chatCards" on-destroy="cardDestroyed($index)" on-swipe="cardSwiped($index)">

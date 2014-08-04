@@ -84,6 +84,12 @@
 	font-family: 'Pacifico', 'Lato',  Arial, sans-serif;
 }
 
+.item-radio input:checked ~ .item-content {
+	background-color: #B37EDE;
+	opacity: 0.8;
+	color: white;
+}
+
 #radio-male input:checked ~ .item-content {
 	background-color: #0BA4F7;
 	opacity: 0.6;

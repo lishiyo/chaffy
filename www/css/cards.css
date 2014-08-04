@@ -124,10 +124,11 @@
 
 #start-card {
   color: #fff;
-  background-color: #FFB303;
+  background-color: #EB609A;
+  background-image: url('../img/swipedown08.jpg');
   line-height: 300px;
   word-wrap: break-word;
-  border: 6px solid #FFB303;
+  border: 0px solid #EB609A;
   text-align: center;
   font-family: 'Pacifico', 'Lato', sans-serif;
 }
@@ -135,7 +136,9 @@
   display: inline-block;
   line-height: 40px;
   width: 200px;
-  font-size: 30px;
+  font-size: 1.5rem;
+  opacity: 0.8;
+  text-shadow: 1px 1px black;
   vertical-align: middle;
 }
 
