@@ -27,7 +27,7 @@
         </swipe-card>
 
         <swipe-card ng-repeat="card in cards" on-destroy="cardDestroyed($index)" on-swipe="cardSwiped($index)">
-          <div ng-controller="CardsCtrl">
+          <div ng-controller="CardCtrl">
             <div class="title">
               {{card.title}}
             </div>

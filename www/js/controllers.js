@@ -108,13 +108,11 @@ angular.module('chatRoom.controllers', [])
 **/ 
 
  $scope.radius = parseFloat(localStorage.getItem('localNewRadius'));
-
-// localStorage.setItem('localNewRadius', angular.element(document.getElementById('firstElem')).scope().circle.radius)
- 
+ console.log("\n\n\n\n my scope radius is " + $scope.radius);
 
   $scope.rooms = [];
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/opened_rooms');  
-  
+  var promise = angularFire(ref, $scope, "rooms");
 
  /*
 
@@ -148,8 +146,7 @@ messageListQuery.on('child_added', function(snapshot) {
 
 
 */
-  var promise = angularFire(ref, $scope, "rooms");
-
+  
   $scope.sortLoc = {
 /*
     distanceFromHere :function (_item, _startPoint) {
@@ -533,8 +530,11 @@ $scope.events = {
 
                     $scope.map.center = $scope.circle.center;
 
-                     localStorage.setItem('localNewRadius', (parseFloat(angular.element(document.getElementById('firstElem')).scope().circle.radius) / 1609));
                   });
+               },
+               radius_changed: function() {
+                localStorage.setItem('localNewRadius', (parseFloat($scope.circle.radius / 1609)));
+                console.log("\n\n\n" + localStorage.getItem('localNewRadius'));
                }
             }
 
@@ -558,7 +558,7 @@ $scope.circle = {
 
 })
 
-.controller('CardsCtrl', function($scope, $ionicSwipeCardDelegate) {
+.controller('CardsCtrl', function($scope, $ionicSwipeCardDelegate, angularFire) {
 
   connieDrag=false;
 
@@ -571,11 +571,26 @@ $scope.circle = {
   ];
 
   $scope.cards = Array.prototype.slice.call(cardTypes, 0, 0);
+
+  var chatCards = [];
+  var chatsRef = new Firebase('https://blistering-fire-5269.firebaseio.com/opened_rooms');  
+  //var promise = angularFire(chatsRef, $scope, "chatCards");
+
+chatsRef.on('value', function (snapshot) {
+  var theCards = snapshot.val();
+  console.log(theCards);
+  console.log('\n\n\n chatCards is ' + theCards[0].title);
+}, function (errorObject) {
+  console.log('The read failed: ' + errorObject.code);
+});
+
+
 /**
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com');  
-  var cardsRef = ref.child("cards");
-  $scope.cards = [];
+  var cards = ref.child("cards-test");
+  $scope.cards = Array.prototype.slice.call(cardTypes, 0, 0);
 **/
+
   $scope.cardSwiped = function(index) {
     $scope.addCard();
   };
@@ -583,7 +598,13 @@ $scope.circle = {
   $scope.cardDestroyed = function(index) {
     $scope.cards.splice(index, 1);
   };
-
+/**
+  userRef.push({
+      username: localStorage.getItem("localusername"),
+      gender: $scope.setUserGender(),
+      age: $scope.setUserAge()
+    });
+**/
   $scope.addCard = function() {
     var newCard = cardTypes[Math.floor(Math.random() * cardTypes.length)];
     newCard.id = Math.random();
