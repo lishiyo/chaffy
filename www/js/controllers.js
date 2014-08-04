@@ -386,7 +386,7 @@ setTimeout(function() {
   connieDrag= false;
 })
 
-.controller('LaunchCtrl', function($scope, $location, angularFire, $rootScope) {
+.controller('LaunchCtrl', function($scope, $location, $rootScope) {
 
   connieDrag=true;
 
@@ -441,7 +441,7 @@ cInt = setInterval(function(){
   $scope.userGender = "";
   $scope.userAge = "";
   /** what's this variable used for? **/
-  var promise = angularFire(userRef, $scope, "userRef");
+  // var promise = angularFire(userRef, $scope, "userRef");
 
   $scope.findChats = function() {
 
@@ -558,10 +558,11 @@ $scope.circle = {
 
 })
 
-.controller('CardsCtrl', function($scope, $ionicSwipeCardDelegate, angularFire) {
+.controller('CardsCtrl', function($scope, $ionicSwipeCardDelegate) {
 
   connieDrag=false;
 
+/**
   var cardTypes = [
     { title: 'My first bitchin card', image: 'img/pic.png' },
     { title: 'Where is this?', image: 'img/pic.png' },
@@ -571,20 +572,32 @@ $scope.circle = {
   ];
 
   $scope.cards = Array.prototype.slice.call(cardTypes, 0, 0);
-
+**/
+  $scope.chatCards = [];
   var chatCards = [];
-  var chatsRef = new Firebase('https://blistering-fire-5269.firebaseio.com/opened_rooms');  
+  var chatsRef = new Firebase('https://blistering-fire-5269.firebaseio.com/open_rooms');  
   //var promise = angularFire(chatsRef, $scope, "chatCards");
 
 chatsRef.on('value', function (snapshot) {
   var theCards = snapshot.val();
-  console.log(theCards);
-  console.log('\n\n\n chatCards is ' + theCards[0].title);
+  
+  for (var i=0; i < theCards.length; ++i) {
+    var newCard = {
+      title: theCards[i].title,
+      image: 'img/pic.png', 
+      id: theCards[i].id
+    };
+    //console.log('\n chatCards is ' + chatCards);
+    chatCards.push(newCard);
+  }
+
 }, function (errorObject) {
   console.log('The read failed: ' + errorObject.code);
 });
 
+console.log('\n chatCards is ' + chatCards);
 
+$scope.chatCards = Array.prototype.slice.call(chatCards, 0, 0);
 /**
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com');  
   var cards = ref.child("cards-test");
@@ -596,26 +609,33 @@ chatsRef.on('value', function (snapshot) {
   };
 
   $scope.cardDestroyed = function(index) {
-    $scope.cards.splice(index, 1);
+    // $scope.cards.splice(index, 1);
+    $scope.chatCards.splice(index, 1);
   };
-/**
-  userRef.push({
-      username: localStorage.getItem("localusername"),
-      gender: $scope.setUserGender(),
-      age: $scope.setUserAge()
-    });
-**/
+
   $scope.addCard = function() {
+    /**
     var newCard = cardTypes[Math.floor(Math.random() * cardTypes.length)];
     newCard.id = Math.random();
     $scope.cards.push(angular.extend({}, newCard));
-   //$scope.cards.push(newCard);
+    **/
+    var newCard = chatCards[Math.floor(Math.random() * chatCards.length)];
+    newCard.id = Math.random();
+    $scope.chatCards.push(angular.extend({}, newCard));
+   //$scope.chatCards.push(newCard);
   }
 })
 
 .controller('CardCtrl', function($scope, $ionicSwipeCardDelegate) {
 
   connieDrag=false;
+
+  
+  $scope.goToIt = function(theUrl){
+
+    window.location=theUrl;
+  };
+
 
   $scope.goAway = function() {
     var card = $ionicSwipeCardDelegate.getSwipebleCard($scope);

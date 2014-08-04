@@ -26,7 +26,7 @@
           Swipe down for a new card
         </swipe-card>
 
-        <swipe-card ng-repeat="card in cards" on-destroy="cardDestroyed($index)" on-swipe="cardSwiped($index)">
+        <swipe-card ng-repeat="card in chatCards" on-destroy="cardDestroyed($index)" on-swipe="cardSwiped($index)">
           <div ng-controller="CardCtrl">
             <div class="title">
               {{card.title}}
@@ -35,7 +35,7 @@
               <img ng-src="{{card.image}}">
             </div>
             <div class="button-bar">
-              <button class="button button-clear button-positive" ng-click="goAway()">Answer</button>
+              <button class="button button-clear button-positive" ng-click="goToIt('#/rooms/{{card.id}}');">Join</button>
               <button class="button button-clear button-positive" ng-click="goAway()">Decline</button>
             </div>
           </div>
