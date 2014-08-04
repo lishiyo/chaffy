@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="talk2.talk2" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>chaffy</name>
+    <description>
+        Chaffy was built on Ionic Framework app using Cordova and AngularJS and forked from 3dd13.me
+    </description>
+    <author email="m@codecloud.me" href="http://codecloud.me">
+       Mike De'Shazer
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <preference name="fullscreen" value="false" />
+    <!--<preference name="fullscreen" value="true" /> -->
+    <preference name="webviewbounce" value="false" />
+    <preference name="UIWebViewBounce" value="false" />
+    <preference name="android-windowSoftInputMode" value="stateVisible|adjustResize" />
+     
+    <feature name="Geolocation">
+    <param name="android-package" value="org.apache.cordova.GeoBroker" />
+</feature>
+    <feature name="NetworkStatus">
+    <param name="android-package" value="org.apache.cordova.NetworkManager" />
+</feature>
+    
+   <feature name="Notification">
+    <param name="android-package" value="org.apache.cordova.Notification" />
+</feature>
+    
+    <feature name="SplashScreen">
+        <param name="ios-package" value="CDVSplashScreen" />
+    </feature>
+    
+    <preference name="AutoHideSplashScreen" value="false" />
+
+
+
+</widget>
