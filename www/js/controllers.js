@@ -111,7 +111,7 @@ angular.module('chatRoom.controllers', [])
  console.log("\n\n\n\n my scope radius is " + $scope.radius);
 
   $scope.rooms = [];
-  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/opened_rooms');  
+  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/open_rooms');  
   var promise = angularFire(ref, $scope, "rooms");
 
  /*
@@ -287,7 +287,7 @@ jGlob = $scope;
   connieDrag= false;
 
   $scope.rooms = [];
-  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/opened_rooms');  
+  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/open_rooms');  
   var promise = angularFire(ref, $scope, "rooms");
   
   $scope.newRoomName = "";
@@ -584,10 +584,13 @@ chatsRef.on('value', function (snapshot) {
   for (var i=0; i < theCards.length; ++i) {
     var newCard = {
       title: theCards[i].title,
-      image: 'img/pic.png', 
-      id: theCards[i].id
+      //image: 'img/pic.png', 
+      id: theCards[i].id,
+      description: theCards[i].description,
+      latitude: theCards[i].latitude,
+      longitude: theCards[i].longitude
     };
-    //console.log('\n chatCards is ' + chatCards);
+    //console.log('\n chatCards is ' + theCards[i].description);
     chatCards.push(newCard);
   }
 
@@ -598,11 +601,35 @@ chatsRef.on('value', function (snapshot) {
 console.log('\n chatCards is ' + chatCards);
 
 $scope.chatCards = Array.prototype.slice.call(chatCards, 0, 0);
-/**
-  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com');  
-  var cards = ref.child("cards-test");
-  $scope.cards = Array.prototype.slice.call(cardTypes, 0, 0);
-**/
+
+$scope.getUserLocation = function(){
+
+  return [parseFloat(localStorage.getItem('lat')), parseFloat(localStorage.getItem('lon'))]; 
+
+  }
+
+$scope.currentLocation=$scope.getUserLocation();
+
+  
+$scope.distanceFromHere = function (_item, _startPoint) {
+lat2 = $scope.getUserLocation()[0];
+lon2 = $scope.getUserLocation()[1];
+lat1 =_item.latitude;
+lon1 = _item.longitude;
+// console.log(lon1);
+var R = 6371; // Radius of the earth in km
+   var dLat = deg2rad(lat2-lat1);  // deg2rad below
+  var dLon = deg2rad(lon2-lon1);  
+   var a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+    ; 
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  var d = R * c; // Distance in km
+  return (d* 0.621371).toFixed(2);
+  
+  }
 
   $scope.cardSwiped = function(index) {
     $scope.addCard();
@@ -620,7 +647,7 @@ $scope.chatCards = Array.prototype.slice.call(chatCards, 0, 0);
     $scope.cards.push(angular.extend({}, newCard));
     **/
     var newCard = chatCards[Math.floor(Math.random() * chatCards.length)];
-    newCard.id = Math.random();
+    //newCard.id = Math.random();
     $scope.chatCards.push(angular.extend({}, newCard));
    //$scope.chatCards.push(newCard);
   }
@@ -632,7 +659,6 @@ $scope.chatCards = Array.prototype.slice.call(chatCards, 0, 0);
 
   
   $scope.goToIt = function(theUrl){
-
     window.location=theUrl;
   };
 

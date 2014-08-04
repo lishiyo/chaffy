@@ -76,12 +76,12 @@
 
 .list .item[id="radio-sec"] {
 	background-color: white;
-	font-family: 'Pacifico', Arial, sans-serif;
+	font-family: 'Pacifico', 'Lato', Arial, sans-serif;
 }
 
 .list .item[id="radio-age-sec"] {
 	background-color: white;
-	font-family: 'Pacifico', Arial, sans-serif;
+	font-family: 'Pacifico', 'Lato',  Arial, sans-serif;
 }
 
 #radio-male input:checked ~ .item-content {
