@@ -30,7 +30,7 @@
         </span>
         </swipe-card>
 
-        <swipe-card ng-repeat="card in chatCards" on-destroy="cardDestroyed($index)" on-swipe="cardSwiped($index)">
+        <swipe-card ng-repeat="card in chatCards" on-destroy="cardDestroyed($index)" on-swipe="cardSwiped($index)" ng-hide="{{distanceFromHere(card) > radius}}">
           <div ng-controller="CardCtrl">
             <div class="title">
               {{distanceFromHere(card)}} mi. away

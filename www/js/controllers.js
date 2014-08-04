@@ -574,13 +574,16 @@ $scope.circle = {
   $scope.cards = Array.prototype.slice.call(cardTypes, 0, 0);
 **/
 
+$scope.radius = parseFloat(localStorage.getItem('localNewRadius'));
+ console.log("\n\n\n\n radius in cards " + $scope.radius);
+
   $scope.chatCards = [];
   var chatCards = [];
   var chatsRef = new Firebase('https://blistering-fire-5269.firebaseio.com/open_rooms');  
   //var promise = angularFire(chatsRef, $scope, "chatCards");
 
 chatsRef.on('value', function (snapshot) {
-  
+
   var theCards = snapshot.val();
   
   for (var i=0; i < theCards.length; ++i) {
