@@ -88,8 +88,16 @@ angular.module('chatRoom.controllers', [])
 })
 
 .controller('MainCtrl', function($scope, $timeout, angularFire) {
-  localStorage.setItem('localNewRadius', (parseFloat(angular.element(document.getElementById('firstElem')).scope().circle.radius) / 1609));
-clearInterval(cInt);
+  try{
+     localStorage.setItem('localNewRadius', (parseFloat(angular.element(document.getElementById('firstElem')).scope().circle.radius) / 1609));
+
+  }
+  catch(err){
+
+    console.log("no map center.")
+  }
+
+ clearInterval(cInt);
 
   //get user location from map
   connieDrag= false;
