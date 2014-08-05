@@ -458,8 +458,6 @@ cInt = setInterval(function(){
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com');  
   var userRef = ref.child("users");
   $scope.userRef = [];
-  $scope.userGender = "";
-  $scope.userAge = "";
   /** what's this variable used for? **/
   // var promise = angularFire(userRef, $scope, "userRef");
 
@@ -528,7 +526,6 @@ cInt = setInterval(function(){
 var userPosition =[40.777225004040009, -73.95218489597806];
 **/
 
-
 $scope.map = {
     center: {
       latitude: userPosition[0],
@@ -538,6 +535,7 @@ $scope.map = {
     refresh:false
 };
 
+$scope.map.isReady = false;
 /**
 $scope.mapevents = {
   drag: function(){
@@ -591,6 +589,8 @@ $scope.circle = {
   radius: 10000,
   geodesic: true
 };
+
+$scope.map.isReady = true;
 
 })
 

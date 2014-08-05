@@ -24,14 +24,14 @@
           <a class="button button-energized button-f">Female</a>
         </div>
         -->
-        <input type="radio" name="userGender" data-ng-model="userGender" data-ng-value="0">
+        <input type="checkbox" data-ng-true-value="0" name="userGender" data-ng-model="userGender" data-ng-false-value="false" />
         <div class="item-content">male
         </div>
-        <!--<i class="radio-icon ion-checkmark"></i>-->
+        <!--<i class="radio-icon ion-checkmark"> data-ng-value="0"</i>-->
       </label>
 
 <label class="item item-radio bar-gender-item" id="radio-fem">
-      <input type="radio" name="userGender" data-ng-model="userGender" data-ng-value="1">
+      <input type="checkbox" name="userGender" data-ng-model="userGender" data-ng-true-value="1" data-ng-false-value="false" />
         <div class="item-content">female
         </div>
 </label>     
@@ -49,17 +49,17 @@
         <!--<span class="input-label">Age</span>              
         <input type="text" placeholder="three ranges: 18-29; 30-49; 49+" data-ng-model="newRoomNameId">
         -->
-        <input type="radio" name="group-age" data-ng-model="userAge" data-ng-value="0">
+        <input type="checkbox" name="group-age" data-ng-model="userAge" data-ng-true-value="0" data-ng-false-value="false">
         <div class="item-content">18-29
         </div>
       </label>
       <label class="item item-radio bar-age-item" id="radio-age-1">
-        <input type="radio" name="group-age" data-ng-model="userAge" data-ng-value="1">
+        <input type="checkbox" name="group-age" data-ng-model="userAge" data-ng-true-value="1" data-ng-false-value="false">
         <div class="item-content">30-49
         </div>
       </label>
       <label class="item item-radio bar-age-item" id="radio-age-2">
-        <input type="radio" name="group-age" data-ng-model="userAge" data-ng-value="2">
+        <input type="checkbox" name="group-age" data-ng-model="userAge" data-ng-true-value="2" data-ng-false-value="false">
         <div class="item-content">49+
         </div>
       </label>
@@ -71,16 +71,17 @@
       </label>
       -->
 </div>           
-      <label class="item item-input item-stacked-label">
+      <!--<label class="item item-input item-stacked-label">-->
         <!--<span class="input-label">Map</span>
                       
         <input type="text" placeholder="circle radius" data-ng-model="newRoomDescription" class="convoInput">
         -->
-
+<div ng-if="map.isReady">
         <google-map center="map.center" zoom="map.zoom" draggable="true" dragging="map.dragging" id="map_canvas" events="mapevents"> 
         <circle center="circle.center" visible="true" radius="circle.radius" fill="circle.fill" draggable="true" editable="true" stroke="circle.stroke" events="events"></circle>
         </google-map>
-      </label>
+      <!--</label>-->
+</div>
 
     </div>
     <div class="padding">
