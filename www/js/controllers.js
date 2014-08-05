@@ -190,15 +190,12 @@ messageListQuery.on('child_added', function(snapshot) {
   }
   $scope.currentLocation=userPosition;
 
-
   $scope.booyah= function(){
     return 2;
   }
 
   $scope.getUserLocation = function(){
-
   return [parseFloat(localStorage.getItem('lat')), parseFloat(localStorage.getItem('lon'))]; 
-
   }
 
   $scope.currentLocation=$scope.getUserLocation();
@@ -298,6 +295,8 @@ jGlob = $scope;
   $scope.setNewRoomNameId = function() {
     this.newRoomNameId = this.newRoomName.toLowerCase().replace(/\s/g,"-").replace(/[^a-z0-9\-]/g, '');
   };
+
+  
   
   $scope.createRoom = function() {
     $scope.rooms.push({
@@ -309,7 +308,7 @@ jGlob = $scope;
       latitude: userPosition[0],
       description: $scope.newRoomDescription
     });
-    
+    console.log('\n\n\n' + userPosition);
     $location.path('/home');
   };
 })
@@ -432,8 +431,6 @@ cInt = setInterval(function(){
 
   **/
 
-
-  
   
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com');  
   var userRef = ref.child("users");
@@ -448,12 +445,26 @@ cInt = setInterval(function(){
 // set localNewRadius when user clicks GO
     var newRadius = parseFloat(($scope.circle.radius) / 1609);
     localStorage.setItem('localNewRadius', newRadius);
-    console.log("\n\n\n\n newRadius=" + localStorage.getItem('localNewRadius'));
-    
-    // $scope.username = 'User' + Math.floor(Math.random() * 501);
-    $scope.username = $scope.userAlias;
-    localStorage.setItem("localusername", $scope.username );
+    console.log("\n\n\n\n findChats says " + localStorage.getItem('localNewRadius'));
 
+// reset userPosition to circle center on GO
+    var lat = $scope.circle.center.latitude;
+    var lon = $scope.circle.center.longitude;
+   // userPosition[0] = parseFloat(lat);
+   //  userPosition[1] = parseFloat(lon);
+    localStorage.setItem('lat', lat);
+    localStorage.setItem('lon', lon);
+
+    // $scope.username = 'User' + Math.floor(Math.random() * 501);
+    // $scope.username = $scope.userAlias;
+    $scope.setUserName = function(){
+      if ($scope.userAlias==undefined) {
+        return 'chaffer' + Math.floor(Math.random() * 999);
+      } else {
+        return $scope.userAlias;
+      }
+    }
+    localStorage.setItem("localusername", $scope.setUserName());
 
     $scope.setUserGender = function(){
        if ($scope.userGender==0) {
@@ -465,6 +476,7 @@ cInt = setInterval(function(){
       }
     }
     localStorage.setItem("localuserGender", $scope.setUserGender());
+
     $scope.setUserAge = function(){
        if ($scope.userAge==0) {
         return '18-29';
@@ -522,9 +534,10 @@ $scope.events = {
                      var lat = $scope.circle.center.latitude;
                      var lon = $scope.circle.center.longitude;
 
+                     /**
                      userPosition[0] = parseFloat(lat);
                      userPosition[1] = parseFloat(lon);
-
+                     **/
                      localStorage.setItem('lat', lat);
                      localStorage.setItem('lon', lon);
 
@@ -562,6 +575,8 @@ $scope.circle = {
 
   connieDrag=false;
 
+
+  
 /**
   var cardTypes = [
     { title: 'My first bitchin card', image: 'img/pic.png' },
@@ -575,7 +590,10 @@ $scope.circle = {
 **/
 
 $scope.radius = parseFloat(localStorage.getItem('localNewRadius'));
- console.log("\n\n\n\n radius in cards " + $scope.radius);
+
+$scope.radiusInMi = $scope.radius.toFixed(2);
+
+ console.log("\n\n\n\n radius in swipe is " + $scope.radius);
 
   $scope.chatCards = [];
   var chatCards = [];
@@ -607,15 +625,13 @@ console.log('\n chatCards is ' + chatCards);
 
 $scope.chatCards = Array.prototype.slice.call(chatCards, 0, 0);
 
+// for distance calc
 $scope.getUserLocation = function(){
-
   return [parseFloat(localStorage.getItem('lat')), parseFloat(localStorage.getItem('lon'))]; 
-
   }
 
-$scope.currentLocation=$scope.getUserLocation();
+//$scope.currentLocation=$scope.getUserLocation();
 
-  
 $scope.distanceFromHere = function (_item, _startPoint) {
 lat2 = $scope.getUserLocation()[0];
 lon2 = $scope.getUserLocation()[1];
@@ -634,7 +650,8 @@ var R = 6371; // Radius of the earth in km
   var d = R * c; // Distance in km
   return (d* 0.621371).toFixed(2);
   
-  }
+  } //distanceFromHere
+
 
   $scope.cardSwiped = function(index) {
     $scope.addCard();
@@ -652,9 +669,7 @@ var R = 6371; // Radius of the earth in km
     $scope.cards.push(angular.extend({}, newCard));
     **/
     var newCard = chatCards[Math.floor(Math.random() * chatCards.length)];
-    //newCard.id = Math.random();
     $scope.chatCards.push(angular.extend({}, newCard));
-   //$scope.chatCards.push(newCard);
   }
 })
 

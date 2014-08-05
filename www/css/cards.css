@@ -132,7 +132,8 @@
   text-align: center;
   font-family: 'Pacifico', 'Lato', sans-serif;
 }
-#start-card span {
+
+#start-card p {
   display: inline-block;
   line-height: 40px;
   width: 200px;
