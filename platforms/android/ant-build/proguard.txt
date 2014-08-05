@@ -1,0 +1,3 @@
+# view AndroidManifest.xml #generated:6
+-keep class chaffy.chaffy.Talk2 { <init>(...); }
+

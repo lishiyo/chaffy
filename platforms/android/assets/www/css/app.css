@@ -1,0 +1,84 @@
+#splash-page {
+  background-color: white;
+}
+
+#bar-footer-message-box {
+  height: initial;  
+}
+
+#bar-footer-message-box .list {
+  width: 100%;
+}
+
+.item-message {
+  background-color: #FDCFF5;
+  border-radius: 3px;
+}
+
+.item-message-header {
+  font-style: italic;
+}
+
+.item-message-body {
+  padding: 4px 20px; 
+}
+
+/**
+.item-message-body:nth-last-child(1) {
+  bottom: 250px;
+}
+**/
+
+.bar.bar-calm{
+  /**
+	background-color:#FE642E;
+	border-color: #c5376d;
+  **/
+	background-image:linear-gradient(0deg, #c5376d, #c5376d 50%, transparent 50%)
+}
+
+.list .item:nth-child(odd){
+  background-color:#FFDC96;
+}
+
+/** connie **/
+.list .item {
+  border: 0px;
+  border-radius: 3px;
+  margin-bottom: 3px;
+  opacity: 0.9;
+}
+
+.item-input{
+  background-color: white !important;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+input.convoInput{
+  background-color: #EBE8E3;
+  border-radius: 3px;
+}
+
+@font-face {
+    font-family: 'Pacifico';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Pacifico'), url('../fonts/font.ttf') format('truetype');
+
+
+}
+
+
+.title{
+	font-family: 'Pacifico', Arial, sans-serif;
+    line-height: 1;
+    text-shadow: 0 -1px 1px rgba(175, 49, 95, .7);
+}
+
+#app-page{
+  /** background-color:#FE642E **/
+  background-color:#FAB133;
+  opacity: 0.85;
+}
+

@@ -1,0 +1,166 @@
+/* Your app's CSS, go crazy, make it your own */
+
+.ionic-logo {
+  display: block;
+  margin: 15px auto;
+  width: 96px;
+  height: 96px;
+}
+
+.pane {
+  background-color: #333;
+}
+
+.bar.bar-transparent {
+  background-color: transparent;
+  background-image: none;
+  border: none;
+}
+
+.bar .title {
+  color: #eee;
+}
+
+.swipe-cards {
+  position: fixed;
+}
+
+.swipe-card {
+  display: none;
+  position: fixed;
+  -webkit-transform: scale(1,1);
+  left: 50%;
+  top: 50%;
+  width: 300px;
+  height: 300px;
+  margin-left: -150px;
+  margin-top: -150px;
+  box-sizing: border-box;
+  background-color: #DBA50F;
+  background-color: #CCB21F;
+  border-radius: 4px;
+  overflow: hidden;
+  -webkit-animation-fill-mode: forwards;
+}
+
+.swipe-card .title {
+  height: 40px;
+  padding: 5px;
+  line-height: 30px;
+  font-family: 'Lato', 'Pacifico', sans-serif;
+  font-size: 1rem;
+  text-align: center;
+  text-shadow: 0 0 0;
+  background-color: #FB006D;
+  color: rgba(255, 255, 255, 0.8);
+}
+.swipe-card .image {
+  overflow: hidden;
+  max-height: 210px;
+}
+.swipe-card .button {
+  border: none;
+}
+
+.swipe-card .button-positive {
+  color: white !important;
+  font-size: 1.25rem;
+  font-family: 'Pacifico', 'Lato', sans-serif;
+}
+
+.swipe-card .button-negative {
+  color: white;
+}
+
+.swipe-card .image img {
+  width: 100%;
+  border-radius: 0px 0px 4px 4px;
+}
+
+.swipe-card .image-custom {
+  /** background-color: #626262; **/
+  background-image: url('../img/colorfulclouds.jpg');
+  color: rgba(255, 255, 255, 0.85);
+  width: 100%;
+  height: 210px;
+  /** line-height: 210px; **/
+  text-align: center;
+  padding: 0 25px 0 25px;
+  position: relative;
+  padding: 0px;
+}
+
+.swipe-card .image-custom span {
+  vertical-align: middle;
+  text-align: center;
+  /** line-height: normal; **/
+  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(2, 82, 125, 0.3);
+  padding: 3px 10px 4px 10px;
+  border-radius: 0px;
+  border: 0px solid rgba(255, 255, 255, 0.4);
+  margin: 0 auto;
+}
+
+.swipe-card .image-custom p {
+  vertical-align: middle;
+  text-align: center;
+  /** line-height: normal; **/
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 3px 12px 3px 12px;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  margin: 0 auto;
+  width: 80%;
+}
+
+#card_desc{
+  height: 105px;
+  width: 100%;
+  margin-top: -50px;
+  position: absolute;
+  top: 50%;
+}
+
+#start-card {
+  color: #fff;
+  background-color: #EB609A;
+  background-image: url('../img/swipedown08.jpg');
+  line-height: 300px;
+  word-wrap: break-word;
+  border: 0px solid #EB609A;
+  text-align: center;
+  font-family: 'Pacifico', 'Lato', sans-serif;
+}
+#start-card span {
+  display: inline-block;
+  line-height: 40px;
+  width: 200px;
+  font-size: 1.5rem;
+  opacity: 0.8;
+  text-shadow: 1px 1px black;
+  vertical-align: middle;
+}
+
+#footer .button {
+  color: #fff;
+}
+
+@-webkit-keyframes bounceIn {
+  0% {
+    -webkit-transform: scale(0,0);
+  }
+  70% {
+    -webkit-transform: scale(1.2,1.2);
+  }
+  100% {
+    -webkit-transform: scale(1,1);
+  }
+}
+
+.swipe-card.pop-in-start {
+  -webkit-transform: scale(0,0);
+}
+.swipe-card.pop-in {
+  -webkit-animation: bounceIn 0.4s ease-out;
+}
