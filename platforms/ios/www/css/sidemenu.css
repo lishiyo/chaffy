@@ -1,0 +1,17 @@
+
+.menu-left .scroll-content {
+	background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+.menu-left .scroll-content .item {
+	border: 0;
+}
+
+.menu-left .scroll-content .item:nth-child(odd) {
+	background-color: rgba(0, 0, 0, 0) !important;
+	color: white;
+}
+.menu-left .scroll-content .item:nth-child(even) {
+	background-color: rgba(240, 250, 246, 1.0) !important;
+	color: black;
+}
