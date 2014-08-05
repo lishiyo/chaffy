@@ -528,7 +528,7 @@ $scope.events = {
                      localStorage.setItem('lat', lat);
                      localStorage.setItem('lon', lon);
 
-                    $scope.map.center = $scope.circle.center;
+                    //$scope.map.center = $scope.circle.center;
 
                   });
                },
