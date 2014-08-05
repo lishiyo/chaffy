@@ -24,14 +24,14 @@
           <a class="button button-energized button-f">Female</a>
         </div>
         -->
-        <input type="radio" name="userGender" data-ng-model="userGender" data-ng-value="0">
+        <input type="checkbox" data-ng-true-value="0" name="userGender" data-ng-model="userGender" />
         <div class="item-content">male
         </div>
-        <!--<i class="radio-icon ion-checkmark"></i>-->
+        <!--<i class="radio-icon ion-checkmark"> data-ng-value="0"</i>-->
       </label>
 
 <label class="item item-radio bar-gender-item" id="radio-fem">
-      <input type="radio" name="userGender" data-ng-model="userGender" data-ng-value="1">
+      <input type="checkbox" name="userGender" data-ng-model="userGender" data-ng-true-value="1" />
         <div class="item-content">female
         </div>
 </label>     
@@ -49,17 +49,17 @@
         <!--<span class="input-label">Age</span>              
         <input type="text" placeholder="three ranges: 18-29; 30-49; 49+" data-ng-model="newRoomNameId">
         -->
-        <input type="radio" name="group-age" data-ng-model="userAge" data-ng-value="0">
+        <input type="checkbox" name="group-age" data-ng-model="userAge" data-ng-true-value="0">
         <div class="item-content">18-29
         </div>
       </label>
       <label class="item item-radio bar-age-item" id="radio-age-1">
-        <input type="radio" name="group-age" data-ng-model="userAge" data-ng-value="1">
+        <input type="checkbox" name="group-age" data-ng-model="userAge" data-ng-true-value="1">
         <div class="item-content">30-49
         </div>
       </label>
       <label class="item item-radio bar-age-item" id="radio-age-2">
-        <input type="radio" name="group-age" data-ng-model="userAge" data-ng-value="2">
+        <input type="checkbox" name="group-age" data-ng-model="userAge" data-ng-true-value="2">
         <div class="item-content">49+
         </div>
       </label>

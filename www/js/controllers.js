@@ -88,6 +88,8 @@ angular.module('chatRoom.controllers', [])
 
 .controller('MainCtrl', function($scope, $timeout, angularFire) {
 
+console.log("\n\n\n\n $scope.map center is " + userPosition[0] + ", " + userPosition[1]);
+
   connieDrag= false;
 
   // set localNewRadius whenever switch view to MainCtrl
@@ -108,7 +110,7 @@ angular.module('chatRoom.controllers', [])
 **/ 
 
  $scope.radius = parseFloat(localStorage.getItem('localNewRadius'));
- console.log("\n\n\n\n my scope radius is " + $scope.radius);
+ 
 
   $scope.rooms = [];
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/open_rooms');  
@@ -533,7 +535,7 @@ $scope.map = {
       longitude: userPosition[1]
     },
     zoom: 9,
-    refresh:true
+    refresh:false
 };
 
 /**

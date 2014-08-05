@@ -68,27 +68,20 @@ catch(errrr){
       localStorage.setItem("lon", position.coords.longitude);
 // mike's not crazy
 
-     
-
-     
-
+/**
         map = angular.element(document.getElementById('firstElem')).scope().map;
         $('#map_canvas').on('drag', function(e){
-
-         
-
         })
-
+**/
 
   //worky please!
 /*
   $('#map_canvas').on('click', function(e){ e.stopPropagation()})
 
   */
-       angular.element(document.getElementById('main')).scope().updateMap();
+       //angular.element(document.getElementById('main')).scope().updateMap();
+       //map.refresh=true;
        map.refresh=true;
-
-   
       
       // jGlob.onRefresh();
 
@@ -130,9 +123,6 @@ catch(errrr){
 // sets up the interval at the specified frequency
 function setupWatch(freq) {
 
-
-   
-
     // global var here so it can be cleared on logout (or whenever).
     activeWatch = setInterval(watchLocation, freq);
 }
@@ -142,7 +132,6 @@ function watchLocation() {
 
     var gcp = navigator.geolocation.getCurrentPosition(
             onSuccess, onError);
-
 
     // console.log(gcp);
 
