@@ -42,12 +42,53 @@ angular.module('chatRoom.controllers', [])
   $scope.hide = function(){
     $ionicLoading.hide();
   }})
-.controller('AppCtrl', function($scope, $location) {
-  //for chaffy to work with map not darggin all over
-      
-  connieDrag= false;
 
+
+.controller('AppCtrl', function($scope, $location) {
+  //for chaffy to work with map not dragging all over
+  connieDrag= false;
   clearInterval(cInt);
+
+
+//  create or retrieve users in testUsers
+  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com');  
+  var usersRef = ref.child("testUsers");
+  //$scope.users = [];
+  //var promise = angularFire(userRef, $scope, "users");
+
+// already has localUserID (i.e. launched before)
+
+if (localStorage.getItem('localUserID') != null) {
+  var userID = localStorage.getItem('localUserID');
+  var thisUser = usersRef.child(userID);
+
+  thisUser.on('value', function(snapshot) {
+    var profile = snapshot.val();
+    console.log("\n\n myRooms in AppCtrl: " + profile.myRooms);
+  });
+ 
+} else {
+  // totally new user, never before seen in our Firebase
+  $scope.initGender = "";
+  $scope.initAge = "";
+  $scope.initUsername = "";
+  $scope.initUserRooms = ['roomIds'];
+
+// everything initialized as empty
+  var newUserRef = usersRef.push({
+      username: $scope.initUsername,
+      gender: $scope.initGender,
+      age: $scope.initAge,
+      myRooms: $scope.initUserRooms
+    });
+
+ var userID = newUserRef.name(); //user's unique ID
+ localStorage.setItem('localUserID', userID);
+
+ console.log("\n\n new user created: " + userID);
+}
+ 
+
   $scope.goToNewRoom = function() {
     $location.path('/rooms/new');
     $scope.toggleSideMenu();
@@ -313,27 +354,61 @@ jGlob = $scope;
   $scope.newRoomName = "";
   $scope.newRoomNameId = "";
   $scope.newRoomDescription = "";
-
-
   $scope.setNewRoomNameId = function() {
     this.newRoomNameId = this.newRoomName.toLowerCase().replace(/\s/g,"-").replace(/[^a-z0-9\-]/g, '');
   };
-
-
   
   $scope.createRoom = function() {
+
     $scope.rooms.push({
       id: Math.floor(Math.random() * 5000001),
       title: $scope.newRoomName,
       slug: $scope.newRoomNameId, 
-      location:userPosition,
+      location: userPosition,
       longitude: userPosition[1],
       latitude: userPosition[0],
       description: $scope.newRoomDescription
     });
-    console.log('\n\n\n' + userPosition);
+    
     $location.path('/home');
-  };
+
+    // add to myRooms for thisUser 
+  var usersRef = new Firebase('https://blistering-fire-5269.firebaseio.com/testUsers');  
+  var userID = localStorage.getItem('localUserID');
+  var thisUser = usersRef.child(userID);
+
+  var myRooms = thisUser.child("myRooms"); //thisUser's rooms node
+  var roomArray = [];
+  roomArray = roomArray.push($scope.rooms.id);
+
+  var promise = angularFire(myRooms, $scope, "myRooms");
+
+myRooms.on("value", function (snapshot) {
+  var oldRooms = snapshot.val();
+  console.log("\n\n rooms snapshot: " + rooms);
+  if (oldRooms == "['roomIds']") { //no rooms added yet
+    thisUser.update({
+      "myRooms": roomArray;
+    });
+    console.log("\n\n myRooms added: " + $scope.roomToAdd);
+  } else { //user already has rooms 
+    roomArray = oldRooms;
+    console.log("\n\n already has rooms: " + roomArray);
+  }
+
+}, function (errorObject) {
+  console.log(errorObject);
+});
+  
+//var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/testUsers/' + $routeParams.userId);
+/**
+var newCard = chatCards[Math.floor(Math.random() * chatCards.length)];
+$scope.chatCards.push(angular.extend({}, newCard));
+**/
+
+console.log("\n\n" + "current userID is " + thisUser.name());
+
+  }; // createRoom()
 })
 
 .controller('RoomCtrl', function($scope, $routeParams, $timeout, angularFire) {
@@ -433,46 +508,28 @@ $scope.currentLocation=$scope.getUserLocation();
 /**
 clearInterval(cInt);
 cInt = setInterval(function(){
-
-      
    userPosition[0]= parseFloat(angular.element(document.getElementById('firstElem')).scope().circle.center.latitude);
            userPosition[1]= parseFloat(angular.element(document.getElementById('firstElem')).scope().circle.center.longitude);
-          
-
-          localStorage.setItem('lat', userPosition[0])
-           localStorage.setItem('lon', userPosition[1])
-
-           
-
+          localStorage.setItem('lat', userPosition[0]);
+           localStorage.setItem('lon', userPosition[1]);
            console.log('got location'+ userPosition[0] );
-
-           
-
-
 
   }, 1000)
 
   **/
-
-  
-  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com');  
-  var userRef = ref.child("users");
-  $scope.userRef = [];
-  /** what's this variable used for? **/
-  // var promise = angularFire(userRef, $scope, "userRef");
 
   $scope.findChats = function() {
 
 // set localNewRadius when user clicks GO
     var newRadius = parseFloat(($scope.circle.radius) / 1609);
     localStorage.setItem('localNewRadius', newRadius);
-    console.log("\n\n\n\n findChats says " + localStorage.getItem('localNewRadius'));
+// console.log("\n\n\n\n findChats says " + localStorage.getItem('localNewRadius'));
 
-// reset userPosition to circle center on GO
+// reset localStorage lat, lon and userPosition to circle center on GO
     var lat = $scope.circle.center.latitude;
     var lon = $scope.circle.center.longitude;
    // userPosition[0] = parseFloat(lat);
-   //  userPosition[1] = parseFloat(lon);
+   // userPosition[1] = parseFloat(lon);
     localStorage.setItem('lat', lat);
     localStorage.setItem('lon', lon);
 
@@ -511,20 +568,71 @@ cInt = setInterval(function(){
     }
     localStorage.setItem("localuserAge", $scope.setUserAge());
 
+/**
     userRef.push({
       username: localStorage.getItem("localusername"),
       gender: $scope.setUserGender(),
       age: $scope.setUserAge()
     });
+**/
 
-    $location.path('/swipe');
-  };
+//  retrieve Firebase 'testUsers' 
+  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com');  
+  var usersRef = ref.child("testUsers");
+  // $scope.userRef = [];
+  var userID = localStorage.getItem('localUserID');
+  var thisUser = usersRef.child(userID);
+  // var promise = angularFire(userRef, $scope, "userRef");
+
+thisUser.update({
+  username: localStorage.getItem("localusername"),
+  gender: $scope.setUserGender(),
+  age: $scope.setUserAge()
+});
+
+console.log("\n\n" + "current userID is " + thisUser.name());
+
+$location.path('/swipe');
+
+}; // findChats()
+
+
+/** Firebase anonymous login
+var myRef = new Firebase("https://blistering-fire-5269.firebaseio.com");
+var isNewUser = true;
+var auth = new FirebaseSimpleLogin(myRef, function(error, user) {
+  if (error) {
+    alert('sorry, an error occurred');
+  } else if (user) {
+    // save new user's profile into Firebase, list by uid
+    if( isNewUser ) { 
+
+      var userRooms = [];
+
+      myRef.child('userProfiles').child(user.uid).set({
+        //displayName: user.displayName,
+        username: localStorage.getItem("localusername"),
+        gender: $scope.setUserGender(),
+        age: $scope.setUserAge(),
+        provider: user.provider,
+        provider_id: user.id,
+        userRooms: userRooms
+      });
+    }
+  } else { 
+    // something else
+    alert('sorry, please try again');
+  }
+} //FirebaseSimpleLogin
+
+// set token for 30 days rather than one session
+auth.login('anonymous', {
+  rememberMe: true,
+});
+**/
+
 
 /** map **/  
-
-/**
-var userPosition =[40.777225004040009, -73.95218489597806];
-**/
 
 $scope.map = {
     center: {
@@ -594,6 +702,17 @@ $scope.map.isReady = true;
 
 })
 
+.controller('UserDashCtrl', function($scope, $routeParams, angularFire) {
+
+connieDrag=false;
+// list all chats that you created or have joined/messaged in
+// userProfiles.uId.userRooms push Room ID 
+// in joinChat()/goToIt(), push 
+
+
+
+})
+
 .controller('CardsCtrl', function($scope, $ionicSwipeCardDelegate) {
 
   connieDrag=false;
@@ -644,7 +763,7 @@ chatsRef.on('value', function (snapshot) {
   console.log('The read failed: ' + errorObject.code);
 });
 
-console.log('\n chatCards is ' + chatCards);
+//console.log('\n chatCards is ' + chatCards);
 
 $scope.chatCards = Array.prototype.slice.call(chatCards, 0, 0);
 
@@ -723,6 +842,9 @@ var R = 6371; // Radius of the earth in km
   
   $scope.goToIt = function(theUrl){
     window.location=theUrl;
+
+// joining adds the chat to your dash
+
   };
 
 
