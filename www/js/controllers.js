@@ -268,7 +268,28 @@ var R = 6371; // Radius of the earth in km
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
   var d = R * c; // Distance in km
   return (d* 0.621371).toFixed(2);
-  }
+  } //distanceFromHere
+
+// distance between chat and real user position
+$scope.actualDistanceFromHere = function (_item, _startPoint) {
+lat2 = userPosition[0];
+lon2 = userPosition[1];
+lat1 =_item.latitude;
+lon1 = _item.longitude;
+// console.log(lon1);
+var R = 6371; // Radius of the earth in km
+   var dLat = deg2rad(lat2-lat1);  // deg2rad below
+  var dLon = deg2rad(lon2-lon1);  
+   var a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+    ; 
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  var d = R * c; // Distance in km
+  return (d* 0.621371).toFixed(2);
+  
+  } //actualDistanceFromHere
 
 jGlob = $scope; 
   $scope.onRefresh = function() { 
@@ -296,7 +317,7 @@ jGlob = $scope;
     this.newRoomNameId = this.newRoomName.toLowerCase().replace(/\s/g,"-").replace(/[^a-z0-9\-]/g, '');
   };
 
-  
+
   
   $scope.createRoom = function() {
     $scope.rooms.push({
@@ -625,7 +646,7 @@ console.log('\n chatCards is ' + chatCards);
 
 $scope.chatCards = Array.prototype.slice.call(chatCards, 0, 0);
 
-// for distance calc
+// distance between chat and selected circle center - for checking within radius
 $scope.getUserLocation = function(){
   return [parseFloat(localStorage.getItem('lat')), parseFloat(localStorage.getItem('lon'))]; 
   }
@@ -652,6 +673,26 @@ var R = 6371; // Radius of the earth in km
   
   } //distanceFromHere
 
+// distance between chat and real user position
+$scope.actualDistanceFromHere = function (_item, _startPoint) {
+lat2 = userPosition[0];
+lon2 = userPosition[1];
+lat1 =_item.latitude;
+lon1 = _item.longitude;
+// console.log(lon1);
+var R = 6371; // Radius of the earth in km
+   var dLat = deg2rad(lat2-lat1);  // deg2rad below
+  var dLon = deg2rad(lon2-lon1);  
+   var a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+    ; 
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  var d = R * c; // Distance in km
+  return (d* 0.621371).toFixed(2);
+  
+  } //actualDistanceFromHere
 
   $scope.cardSwiped = function(index) {
     $scope.addCard();
