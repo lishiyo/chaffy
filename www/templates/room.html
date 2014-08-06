@@ -9,6 +9,7 @@
     bottom:100px !important;
   }
 
+
 </style>
 
   <content 
@@ -29,19 +30,21 @@
 <!--
     <ion-refresher pulling-text="Pull to refresh..." on-refresh="onRefresh()"></ion-refresher>
   -->
+  
     <div ng-repeat="message in messages" type="item-text-wrap">    
-      <div class="card item-message">
+      <div class="card item-message" ng-class-odd="'message-odd'" ng-class-even="'message-even'">
         <div class="item-message-header">
           <div class="row">
             <small class="col">{{message.created_by}} | {{message.userAge}}, {{message.userGender}}</small>
             <small class="col text-right">{{message.created_at | date: 'short' }}</small>
           </div>
         </div>
-        <div class="item-message-body item-text-wrap">
+        <div class="item-message-body item-text-wrap" ng-class-odd="'message-odd-body'">
           {{message.content}}
         </div>
       </div>
     </div>
+  
   </content>
 
   <div class="bar bar-footer bar-stable" id="bar-footer-message-box">

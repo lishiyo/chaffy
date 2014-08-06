@@ -700,7 +700,7 @@ $scope.userAlias = function(){
       if ($scope.userPro.age == '18-29'|| $scope.userPro.age == '30-49' || $scope.userPro.age == '49+') {
 
         console.log("user age is: " + $scope.userPro.age);
-        return $scope.userPro.gender;
+        return $scope.userPro.age;
 
       } else {
         return 'anon';

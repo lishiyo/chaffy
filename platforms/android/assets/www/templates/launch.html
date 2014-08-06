@@ -11,27 +11,25 @@
   <!-- <form ng-submit="doNothing()"> form ui-keypress="{13:'findChats()'}" -->
     <div class="list list-inset">
     <div class="form-bar">
-    <input type="text" placeholder="alias" data-ng-model="userAlias" class="convoInput" id="userAlias">
+    <input type="text" ng-model="userPro.username" class="convoInput" id="userAlias" placeholder="my alias">
     </div>
     <div class="form-bar">
       <label class="item item-radio bar-gender-item" id="radio-male">
         <!--
-        <span class="input-label">Gender</span>
-        <input type="text" placeholder="this will be M/F buttons" data-ng-model="newRoomName" data-ng-change="setNewRoomNameId()"class="convoInput">
-        
+        <span class="input-label">Gender</span>      
         <div class="button-bar">
           <a class="button button-calm button-m">Male</a>
           <a class="button button-energized button-f">Female</a>
         </div>
         -->
-        <input type="checkbox" data-ng-true-value="0" name="userGender" data-ng-model="userGender" data-ng-false-value="false" />
+        <input type="checkbox" data-ng-true-value="male" name="userGender" data-ng-model="userPro.gender" data-ng-false-value="false" value="male"/>
         <div class="item-content">male
         </div>
         <!--<i class="radio-icon ion-checkmark"> data-ng-value="0"</i>-->
       </label>
 
 <label class="item item-radio bar-gender-item" id="radio-fem">
-      <input type="checkbox" name="userGender" data-ng-model="userGender" data-ng-true-value="1" data-ng-false-value="false" />
+      <input type="checkbox" name="userGender" data-ng-model="userPro.gender" data-ng-true-value="female" data-ng-false-value="false" value="female" />
         <div class="item-content">female
         </div>
 </label>     
@@ -49,17 +47,17 @@
         <!--<span class="input-label">Age</span>              
         <input type="text" placeholder="three ranges: 18-29; 30-49; 49+" data-ng-model="newRoomNameId">
         -->
-        <input type="checkbox" name="group-age" data-ng-model="userAge" data-ng-true-value="0" data-ng-false-value="false">
+        <input type="checkbox" name="group-age" data-ng-model="userPro.age" data-ng-true-value="18-29" data-ng-false-value="false">
         <div class="item-content">18-29
         </div>
       </label>
       <label class="item item-radio bar-age-item" id="radio-age-1">
-        <input type="checkbox" name="group-age" data-ng-model="userAge" data-ng-true-value="1" data-ng-false-value="false">
+        <input type="checkbox" name="group-age" data-ng-model="userPro.age" data-ng-true-value="30-49" data-ng-false-value="false">
         <div class="item-content">30-49
         </div>
       </label>
       <label class="item item-radio bar-age-item" id="radio-age-2">
-        <input type="checkbox" name="group-age" data-ng-model="userAge" data-ng-true-value="2" data-ng-false-value="false">
+        <input type="checkbox" name="group-age" data-ng-model="userPro.age" data-ng-true-value="49+" data-ng-false-value="false">
         <div class="item-content">49+
         </div>
       </label>
