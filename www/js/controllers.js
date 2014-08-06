@@ -412,10 +412,8 @@ $scope.addMyRoom = function() {
   var usersRef = new Firebase('https://blistering-fire-5269.firebaseio.com/testUsers');  
   var userID = localStorage.getItem('localUserID');
   $scope.thisUser = usersRef.child(userID);
-  $scope.roomToAdd = [];
-
-  var thisRoom = parseFloat(localStorage.getItem('lastRoomAdded'));
-  $scope.roomToAdd.push(thisRoom);
+  
+  $scope.roomToAdd = parseFloat(localStorage.getItem('lastRoomAdded'));
   console.log("\n\n roomToAdd: " + $scope.roomToAdd);
 
   //var promise = angularFire(myRooms, $scope, "myRooms");
@@ -423,7 +421,7 @@ $scope.addMyRoom = function() {
 //retrieve current rooms
 var isReady = false;
 $scope.thisUser.child("myRooms").on("value", function (snapshot) {
-  $scope.oldRooms = snapshot.val(); //current myRooms
+  $scope.myRooms = snapshot.val(); //current myRooms
   isReady = true;
 }, function (errorObject) {
   console.log(errorObject);
@@ -431,23 +429,30 @@ $scope.thisUser.child("myRooms").on("value", function (snapshot) {
 
 //update thisUser's myRooms node with new 
 if (isReady) {
-  if ($scope.oldRooms==""){ //oldRooms empty
+  if ($scope.myRooms==""){ //oldRooms empty
+    var roomsArray = [];
+    roomsArray.push($scope.roomToAdd);
     $scope.thisUser.update({
-      myRooms: $scope.roomToAdd
+      myRooms: roomsArray
     });
   } else { //has rooms already 
     $scope.roomsArray = [];
-    $scope.roomsArray.push($scope.oldRooms);
+    for (var idx in $scope.myRooms) { //loop through all of users' rooms
+      var roomId = $scope.myRooms[idx]; 
+      $scope.roomsArray.push(roomId);
+    }
+
     $scope.roomsArray.push($scope.roomToAdd);
 
     $scope.thisUser.update({
       myRooms: $scope.roomsArray
     });
 
-    console.log("my current rooms: " + $scope.thisUser.myRooms);
-  }
+    console.log("myRooms is now: " + $scope.roomsArray);
+  } // else
   
-} //isReady
+} // isReady
+
 
 }; // addMyRoom()
 
@@ -469,19 +474,17 @@ setTimeout(function() {
 
 },10);
 **/
-
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/' + $routeParams.roomId);
    ref.on('value', function(dataSnapshot) {
   // code to handle new value.
 
   setTimeout(function(){
- $(".scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-250)+"px"+', 0px)');
+ $(".withScroll .scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-250)+"px"+', 0px)');
     },500);
-
 
 // connie - for android
   $('#mainInput').on('focus', function(){
-     $(".scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-190)+"px"+', 0px)');
+     $(".withScroll .scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-190)+"px"+', 0px)');
   });
 });
 
@@ -489,13 +492,35 @@ setTimeout(function() {
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/' + $routeParams.roomId);
   var promise = angularFire(ref, $scope, "messages");
   
-  // $scope.username = 'User' + Math.floor(Math.random() * 501);
-
   $scope.username = localStorage.getItem("localusername");
   $scope.userGender = localStorage.getItem("localuserGender");
   $scope.userAge = localStorage.getItem("localuserAge");
 
-var firstMessage = true;
+  //check if current Room is in myRooms; if not, var firstMessage=true
+var isFirstMessage = function() {
+
+$scope.usersRef = new Firebase('https://blistering-fire-5269.firebaseio.com/testUsers');
+var userID = localStorage.getItem('localUserID');
+$scope.thisUser = $scope.usersRef.child(userID);
+
+var isReady = false;
+$scope.thisUser.child("myRooms").on("value", function (snapshot) {
+  $scope.myRooms = snapshot.val(); //current myRooms
+  isReady = true;
+}, function (errorObject) {
+  console.log(errorObject);
+});
+
+for (var idx in $scope.myRooms) { //loop through all of users' rooms
+  var roomId = $scope.myRooms[idx]; 
+  if ($routeParams.roomId == roomId) {
+    return false; //room found among users rooms, so NOT first message
+  }
+}
+
+return true; //room wasn't found in users' rooms, so first message
+}; // isfirstMessage
+
 
   $scope.submitAddMessage = function() {
   
@@ -512,53 +537,54 @@ var firstMessage = true;
       $('#mainInput').blur();
     }, 10);
 
-// add to thisUser's myRooms if first message
-    if (firstMessage) {
+// add to thisUser's myRooms if not already in myRooms
+    if (isFirstMessage()) {
       $scope.addMyRoom();
+    } else {
+      console.log("didn't run addMyRoom");
     }
 
-    firstMessage = false;
-  };
+  }; //submitAddMessage
+
 
 $scope.addMyRoom = function() {
-    // add to myRooms for thisUser 
-  var usersRef = new Firebase('https://blistering-fire-5269.firebaseio.com/testUsers');  
-  var userID = localStorage.getItem('localUserID');
-  $scope.thisUser = usersRef.child(userID);
-  $scope.roomToAdd = [];
-
-  var thisRoom = parseFloat(localStorage.getItem('lastRoomAdded'));
-  $scope.roomToAdd.push(thisRoom);
+  $scope.roomToAdd = parseFloat($routeParams.roomId);
   console.log("\n\n roomToAdd: " + $scope.roomToAdd);
+
+  //var promise = angularFire(myRooms, $scope, "myRooms");
 
 //retrieve current rooms
 var isReady = false;
 $scope.thisUser.child("myRooms").on("value", function (snapshot) {
-  $scope.oldRooms = snapshot.val(); //current myRooms
+  $scope.myRooms = snapshot.val(); //current myRooms
   isReady = true;
 }, function (errorObject) {
   console.log(errorObject);
 });
 
-//update thisUser's myRooms node with new 
+//callback after retrieving myRooms data
 if (isReady) {
-  if ($scope.oldRooms==""){ //oldRooms empty
+  if ($scope.myRooms==""){ //oldRooms empty
+    $scope.roomsArray = [];
+    $scope.roomsArray.push($scope.roomToAdd);
     $scope.thisUser.update({
-      myRooms: $scope.roomToAdd
+      myRooms: roomsArray
     });
   } else { //has rooms already 
     $scope.roomsArray = [];
-    $scope.roomsArray.push($scope.oldRooms);
+    for (var idx in $scope.myRooms) { //loop through all of users' rooms
+      var roomId = $scope.myRooms[idx]; 
+      $scope.roomsArray.push(roomId);
+    }
     $scope.roomsArray.push($scope.roomToAdd);
 
     $scope.thisUser.update({
       myRooms: $scope.roomsArray
     });
 
-    console.log("my current rooms: " + $scope.thisUser.myRooms);
-  }
-  
-} //isReady
+    console.log("myRooms is now: " + $scope.roomsArray);
+  } // else
+} // isReady
 
 }; // addMyRoom()
 
