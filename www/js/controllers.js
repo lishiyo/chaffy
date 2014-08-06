@@ -622,16 +622,43 @@ cInt = setInterval(function(){
 
 $scope.checkAlias = function(){
   if (localStorage.getItem('localusername')==null) {
-    return "your alias";
+    //console.log("can't find localusername");
+    return;
   } else {
     return localStorage.getItem('localusername');
   }
 }
 
-$scope.userProfile = {
-  username: $scope.checkAlias()
+$scope.checkGender = function(){
+  if (localStorage.getItem('localuserGender')==null) {
+    return;
+  } else {
+    return localStorage.getItem('localuserGender');
+  }
 }
 
+$scope.checkAge = function(){
+  if (localStorage.getItem('localuserAge')==null) {
+    console.log("can't find localuserAge");
+    return;
+  } else {
+    return localStorage.getItem('localuserAge');
+  }
+
+}
+
+$scope.userPro = {
+  username: $scope.checkAlias(),
+  gender: $scope.checkGender(),
+  age: $scope.checkAge()
+}
+
+/**
+$scope.userAlias = function(){
+  console.log("userAlias changed!");
+  localStorage.setItem("localusername", $scope.userProfile.username);
+}
+**/
   $scope.findChats = function() {
 
 // set localNewRadius when user clicks GO
@@ -651,19 +678,18 @@ $scope.userProfile = {
     // $scope.username = $scope.userAlias;
 
     $scope.setUserName = function(){
-      if ($scope.userAlias==undefined) {
+      if ($scope.userPro.username==undefined) {
         return 'chaffer' + Math.floor(Math.random() * 999);
       } else {
-        return $scope.userAlias;
+        return $scope.userPro.username;
       }
     }
     localStorage.setItem("localusername", $scope.setUserName());
-
+    
     $scope.setUserGender = function(){
-       if ($scope.userGender==0) {
-        return 'male';
-      } else if ($scope.userGender==1) {
-        return 'female';
+      if ($scope.userPro.gender =='male' || $scope.userPro.gender =='female') {
+        console.log("user gender is: " + $scope.userPro.gender);
+        return $scope.userPro.gender;
       } else {
         return 'anon';
       }
@@ -671,12 +697,11 @@ $scope.userProfile = {
     localStorage.setItem("localuserGender", $scope.setUserGender());
 
     $scope.setUserAge = function(){
-       if ($scope.userAge==0) {
-        return '18-29';
-      } else if ($scope.userAge==1) {
-        return '30-49';
-      } else if ($scope.userAge==2) {
-        return '49+';
+      if ($scope.userPro.age == '18-29'|| $scope.userPro.age == '30-49' || $scope.userPro.age == '49+') {
+
+        console.log("user age is: " + $scope.userPro.age);
+        return $scope.userPro.gender;
+
       } else {
         return 'anon';
       }
