@@ -572,6 +572,17 @@ $scope.checkCount = function(){
 
   $scope.submitAddMessage = function() {
   
+
+    //for users who don't input a name
+      if(typeof this.username =="undefined"){
+        this.username = 'Chaffer ' + Math.floor(Math.random() * 501);
+      }
+  
+      //for legacy users to get update
+      if(this.username =="undefined"){
+      this.username = 'Chaffer ' + Math.floor(Math.random() * 501);
+    }
+
     $scope.messages.push({
       created_by: this.username,
       content: this.newMessage,
