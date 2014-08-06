@@ -218,7 +218,12 @@ angular.module('chatRoom', ['ionic', 'ngRoute', 'ngAnimate', 'chatRoom.services'
   $routeProvider.when('/swipe', {
     templateUrl: 'templates/swipe.html',
     controller: 'CardCtrl'
-  });     
+  });    
+
+  $routeProvider.when('/myrooms', {
+    templateUrl: 'templates/myrooms.html',
+    controller: 'MainCtrl'
+  });      
   
   $routeProvider.otherwise({
     redirectTo: '/home'
