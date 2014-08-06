@@ -3,7 +3,6 @@ var jGlob;
 //for the map drag interval below for map
 var cInt;
 
-
 angular.module('chatRoom.controllers', [])
 /**
 .factory('getLoc', function ($scope, $timeout, angularFire) {
@@ -238,50 +237,7 @@ messageListQuery.on('child_added', function(snapshot) {
     window.location=theUrl;
   }
  
-  $scope.distanceFromHere = function (_item, _startPoint) {
-/*
-    var start = null;
-
-    var radiansTo = function (start, end) {
-      var d2r = Math.PI / 180.0;
-      var lat1rad = start.latitude * d2r;
-      var long1rad = start.longitude * d2r;
-      var lat2rad = end.latitude * d2r;
-      var long2rad = end.longitude * d2r;
-      var deltaLat = lat1rad - lat2rad;
-      var deltaLong = long1rad - long2rad;
-      var sinDeltaLatDiv2 = Math.sin(deltaLat / 2);
-      var sinDeltaLongDiv2 = Math.sin(deltaLong / 2);
-      // Square of half the straight line chord distance between both points.
-      var a = ((sinDeltaLatDiv2 * sinDeltaLatDiv2) +
-              (Math.cos(lat1rad) * Math.cos(lat2rad) *
-                      sinDeltaLongDiv2 * sinDeltaLongDiv2));
-      a = Math.min(1.0, a);
-      return 2 * Math.asin(Math.sqrt(a));
-    };
-
-    if ($scope.currentLocation) {
-      console.log($scope.getUserLocation());
-      start = {
-        longitude: $scope.getUserLocation()[0],
-        latitude: $scope.getUserLocation()[1]
-      };
-    }
-
-    start = _startPoint || start;
-
-    var end = {
-      longitude: _item.longitude,
-      latitude: _item.latitude
-    };
-    //console.log(end);
-
-
-    var num = radiansTo(start, end) * 3958.8;
-        //console.log(Math.round(num * 100) / 100);
-    return Math.round(num * 100 / 10000);
-  
-*/
+$scope.distanceFromHere = function (_item, _startPoint) {
 
 lat2 = $scope.getUserLocation()[0];
 lon2 = $scope.getUserLocation()[1];
@@ -324,11 +280,11 @@ var R = 6371; // Radius of the earth in km
 
 jGlob = $scope; 
 
-  $scope.onRefresh = function() { 
-    var stop = $timeout(function() {            
-      $scope.$broadcast('scroll.refreshComplete');
-    }, 1000);
-  }; //onRefresh
+$scope.onRefresh = function() { 
+  var stop = $timeout(function() {            
+    $scope.$broadcast('scroll.refreshComplete');
+  }, 1000);
+}; //onRefresh
 
 //myrooms view
 $scope.userHasRoom = function(room) {
@@ -353,6 +309,72 @@ for (var idx in $scope.myRooms) { //loop through all of users' rooms
 }
 return false; //room wasn't found in users' rooms
 } //userHasRoom
+
+// check if Rooms were updated after you messaged
+/**
+var currentDate = function(){
+  if (localStorage.getItem('lastViewDate')==null){
+    var date = new Date();
+    localStorage.setItem('lastViewDate', date.getTime());
+    console.log("set lastViewDate: " + localStorage.getItem('lastViewDate'));
+    return date.getTime();
+  } else {
+    var lastViewDate = Date.parse(localStorage.getItem('lastViewDate'));
+    return lastViewDate;
+  }
+}
+
+$scope.checkUpdated = function(room){
+  currentDate();
+
+  var roomId = room.id;
+  roomId = roomId.toString();
+  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/');
+  var roomRef = ref.child(roomId); //roomId
+  var lastMessage = roomRef.endAt().limit(1);
+  lastMessage.on('child_added', function(snapshot) {
+    var message = snapshot.val();
+    $scope.date = message.created_at;
+    $scope.lastViewDate = parseFloat(localStorage.getItem('lastViewDate'));
+
+    //console.log("created at: " + $scope.date + " vs " + $scope.lastViewDate);
+  });
+  return ($scope.date > $scope.lastViewDate);
+}
+**/
+/**
+$scope.roomHotness = function(room){
+  var roomId = room.id;
+  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/');
+  var roomRef = ref.child(roomId).endAt().limit(1);
+
+  roomRef.once('value', function(snapshot) {
+    var data = snapshot.val();
+    $scope.count = data.messagesCount;
+    console.log("messagesCount: " + $scope.count);
+  });
+
+  if ($scope.count > 3) {
+    return true;
+  } else {
+    return false;
+  }
+}
+**/
+$scope.lastMessageAdded = function (room){
+  var roomId = room.id;
+  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/');
+  var roomRef = ref.child(roomId);
+
+  var lastMessage = roomRef.endAt().limit(1);
+  lastMessage.on('child_added', function(snapshot) {
+    var message = snapshot.val();
+    $scope.content = message.content;
+  });
+
+  return $scope.content;
+}
+
 
 }) //MainCtrl
 
@@ -379,7 +401,7 @@ return false; //room wasn't found in users' rooms
       id: $scope.roomId,
       title: $scope.newRoomName,
       slug: $scope.newRoomNameId, 
-      location: userPosition,
+      //location: userPosition,
       longitude: userPosition[1],
       latitude: userPosition[0],
       description: $scope.newRoomDescription
@@ -446,8 +468,8 @@ if (isReady) {
 
 .controller('RoomCtrl', function($scope, $routeParams, $timeout, angularFire) {
 
-  connieDrag= false;
-
+  connieDrag = false;
+  roomUpdated = false;
   $scope.newMessage = "";
   $scope.messages = [];
 
@@ -456,17 +478,18 @@ setTimeout(function() {
 
 },10);
 **/
+
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/' + $routeParams.roomId);
    ref.on('value', function(dataSnapshot) {
   // code to handle new value.
 
   setTimeout(function(){
- $(".withScroll .scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-250)+"px"+', 0px)');
+ $(".withScroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-250)+"px"+', 0px)');
     },500);
 
 // connie - for android
   $('#mainInput').on('focus', function(){
-     $(".withScroll .scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-190)+"px"+', 0px)');
+     $(".withScroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-190)+"px"+', 0px)');
   });
 });
 
@@ -505,13 +528,26 @@ if (isReady) {
 return true; //room wasn't found in users' rooms, so first message
 }; // isfirstMessage
 
+// increment messagesCount in the room
+/**
+$scope.checkCount = function(){
+  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/' + $routeParams.roomId);
+  var messagesCount = ref.child('messagesCount');
+  
+  messagesCount.transaction(function (current_value) {
+    console.log(current_value);
+    return (current_value || 0) + 1;
+  });
+  
+}**/
+
 
   $scope.submitAddMessage = function() {
   
     $scope.messages.push({
       created_by: this.username,
       content: this.newMessage,
-      created_at: new Date(),
+      created_at: new Date().getTime(), //timestamp
       userGender: this.userGender,
       userAge: this.userAge
     });
@@ -520,6 +556,8 @@ return true; //room wasn't found in users' rooms, so first message
     setTimeout(function(){
       $('#mainInput').blur();
     }, 10);
+
+$scope.checkCount();
 
 // add to thisUser's myRooms if not already in myRooms
     if (isFirstMessage()) {
@@ -570,14 +608,14 @@ if (isReady) {
 } // isReady
 
 }; // addMyRoom()
-
   
   $scope.onRefresh = function() {
     var stop = $timeout(function() {
       $scope.$broadcast('scroll.refreshComplete');
     }, 1000);
   };
-})
+
+}) // newRoomCtrl
 
 .controller('AboutCtrl', function($scope) {
 

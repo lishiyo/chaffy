@@ -438,7 +438,7 @@ c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\re
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\templates\about.html \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\templates\home.html \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\templates\launch.html \
-c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\templates\myrooms.html \
+c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\templates\my_rooms.html \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\templates\new_room.html \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\templates\room.html \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\templates\swipe.html \

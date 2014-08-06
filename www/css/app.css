@@ -64,9 +64,13 @@
 
 /**
 .message-odd-body{
-  text-align: left;
+  text-align: right;
 }
 **/
+
+.roomupdated{
+  background-color: black !important;
+}
 
 .item-input{
   background-color: white !important;

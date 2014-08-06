@@ -221,7 +221,7 @@ angular.module('chatRoom', ['ionic', 'ngRoute', 'ngAnimate', 'chatRoom.services'
   });    
 
   $routeProvider.when('/myrooms', {
-    templateUrl: 'templates/myrooms.html',
+    templateUrl: 'templates/my_rooms.html',
     controller: 'MainCtrl'
   });      
   
