@@ -20,7 +20,7 @@
 }
 
 .item-message-body {
-  padding: 4px 20px; 
+  padding: 0px 10px 15px 18px; 
 }
 
 /**
@@ -41,12 +41,35 @@
   background-color:#FFDC96;
 }
 
-/** connie **/
 .list .item {
   border: 0px;
   border-radius: 3px;
   margin-bottom: 3px;
   opacity: 0.9;
+}
+
+.message-even{
+  width: 90%;
+  float: left;
+  margin: 10px 5px;
+}
+
+.message-odd{
+  background-color: rgba(0,0,0,0.70);
+  color: white;
+  width: 90%;
+  float: right;
+  margin: 10px 5px;
+}
+
+/**
+.message-odd-body{
+  text-align: right;
+}
+**/
+
+.roomupdated{
+  background-color: black !important;
 }
 
 .item-input{
@@ -65,7 +88,6 @@ input.convoInput{
     font-style: normal;
     font-weight: normal;
     src: local('Pacifico'), url('../fonts/font.ttf') format('truetype');
-
 
 }
 
