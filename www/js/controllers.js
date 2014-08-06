@@ -56,8 +56,7 @@ angular.module('chatRoom.controllers', [])
   //$scope.users = [];
   //var promise = angularFire(userRef, $scope, "users");
 
-// already has localUserID (i.e. launched before)
-
+// check if already has localUserID (i.e. launched before)
 if (localStorage.getItem('localUserID') != null) {
   var userID = localStorage.getItem('localUserID');
   var thisUser = usersRef.child(userID);
@@ -68,8 +67,7 @@ if (localStorage.getItem('localUserID') != null) {
     console.log("\n\n myRooms in AppCtrl: " + profile.myRooms);
   });
  
-} else {
-  // totally new user, never before seen in our Firebase
+} else { // totally new user, push userId to Firebase
   $scope.initGender = "";
   $scope.initAge = "";
   $scope.initUsername = "";
@@ -141,23 +139,10 @@ if (localStorage.getItem('localUserID') != null) {
   // set localNewRadius whenever switch view to MainCtrl
   // localStorage.setItem('localNewRadius', (parseFloat(angular.element(document.getElementById('firstElem')).scope().circle.radius) / 1609));
 
-  clearInterval(cInt);
-
-/** not getting called
-  function radius() {
-    newRadius = parseFloat(localStorage.getItem('localNewRadius'));
-    alert('\n \n \n \n new radius = ' + newRadius);
-    if(distanceFromHere(room) > newRadius) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-**/ 
+clearInterval(cInt);
 
  $scope.radius = parseFloat(localStorage.getItem('localNewRadius'));
  
-
   $scope.rooms = [];
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/open_rooms');  
   var promise = angularFire(ref, $scope, "rooms");
@@ -427,7 +412,7 @@ $scope.thisUser.child("myRooms").on("value", function (snapshot) {
   console.log(errorObject);
 });
 
-//update thisUser's myRooms node with new 
+//update thisUser's myRooms node with new upon data retrieval
 if (isReady) {
   if ($scope.myRooms==""){ //oldRooms empty
     var roomsArray = [];
@@ -460,10 +445,7 @@ if (isReady) {
 })
 
 .controller('RoomCtrl', function($scope, $routeParams, $timeout, angularFire) {
-// localStorage.getItem('localNewRadius')
 
-// var radius = parseFloat(angular.element(document.getElementById('firstElem')).scope().circle.radius);
-// connie
   connieDrag= false;
 
   $scope.newMessage = "";
@@ -511,12 +493,14 @@ $scope.thisUser.child("myRooms").on("value", function (snapshot) {
   console.log(errorObject);
 });
 
-for (var idx in $scope.myRooms) { //loop through all of users' rooms
+if (isReady) {
+  for (var idx in $scope.myRooms) { //loop through all of users' rooms
   var roomId = $scope.myRooms[idx]; 
   if ($routeParams.roomId == roomId) {
     return false; //room found among users rooms, so NOT first message
   }
 }
+} //isReady
 
 return true; //room wasn't found in users' rooms, so first message
 }; // isfirstMessage
@@ -550,7 +534,6 @@ return true; //room wasn't found in users' rooms, so first message
 $scope.addMyRoom = function() {
   $scope.roomToAdd = parseFloat($routeParams.roomId);
   console.log("\n\n roomToAdd: " + $scope.roomToAdd);
-
   //var promise = angularFire(myRooms, $scope, "myRooms");
 
 //retrieve current rooms
@@ -564,11 +547,11 @@ $scope.thisUser.child("myRooms").on("value", function (snapshot) {
 
 //callback after retrieving myRooms data
 if (isReady) {
-  if ($scope.myRooms==""){ //oldRooms empty
+  if ($scope.myRooms==""){ //myRooms empty
     $scope.roomsArray = [];
     $scope.roomsArray.push($scope.roomToAdd);
     $scope.thisUser.update({
-      myRooms: roomsArray
+      myRooms: $scope.roomsArray
     });
   } else { //has rooms already 
     $scope.roomsArray = [];
@@ -636,6 +619,19 @@ cInt = setInterval(function(){
 
   **/
 
+
+$scope.checkAlias = function(){
+  if (localStorage.getItem('localusername')==null) {
+    return "your alias";
+  } else {
+    return localStorage.getItem('localusername');
+  }
+}
+
+$scope.userProfile = {
+  username: $scope.checkAlias()
+}
+
   $scope.findChats = function() {
 
 // set localNewRadius when user clicks GO
@@ -653,6 +649,7 @@ cInt = setInterval(function(){
 
     // $scope.username = 'User' + Math.floor(Math.random() * 501);
     // $scope.username = $scope.userAlias;
+
     $scope.setUserName = function(){
       if ($scope.userAlias==undefined) {
         return 'chaffer' + Math.floor(Math.random() * 999);
@@ -687,9 +684,7 @@ cInt = setInterval(function(){
     localStorage.setItem("localuserAge", $scope.setUserAge());
 
 //  retrieve Firebase 'testUsers' 
-  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com');  
-  var usersRef = ref.child("testUsers");
-  // $scope.userRef = [];
+  var usersRef = new Firebase('https://blistering-fire-5269.firebaseio.com/testUsers'); 
   var userID = localStorage.getItem('localUserID');
   var thisUser = usersRef.child(userID);
   // var promise = angularFire(userRef, $scope, "userRef");

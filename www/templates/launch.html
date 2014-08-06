@@ -11,7 +11,7 @@
   <!-- <form ng-submit="doNothing()"> form ui-keypress="{13:'findChats()'}" -->
     <div class="list list-inset">
     <div class="form-bar">
-    <input type="text" placeholder="alias" data-ng-model="userAlias" class="convoInput" id="userAlias">
+    <input type="text" data-ng-model="userProfile.username" class="convoInput" id="userAlias" placeholder="{{userProfile.username}}" ng-change="userAlias">
     </div>
     <div class="form-bar">
       <label class="item item-radio bar-gender-item" id="radio-male">
