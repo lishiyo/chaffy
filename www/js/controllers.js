@@ -48,7 +48,6 @@ angular.module('chatRoom.controllers', [])
   connieDrag= false;
   clearInterval(cInt);
 
-
 //  create or retrieve users in testUsers
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com');  
   var usersRef = ref.child("testUsers");
@@ -469,7 +468,6 @@ if (isReady) {
 .controller('RoomCtrl', function($scope, $routeParams, $timeout, angularFire) {
 
   connieDrag = false;
-  roomUpdated = false;
   $scope.newMessage = "";
   $scope.messages = [];
 
@@ -479,21 +477,51 @@ setTimeout(function() {
 },10);
 **/
 
-  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/' + $routeParams.roomId);
-   ref.on('value', function(dataSnapshot) {
+var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/' + $routeParams.roomId);
+
+
+ref.on('value', function(dataSnapshot) {
   // code to handle new value.
+  var isReady = false;
+  snapshot = dataSnapshot.val();
+  isReady = true;
+
+if (isReady) {
+  
+  $(".pane .scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-220)+"px"+', 0px)');
+  
+  console.log("content loaded");
+}
+
+});
+
+/**
+$scope.$on('$viewContentLoaded', function(){
+// do something
+$(".withScroll .scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-250)+"px"+', 0px)');
+ 
+ console.log("content loaded");
+});
 
   setTimeout(function(){
- $(".withScroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-250)+"px"+', 0px)');
+
+ $(".withScroll .scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-250)+"px"+', 0px)');
+ 
+ console.log("called withscroll");
+
     },500);
 
 // connie - for android
   $('#mainInput').on('focus', function(){
-     $(".withScroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-190)+"px"+', 0px)');
-  });
-});
+   
+     $(".withScroll .scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-190)+"px"+', 0px)');
+     
+  }); //mainINput
 
-  
+});
+  **/
+
+
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/' + $routeParams.roomId);
   var promise = angularFire(ref, $scope, "messages");
   
@@ -557,7 +585,7 @@ $scope.checkCount = function(){
       $('#mainInput').blur();
     }, 10);
 
-$scope.checkCount();
+//$scope.checkCount();
 
 // add to thisUser's myRooms if not already in myRooms
     if (isFirstMessage()) {

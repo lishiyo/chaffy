@@ -39,8 +39,11 @@ c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\fo
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\img \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\index.html \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\js \
+c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\package.json \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\plugins \
+c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\Procfile \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\res \
+c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\server.js \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\templates \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\bower_components\angular \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\bower_components\angular-google-maps \

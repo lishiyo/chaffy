@@ -557,7 +557,7 @@ $scope.checkCount = function(){
       $('#mainInput').blur();
     }, 10);
 
-$scope.checkCount();
+//$scope.checkCount();
 
 // add to thisUser's myRooms if not already in myRooms
     if (isFirstMessage()) {

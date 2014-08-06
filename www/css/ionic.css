@@ -2535,7 +2535,9 @@ body, .ionic-body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  
   position: fixed;
+  
   top: 0;
   right: 0;
   bottom: 0;
@@ -2696,7 +2698,8 @@ body, .ionic-body {
   bottom: 49px; }
 
 .pane {
-  position: fixed; }
+  position: fixed; 
+}
 
 .view {
   position: absolute; }

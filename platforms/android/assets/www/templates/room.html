@@ -30,7 +30,7 @@
 <!--
     <ion-refresher pulling-text="Pull to refresh..." on-refresh="onRefresh()"></ion-refresher>
   -->
-  
+  <listview class="withScroll" scroll="true">
     <div ng-repeat="message in messages" type="item-text-wrap">    
       <div class="card item-message" ng-class-odd="'message-odd'" ng-class-even="'message-even'">
         <div class="item-message-header">
@@ -44,6 +44,7 @@
         </div>
       </div>
     </div>
+    </listview>
   
   </content>
 

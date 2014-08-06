@@ -21,6 +21,7 @@
     <script src="js/angular-touch.js"></script>
     <script src="js/angular/angular-sanitize.js"></script>
 
+
 <!-- angular google maps after angular -->
 <script src='js/maps.googleapis.js'></script>
 <script src='js/lodash.min.js'></script>
@@ -49,8 +50,8 @@
 
   <body ng-app="chatRoom" ng-controller="AppCtrl" id="main">
     <side-menus>
-      <pane side-menu-content>
-        <pane nav-router animation="slide-left-right-ios7" class="withScroll">
+      <pane side-menu-content class="withScroll">
+        <pane nav-router animation="slide-left-right-ios7">
           <ng-view></ng-view>
         </pane>
       </pane>
