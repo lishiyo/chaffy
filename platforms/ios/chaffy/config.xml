@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.cordova.helloCordova" version="2.0.0" xmlns="http://www.w3.org/ns/widgets">
-    <name>Hello Cordova</name>
+<widget id="chaffy.chaffy" version="2.0.0" xmlns="http://www.w3.org/ns/widgets">
+    <name>Chaffy</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
@@ -10,6 +10,9 @@
     <content src="index.html" />
     <feature name="LocalStorage">
         <param name="ios-package" value="CDVLocalStorage" />
+    </feature>
+    <feature name="SplashScreen">
+        <param name="ios-package" value="CDVSplashScreen" />
     </feature>
     <access origin="*" />
     <preference name="KeyboardDisplayRequiresUserAction" value="true" />
@@ -25,6 +28,12 @@
     <preference name="OpenAllWhitelistURLsInWebView" value="false" />
     <preference name="BackupWebStorage" value="cloud" />
     <preference name="fullscreen" value="false" />
+    <!-- Do not auto hide splash on iOS -->
+    <preference name="AutoHideSplashScreen" value="false" />
     <preference name="webviewbounce" value="false" />
     <preference name="android-windowSoftInputMode" value="stateVisible|adjustResize" />
+    <feature name="SplashScreen">
+        <param name="ios-package" value="CDVSplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
 </widget>

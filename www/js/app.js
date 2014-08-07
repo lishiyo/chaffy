@@ -68,27 +68,19 @@ catch(errrr){
       localStorage.setItem("lon", position.coords.longitude);
 // mike's not crazy
 
-     
-
-     
-
+/**
         map = angular.element(document.getElementById('firstElem')).scope().map;
         $('#map_canvas').on('drag', function(e){
-
-         
-
         })
-
+**/
 
   //worky please!
 /*
   $('#map_canvas').on('click', function(e){ e.stopPropagation()})
 
   */
-       angular.element(document.getElementById('main')).scope().updateMap();
-       map.refresh=true;
-
-   
+       //angular.element(document.getElementById('main')).scope().updateMap();
+       //map.refresh=true;
       
       // jGlob.onRefresh();
 
@@ -130,9 +122,6 @@ catch(errrr){
 // sets up the interval at the specified frequency
 function setupWatch(freq) {
 
-
-   
-
     // global var here so it can be cleared on logout (or whenever).
     activeWatch = setInterval(watchLocation, freq);
 }
@@ -142,7 +131,6 @@ function watchLocation() {
 
     var gcp = navigator.geolocation.getCurrentPosition(
             onSuccess, onError);
-
 
     // console.log(gcp);
 
@@ -230,7 +218,12 @@ angular.module('chatRoom', ['ionic', 'ngRoute', 'ngAnimate', 'chatRoom.services'
   $routeProvider.when('/swipe', {
     templateUrl: 'templates/swipe.html',
     controller: 'CardCtrl'
-  });     
+  });    
+
+  $routeProvider.when('/myrooms', {
+    templateUrl: 'templates/my_rooms.html',
+    controller: 'MainCtrl'
+  });      
   
   $routeProvider.otherwise({
     redirectTo: '/home'
@@ -250,44 +243,6 @@ angular.module('chatRoom', ['ionic', 'ngRoute', 'ngAnimate', 'chatRoom.services'
     }
   }
 });
-/**
-.controller('CardsCtrl', function($scope, $ionicSwipeCardDelegate) {
-  console.log('cardsctrl working');
-
-  var cardTypes = [
-    { title: 'Swipe down to clear the card', image: 'img/pic.png' },
-    { title: 'Where is this?', image: 'img/pic.png' },
-    { title: 'What kind of grass is this?', image: 'img/pic2.png' },
-    { title: 'What beach is this?', image: 'img/pic3.png' },
-    { title: 'What kind of clouds are these?', image: 'img/pic4.png' }
-  ];
-
-  $scope.cards = Array.prototype.slice.call(cardTypes, 0, 0);
-
-  $scope.cardSwiped = function(index) {
-    $scope.addCard();
-  };
-
-  $scope.cardDestroyed = function(index) {
-    $scope.cards.splice(index, 1);
-  };
-
-  $scope.addCard = function() {
-    var newCard = cardTypes[Math.floor(Math.random() * cardTypes.length)];
-    newCard.id = Math.random();
-    $scope.cards.push(angular.extend({}, newCard));
-  }
-})
-
-.controller('CardCtrl', function($scope, $ionicSwipeCardDelegate) {
-  console.log('cardctrller!');
-
-  $scope.goAway = function() {
-    var card = $ionicSwipeCardDelegate.getSwipebleCard($scope);
-    card.swipe();
-  };
-});
-**/
 
 /**
 .service('getLoc', function () {
@@ -362,26 +317,4 @@ return function(item) {
 }
       
    });
-**/
-
-// angular.module('chatRoom', ['ionic', 'ngTouch', 'ionic.contrib.ui.cards'])
-/**
-.config(function($stateProvider, $urlRouterProvider) {
-
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
-  $stateProvider
-
-    // setup an abstract state for the tabs directive
-    .state('tab', {
-      url: "/",
-      templateUrl: "templates/swipe.html"
-    })
-
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/');
-
-})
 **/

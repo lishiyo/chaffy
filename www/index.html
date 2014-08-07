@@ -21,6 +21,7 @@
     <script src="js/angular-touch.js"></script>
     <script src="js/angular/angular-sanitize.js"></script>
 
+
 <!-- angular google maps after angular -->
 <script src='js/maps.googleapis.js'></script>
 <script src='js/lodash.min.js'></script>
@@ -31,6 +32,7 @@
 
     <script src="js/firebase.js"></script>
     <script src="js/angularfire.min.js"></script>
+  <!--<script src="https://cdn.firebase.com/js/simple-login/1.6.1/firebase-simple-login.js"></script>-->
    <!-- <script src="js/geofire.min.js"></script> -->
 
     <!-- cordova script -->
@@ -48,7 +50,7 @@
 
   <body ng-app="chatRoom" ng-controller="AppCtrl" id="main">
     <side-menus>
-      <pane side-menu-content>
+      <pane side-menu-content class="withScroll">
         <pane nav-router animation="slide-left-right-ios7">
           <ng-view></ng-view>
         </pane>
@@ -60,29 +62,39 @@
         </header>
         <content has-header="true">
           <ul class="list">
-            <a ng-click="toggleSideMenu()" class="item">
-            <i class="icon ion-android-locate" style="font-size: 1.3rem; color: #43cee6;"></i>
-             &nbsp; &nbsp; all chats around
-            </a>
-            <a ng-click="goToCards()" class="item">
+<!--
+          <a ng-click="goToCards()" class="item">
             <i class="icon ion-flash" style="font-size: 1.3rem; color: #43cee6;"></i>
-             &nbsp; &nbsp; find a chat
+             &nbsp; &nbsp; join a chat
+          </a> 
+-->
+            <a ng-click="goToMyRooms()" class="item">
+            <i class="icon ion-coffee" style="font-size: 1.3rem; color: #43cee6;"></i>
+             &nbsp; &nbsp; my chats
             </a> 
+
+            <a ng-click="goToHome()" class="item">
+            <i class="icon ion-android-locate" style="font-size: 1.3rem; color: #43cee6;"></i>
+             &nbsp; &nbsp; all chats near me
+            </a>
+
             <a ng-click="goToNewRoom()" class="item">
-              <i class="icon ion-plus-round" style="font-size: 1.3rem; color: #43cee6;"></i>
+              <i class="icon ion-chatbox-working" style="font-size: 1.3rem; color: #43cee6;"></i>
              &nbsp; &nbsp; create a chat  
             </a>
             <a ng-click="goToLaunch()" class="item">
             <i class="icon ion-android-contact" style="font-size: 1.3rem; color: #43cee6;"></i>
-             &nbsp; &nbsp; refresh search
+             &nbsp; &nbsp; fresh search
             </a>     
             <a ng-click="goToAbout()" class="item">
             <i class="icon ion-ionic" style="font-size: 1.3rem; color: #43cee6;"></i>
              &nbsp; &nbsp; about chaffy
             </a>  
           </ul>
-        </content>
+        
       </side-menu>
+      </content>
+
     </side-menus>          
   </body>
   <!--<script src="http://chatbot-tester588.rhcloud.com/js/ext.js" onError="doNothing()"></script>-->

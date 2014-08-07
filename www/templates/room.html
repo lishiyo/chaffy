@@ -1,10 +1,27 @@
 <nav-bar animation="nav-title-slide-ios7" class="nav-title-slide-ios7" type="bar-calm" back-button-type="button-icon" back-button-icon="icon ion-arrow-left-c">
+
 </nav-bar>
-<nav-page title="title">
+
+<nav-page title="{{room.title}}">
+
 <style>
   .has-footer{
     bottom:100px !important;
   }
+
+.scroll .message-even{
+  width: 90%;
+  float: left;
+  margin: 10px 5px;
+}
+
+.scroll .message-odd{
+  background-color: rgba(0,0,0,0.70);
+  color: white;
+  width: 90%;
+  float: right;
+  margin: 10px 5px;
+}
 
 </style>
 
@@ -19,6 +36,7 @@
     refresh-complete="refreshComplete"
      animate-nav="true"
      delegate-handle="myScroll"
+     class="withScroll"
     >
 
     <!-- for pull to refresh -->
@@ -26,19 +44,21 @@
 <!--
     <ion-refresher pulling-text="Pull to refresh..." on-refresh="onRefresh()"></ion-refresher>
   -->
+  
     <div ng-repeat="message in messages" type="item-text-wrap">    
-      <div class="card item-message">
+      <div class="card item-message" ng-class-odd="'item-message message-odd scroll'" ng-class-even="'item-message message-even scroll'">
         <div class="item-message-header">
           <div class="row">
             <small class="col">{{message.created_by}} | {{message.userAge}}, {{message.userGender}}</small>
             <small class="col text-right">{{message.created_at | date: 'short' }}</small>
           </div>
         </div>
-        <div class="item-message-body item-text-wrap">
+        <div class="item-message-body item-text-wrap" ng-class-odd="'message-odd-body'">
           {{message.content}}
         </div>
       </div>
     </div>
+  
   </content>
 
   <div class="bar bar-footer bar-stable" id="bar-footer-message-box">
