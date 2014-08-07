@@ -270,10 +270,12 @@ c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\bo
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\bower_components\lodash\dist\lodash.min.js \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\bower_components\lodash\dist\lodash.underscore.js \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\bower_components\lodash\dist\lodash.underscore.min.js \
+c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\css\animate.css \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\css\app.css \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\css\cards.css \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\css\ionic.css \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\css\launch.css \
+c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\css\roomeffects.css \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\css\sidemenu.css \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\css\themes \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\css\themes\ionic-ios7.css \

@@ -21,13 +21,26 @@ newmessages {
   background-color: black !important;
 }
 
-.roompopular {
-  background-color: #FF0040 !important;
+.roomhot {
+  background-color: #FF1F44 !important;
+  /**
+  -webkit-box-shadow: 0px 0px 10px #888888;
+  -moz-box-shadow: 0px 0px 10px #888888;
   box-shadow: 0px 0px 10px #888888;
+  **/
+  -webkit-box-shadow: inset 10px 10px 27px -3px rgba(105,102,102,1);
+	-moz-box-shadow: inset 10px 10px 27px -3px rgba(105,102,102,1);
+	box-shadow: inset 0px 0px 15px -1px rgba(105,102,102,1);
   -webkit-animation: pulse 0.8s infinite; /* Chrome, Safari, Opera */
   animation: pulse 0.8s infinite;
 }
 
-.roompopular h3, .roompopular p {
+.roomhot h3, .roomhot p {
   color: white !important;
+}
+
+.roompopular {
+	/**border: 3px dashed #0DCBFF !important;**/
+	border: 4px dotted rgba(138,239,255,0.8) !important;
+	
 }

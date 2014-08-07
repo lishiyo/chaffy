@@ -291,40 +291,45 @@ $scope.lastMessageAdded = function (room){
 } //lastMessageAdded
 
 // roomHotness refers to how many posts in certain time period
-/**
+
 function calcTimes() {
   var day = new Date();
   var dayBefore = new Date().setDate(day.getDate() - 1);
   $scope.endTime = day.getTime();
-  $scope.startTime = dayBefore;
+  $scope.startTime = dayBefore; //yesterday
 }
 
-$scope.roomHotness = function(room){
+$scope.roomHotness = function(room) {
   calcTimes();
-  //console.log("endTime: " + $scope.endTime);
 
-  var query = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/').child(room.id).startAt($scope.startTime).once('value', function(snap) {
-      var data = snap.val();
-      console.log("data showing: " + data);
-      if (data!=null) {
-        console.log("found some data");
-        $scope.isTrue = true;
+  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/').child(room.id).endAt().limit(10).once('value', function(snap){
+
+    var firstOfLast = Object.keys(snap.val())[0];
+    //console.log("keys: " + firstOfLastTen);
+    var data = parseFloat(snap.val()[firstOfLast].created_at);
+    console.log("data created at: " + data);
+
+    $scope.isHot = function () {
+      if (data > $scope.startTime) {
+        console.log("is Hot!");
+        return true;
       } else {
-        $scope.isTrue = false;
+        console.log("startTime is: " + $scope.startTime);
+        return false;
       }
-  });
+    }
+  }); //ref
 
-  return $scope.isTrue;
-  
+  return $scope.isHot();
+
 } //roomHotness
-**/
 
 //roomPopularity checks whether room's total num of messages is greater than some number
 
 $scope.roomPopularity = function(room) {
 
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/');
-  //var lastInRoom = ref.child(roomId).endAt().limit(1); //last node in this room
+  //var lastInRoom = ref.child(roomId).endAt().limit(1); //last node in this room - doesn't seem to work
   
   ref.child(room.id).once('value', function(snapshot) {
     $scope.nodesLength = Object.keys(snapshot.val()).length;
