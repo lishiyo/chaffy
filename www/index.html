@@ -28,7 +28,7 @@
 <script src='js/angular-google-maps.min.js'></script>
 
     <script src="js/ionic-angular.js"></script>
-    <script src="js/rsvp.min.js"></script>
+  <!--<script src="js/rsvp.min.js"></script>-->
 
     <script src="js/firebase.js"></script>
     <script src="js/angularfire.min.js"></script>
@@ -45,12 +45,13 @@
     <script src="js/ionic.swipecards.v3.js"></script>
     <script src="js/services.js"></script>
     <script src="js/controllers.js"></script>
+    <script src="js/scrollglue.js"></script>
 
   </head>
 
   <body ng-app="chatRoom" ng-controller="AppCtrl" id="main">
     <side-menus>
-      <pane side-menu-content class="withScroll">
+      <pane side-menu-content>
         <pane nav-router animation="slide-left-right-ios7">
           <ng-view></ng-view>
         </pane>

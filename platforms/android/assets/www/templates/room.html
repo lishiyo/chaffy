@@ -1,3 +1,4 @@
+
 <nav-bar animation="nav-title-slide-ios7" class="nav-title-slide-ios7" type="bar-calm" back-button-type="button-icon" back-button-icon="icon ion-arrow-left-c">
 
 </nav-bar>
@@ -6,9 +7,8 @@
 
 <style>
   .has-footer{
-    bottom:100px !important;
+    bottom: 100px !important;
   }
-
 
 </style>
 
@@ -30,9 +30,9 @@
 <!--
     <ion-refresher pulling-text="Pull to refresh..." on-refresh="onRefresh()"></ion-refresher>
   -->
-  <listview class="withScroll" scroll="true">
+  
     <div ng-repeat="message in messages" type="item-text-wrap">    
-      <div class="card item-message" ng-class-odd="'message-odd'" ng-class-even="'message-even'">
+      <div class="card item-message" ng-class-odd="'message-odd scroll'" ng-class-even="'message-even scroll'">
         <div class="item-message-header">
           <div class="row">
             <small class="col">{{message.created_by}} | {{message.userAge}}, {{message.userGender}}</small>
@@ -44,7 +44,6 @@
         </div>
       </div>
     </div>
-    </listview>
   
   </content>
 

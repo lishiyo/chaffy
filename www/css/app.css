@@ -48,6 +48,21 @@
   opacity: 0.9;
 }
 
+
+.scroll .message-even{
+  width: 90%;
+  float: left;
+  margin: 10px 5px;
+}
+
+.scroll .message-odd{
+  background-color: rgba(0,0,0,0.70);
+  color: white;
+  width: 90%;
+  float: right;
+  margin: 10px 5px;
+}
+
 /**
 .message-odd-body{
   text-align: right;
