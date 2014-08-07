@@ -311,10 +311,8 @@ $scope.roomHotness = function(room) {
 
     $scope.isHot = function () {
       if (data > $scope.startTime) {
-        console.log("is Hot!");
         return true;
       } else {
-        console.log("startTime is: " + $scope.startTime);
         return false;
       }
     }
