@@ -277,61 +277,10 @@ for (var idx in $scope.myRooms) { //loop through all of users' rooms
 return false; //room wasn't found in users' rooms
 } //userHasRoom
 
-// check if Rooms were updated after you messaged
-/**
-var currentDate = function(){
-  if (localStorage.getItem('lastViewDate')==null){
-    var date = new Date();
-    localStorage.setItem('lastViewDate', date.getTime());
-    console.log("set lastViewDate: " + localStorage.getItem('lastViewDate'));
-    return date.getTime();
-  } else {
-    var lastViewDate = Date.parse(localStorage.getItem('lastViewDate'));
-    return lastViewDate;
-  }
-}
 
-$scope.checkUpdated = function(room){
-  currentDate();
-
-  var roomId = room.id;
-  roomId = roomId.toString();
-  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/');
-  var roomRef = ref.child(roomId); //roomId
-  var lastMessage = roomRef.endAt().limit(1);
-  lastMessage.on('child_added', function(snapshot) {
-    var message = snapshot.val();
-    $scope.date = message.created_at;
-    $scope.lastViewDate = parseFloat(localStorage.getItem('lastViewDate'));
-
-    //console.log("created at: " + $scope.date + " vs " + $scope.lastViewDate);
-  });
-  return ($scope.date > $scope.lastViewDate);
-}
-**/
-/**
-$scope.roomHotness = function(room){
-  var roomId = room.id;
-  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/');
-  var roomRef = ref.child(roomId).endAt().limit(1);
-
-  roomRef.once('value', function(snapshot) {
-    var data = snapshot.val();
-    $scope.count = data.messagesCount;
-    console.log("messagesCount: " + $scope.count);
-  });
-
-  if ($scope.count > 3) {
-    return true;
-  } else {
-    return false;
-  }
-}
-**/
 $scope.lastMessageAdded = function (room){
-  var roomId = room.id;
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/');
-  var roomRef = ref.child(roomId);
+  var roomRef = ref.child(room.id);
 
   var lastMessage = roomRef.endAt().limit(1);
   lastMessage.on('child_added', function(snapshot) {
@@ -342,7 +291,8 @@ $scope.lastMessageAdded = function (room){
   return $scope.content;
 } //lastMessageAdded
 
-
+// roomHotness refers to how many posts in certain time period
+/**
 function calcTimes() {
   var day = new Date();
   var dayBefore = new Date().setDate(day.getDate() - 1);
@@ -351,9 +301,7 @@ function calcTimes() {
 }
 
 $scope.roomHotness = function(room){
-  
   calcTimes();
-
   //console.log("endTime: " + $scope.endTime);
 
   var query = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/').child(room.id).startAt($scope.startTime).once('value', function(snap) {
@@ -370,32 +318,24 @@ $scope.roomHotness = function(room){
   return $scope.isTrue;
   
 } //roomHotness
+**/
 
-
-/**
+//roomPopularity checks whether room's total num of messages is greater than some number
 $scope.roomPopularity = function(room) {
 
-  var roomId = room.id;
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/');
-  var lastInRoom = ref.child(roomId).endAt().limit(1); //last node in this room
+  //var lastInRoom = ref.child(roomId).endAt().limit(1); //last node in this room
   
-  lastInRoom.once('value', function(snapshot) {
-    var data = snapshot.val();
-    //$scope.lastMsgNo = data[1].lastMsgNo;
-    console.log("data is: " + data[1].content); 
-    //var keys = Object.keys(snapshot.val());
-    //console.log("roomRef data is: " + Object.keys(snapshot.val()));
-    //var testing = data.content;
-    // console.log("testing: " + testing);
+  ref.child(room.id).once('value', function(snapshot) {
+    $scope.nodesLength = Object.keys(snapshot.val()).length;
+    console.log("data is: " + $scope.nodesLength); 
   });
 
-    if ($scope.lastMsgNo > 0) {
-      console.log("keys greater than 10: " + keys);
-      return true;
+  if ($scope.nodesLength > 25) {
+    return true;
     } else {
-      return false;
-    }
-
+    return false;
+  }
 
 };
 /**
@@ -681,7 +621,6 @@ function checkLastMsg() {
     }
 
 
-
   }; //submitAddMessage
 
 
@@ -721,8 +660,6 @@ $scope.thisUser.child("myRooms").once("value", function (snapshot) {
     console.log("myRooms updated to: " + $scope.roomsArray);
   } // else
 }; // addMyRoom()
-
-
 
 
 $scope.onRefresh = function() {

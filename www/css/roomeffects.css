@@ -1,0 +1,33 @@
+/*
+ * animations for hot, popular, new messages added, etc.
+ */
+
+@-webkit-keyframes pulse { 
+    0% { -webkit-transform: scale(1); } 
+    50% { -webkit-transform: scale(0.96); } 
+    100% { -webkit-transform: scale(1); } 
+} 
+@keyframes pulse { 
+    0% { transform: scale(1); } 
+    50% { transform: scale(0.96); } 
+    100% { transform: scale(1); } 
+} 
+.pulse { 
+    -webkit-animation-name: pulse; 
+    animation-name: pulse; 
+}
+
+newmessages {
+  background-color: black !important;
+}
+
+.roompopular {
+  background-color: #FF0040 !important;
+  box-shadow: 0px 0px 10px #888888;
+  -webkit-animation: pulse 0.8s infinite; /* Chrome, Safari, Opera */
+  animation: pulse 0.8s infinite;
+}
+
+.roompopular h3, .roompopular p {
+  color: white !important;
+}

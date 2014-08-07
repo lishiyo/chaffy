@@ -67,12 +67,15 @@
 .message-odd-body{
   text-align: right;
 }
-
-
-.roomupdated{
+**/
+.newmessages {
   background-color: black !important;
 }
-**/
+
+.roompopular{
+  background-color: black !important;
+}
+
 .item-input{
   background-color: white !important;
   border: 1px solid white;
