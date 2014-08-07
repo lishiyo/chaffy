@@ -76,11 +76,16 @@
 
 .list .item[id="radio-sec"] {
 	background-color: white;
+<<<<<<< HEAD
 	font-family: 'Pacifico', 'Lato', Arial, sans-serif;
+=======
+	font-family: 'Pacifico', Arial, sans-serif;
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 }
 
 .list .item[id="radio-age-sec"] {
 	background-color: white;
+<<<<<<< HEAD
 	font-family: 'Pacifico', 'Lato',  Arial, sans-serif;
 }
 
@@ -88,6 +93,9 @@
 	background-color: #B37EDE;
 	opacity: 0.8;
 	color: white;
+=======
+	font-family: 'Pacifico', Arial, sans-serif;
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 }
 
 #radio-male input:checked ~ .item-content {
@@ -141,6 +149,12 @@
 	border-radius: 5px !important;	
 }
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 .button-bar .button-m {
 	background-color: #70E0F7;
 	opacity: 0.6;

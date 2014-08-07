@@ -93,7 +93,11 @@
 
 // this happens while we are running ( in the background, or from within our own app )
 // only valid if chaffy-Info.plist specifies a protocol to handle
+<<<<<<< HEAD
 - (BOOL)application:(UIApplication*)application handleOpenURL:(NSURL*)url
+=======
+- (BOOL)application:(UIApplication*)application openURL:(NSURL*)url sourceApplication:(NSString*)sourceApplication annotation:(id)annotation
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 {
     if (!url) {
         return NO;
@@ -109,7 +113,11 @@
     return YES;
 }
 
+<<<<<<< HEAD
 // repost the localnotification using the default NSNotificationCenter so multiple plugins may respond
+=======
+// repost all remote and local notification using the default NSNotificationCenter so multiple plugins may respond
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 - (void)            application:(UIApplication*)application
     didReceiveLocalNotification:(UILocalNotification*)notification
 {
@@ -117,6 +125,28 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:CDVLocalNotification object:notification];
 }
 
+<<<<<<< HEAD
+=======
+- (void)                                application:(UIApplication *)application
+   didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    // re-post ( broadcast )
+    NSString* token = [[[[deviceToken description]
+                         stringByReplacingOccurrencesOfString: @"<" withString: @""]
+                        stringByReplacingOccurrencesOfString: @">" withString: @""]
+                       stringByReplacingOccurrencesOfString: @" " withString: @""];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:CDVRemoteNotification object:token];
+}
+
+- (void)                                 application:(UIApplication *)application
+    didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    // re-post ( broadcast )
+    [[NSNotificationCenter defaultCenter] postNotificationName:CDVRemoteNotificationError object:error];
+}
+
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 - (NSUInteger)application:(UIApplication*)application supportedInterfaceOrientationsForWindow:(UIWindow*)window
 {
     // iPhone doesn't support upside down by default, while the iPad does.  Override to allow all orientations always, and let the root view controller decide what's allowed (the supported orientations mask gets intersected).

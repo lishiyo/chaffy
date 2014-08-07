@@ -10,15 +10,22 @@
 
     <!-- your app's css -->
     <link href="css/app.css" rel="stylesheet">
+<<<<<<< HEAD
     <link href="css/sidemenu.css" rel="stylesheet">
+=======
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 
     <!-- ionic/angularjs scripts -->
     <script src="js/ionic.js"></script>
     <script src="js/angular/angular.js"></script>
     <script src="js/angular/angular-animate.js"></script>
     <script src="js/angular/angular-route.js"></script>
+<<<<<<< HEAD
     <!--<script src="js/angular/angular-touch.js"></script> -->
     <script src="js/angular-touch.js"></script>
+=======
+    <script src="js/angular/angular-touch.js"></script>
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
     <script src="js/angular/angular-sanitize.js"></script>
 
 <!-- angular google maps after angular -->
@@ -31,12 +38,20 @@
 
     <script src="js/firebase.js"></script>
     <script src="js/angularfire.min.js"></script>
+<<<<<<< HEAD
    <!-- <script src="js/geofire.min.js"></script> -->
+=======
+
+    <!--<script src="js/ionic.swipecards.js"></script>-->
+
+    <script src="js/geofire.min.js"></script>
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 
     <!-- cordova script -->
     <script src="cordova.js"></script>
 
     <!-- your app's script
+<<<<<<< HEAD
     <script src="js/jquery.js"></script>  -->  
     <script src="js/zepto.min.js"></script>
     <script src="js/app.js"></script>
@@ -44,6 +59,18 @@
     <script src="js/services.js"></script>
     <script src="js/controllers.js"></script>
 
+=======
+    <script src="js/jquery.js"></script>  -->
+    <script src="js/zepto.min.js"></script>
+    <script src="js/ionic.swipecards.js"></script>
+    <script src="js/ionic.cards.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/controllers.js"></script>
+
+    <link href="css/launch.css" rel="stylesheet">
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
   </head>
 
   <body ng-app="chatRoom" ng-controller="AppCtrl" id="main">
@@ -60,6 +87,7 @@
         </header>
         <content has-header="true">
           <ul class="list">
+<<<<<<< HEAD
             <a ng-click="toggleSideMenu()" class="item">
             <i class="icon ion-android-locate" style="font-size: 1.3rem; color: #43cee6;"></i>
              &nbsp; &nbsp; all chats around
@@ -80,6 +108,13 @@
             <i class="icon ion-ionic" style="font-size: 1.3rem; color: #43cee6;"></i>
              &nbsp; &nbsp; about chaffy
             </a>  
+=======
+            <a ng-click="toggleSideMenu()" class="item">Nearby</a>
+            <a ng-click="goToNewRoom()" class="item">New Convo</a>
+            <a ng-click="goToAbout()" class="item">About</a>  
+            <a ng-click="goToLaunch()" class="item">Map</a>     
+            <a ng-click="goToCards()" class="item">Cards</a> 
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
           </ul>
         </content>
       </side-menu>

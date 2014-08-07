@@ -25,10 +25,26 @@
     
       <link-item ng-repeat="room in rooms | orderBy:'id':true | limitTo:30 |  orderBy:distanceFromHere: false" type="item-text-wrap" ng-click="goToIt('#/rooms/{{room.id}}');" style="z-index:50000" ng-controller="MainCtrl">
 --> 
+<<<<<<< HEAD
 <link-item ng-repeat="room in rooms | orderBy:'id':true | limitTo:30 | orderBy:distanceFromHere: false" type="item-text-wrap" ng-click="goToIt('#/rooms/{{room.id}}');" style="z-index:50000" ng-controller="MainCtrl" ng-hide="{{distanceFromHere(room) > radius}}" >
+=======
+<link-item ng-repeat="room in rooms | orderBy:'id':true | limitTo:30 | orderBy:distanceFromHere: false" type="item-text-wrap" ng-click="goToIt('#/rooms/{{room.id}}');" style="z-index:50000" ng-controller="MainCtrl">
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
           <h3>{{room.title}}</h3>
           <p>{{distanceFromHere(room)}} mi. | {{room.description}}</p>
       </link-item>
     </list>
   </content>
+<<<<<<< HEAD
 </nav-page>
+=======
+</nav-page>
+
+<script>
+
+  function doIt(url){
+
+    window.location=url;
+  }
+</script>
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7

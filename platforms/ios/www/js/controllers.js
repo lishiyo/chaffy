@@ -33,7 +33,10 @@ angular.module('chatRoom.controllers', [])
 })
 **/
 .controller('LoadingCtrl', function($scope, $ionicLoading) {
+<<<<<<< HEAD
   connieDrag= false;
+=======
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
   $scope.show = function() {
     $ionicLoading.show({
       template: 'Loading...'
@@ -43,6 +46,11 @@ angular.module('chatRoom.controllers', [])
     $ionicLoading.hide();
   }})
 .controller('AppCtrl', function($scope, $location) {
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
   //for chaffy to work with map not darggin all over
       
   connieDrag= false;
@@ -87,6 +95,7 @@ angular.module('chatRoom.controllers', [])
 })
 
 .controller('MainCtrl', function($scope, $timeout, angularFire) {
+<<<<<<< HEAD
 
   connieDrag= false;
 
@@ -113,6 +122,18 @@ angular.module('chatRoom.controllers', [])
   $scope.rooms = [];
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/open_rooms');  
   var promise = angularFire(ref, $scope, "rooms");
+=======
+clearInterval(cInt);
+
+  //get user location from map
+  connieDrag= false;
+
+  
+
+  $scope.rooms = [];
+  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/opened_rooms');  
+  
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 
  /*
 
@@ -146,7 +167,12 @@ messageListQuery.on('child_added', function(snapshot) {
 
 
 */
+<<<<<<< HEAD
   
+=======
+  var promise = angularFire(ref, $scope, "rooms");
+
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
   $scope.sortLoc = {
 /*
     distanceFromHere :function (_item, _startPoint) {
@@ -209,7 +235,11 @@ messageListQuery.on('child_added', function(snapshot) {
 
     window.location=theUrl;
   }
+<<<<<<< HEAD
  
+=======
+  
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
   $scope.distanceFromHere = function (_item, _startPoint) {
 /*
     var start = null;
@@ -259,7 +289,11 @@ lat2 = $scope.getUserLocation()[0];
 lon2 = $scope.getUserLocation()[1];
 lat1 =_item.latitude;
 lon1 = _item.longitude;
+<<<<<<< HEAD
 // console.log(lon1);
+=======
+console.log(lon1);
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 var R = 6371; // Radius of the earth in km
    var dLat = deg2rad(lat2-lat1);  // deg2rad below
   var dLon = deg2rad(lon2-lon1);  
@@ -287,7 +321,11 @@ jGlob = $scope;
   connieDrag= false;
 
   $scope.rooms = [];
+<<<<<<< HEAD
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/open_rooms');  
+=======
+  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/opened_rooms');  
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
   var promise = angularFire(ref, $scope, "rooms");
   
   $scope.newRoomName = "";
@@ -316,10 +354,13 @@ jGlob = $scope;
 
 .controller('RoomCtrl', function($scope, $routeParams, $timeout, angularFire) {
 
+<<<<<<< HEAD
 
 // localStorage.getItem('localNewRadius')
 
 // var radius = parseFloat(angular.element(document.getElementById('firstElem')).scope().circle.radius);
+=======
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 // connie
   connieDrag= false;
 
@@ -383,6 +424,7 @@ setTimeout(function() {
 
 .controller('AboutCtrl', function($scope) {
 
+<<<<<<< HEAD
   connieDrag= false;
 })
 
@@ -390,6 +432,15 @@ setTimeout(function() {
 
   connieDrag=true;
 
+=======
+
+  connieDrag= false;
+})
+
+.controller('LaunchCtrl', function($scope, $location, angularFire, $rootScope) {
+
+  connieDrag=true;
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 /**
 $scope.getUserLocation = function(){
   return [parseFloat(localStorage.getItem('lat')), parseFloat(localStorage.getItem('lon'))]; 
@@ -441,6 +492,7 @@ cInt = setInterval(function(){
   $scope.userGender = "";
   $scope.userAge = "";
   /** what's this variable used for? **/
+<<<<<<< HEAD
   // var promise = angularFire(userRef, $scope, "userRef");
 
   $scope.findChats = function() {
@@ -449,6 +501,11 @@ cInt = setInterval(function(){
     var newRadius = parseFloat(($scope.circle.radius) / 1609);
     localStorage.setItem('localNewRadius', newRadius);
     console.log("\n\n\n\n newRadius=" + localStorage.getItem('localNewRadius'));
+=======
+  var promise = angularFire(userRef, $scope, "userRef");
+
+  $scope.findChats = function() {
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
     
     // $scope.username = 'User' + Math.floor(Math.random() * 501);
     $scope.username = $scope.userAlias;
@@ -484,7 +541,11 @@ cInt = setInterval(function(){
       age: $scope.setUserAge()
     });
 
+<<<<<<< HEAD
     $location.path('/swipe');
+=======
+    $location.path('/home');
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
   };
 
 /** map **/  
@@ -494,6 +555,10 @@ var userPosition =[40.777225004040009, -73.95218489597806];
 **/
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 $scope.map = {
     center: {
       latitude: userPosition[0],
@@ -503,6 +568,7 @@ $scope.map = {
     refresh:true
 };
 
+<<<<<<< HEAD
 /**
 $scope.mapevents = {
   drag: function(){
@@ -511,6 +577,8 @@ $scope.mapevents = {
   }
 }
 **/
+=======
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 $scope.events = {
                dragend: function (marker) {
                   $rootScope.$apply(function () {
@@ -518,7 +586,11 @@ $scope.events = {
                      console.log(marker.position.lat());
                      console.log(marker.position.lng());
                      **/
+<<<<<<< HEAD
                     
+=======
+                     $scope.map.center = $scope.circle.center;
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
                      var lat = $scope.circle.center.latitude;
                      var lon = $scope.circle.center.longitude;
 
@@ -527,6 +599,7 @@ $scope.events = {
 
                      localStorage.setItem('lat', lat);
                      localStorage.setItem('lon', lon);
+<<<<<<< HEAD
 
                     //$scope.map.center = $scope.circle.center;
 
@@ -535,6 +608,9 @@ $scope.events = {
                radius_changed: function() {
                 localStorage.setItem('localNewRadius', (parseFloat($scope.circle.radius / 1609)));
                 console.log("\n\n\n" + localStorage.getItem('localNewRadius'));
+=======
+                  });
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
                }
             }
 
@@ -556,15 +632,33 @@ $scope.circle = {
   geodesic: true
 };
 
+<<<<<<< HEAD
 })
+=======
+/*
+setTimeout(function(){
+
+  alert('about to change!')
+
+  $('.angular-google-map-container').css({width:"auto", "height":"200px"})
+}, 2000)
+*/
+
+}) //LaunchCtrl
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 
 .controller('CardsCtrl', function($scope, $ionicSwipeCardDelegate) {
 
   connieDrag=false;
 
+<<<<<<< HEAD
 /**
   var cardTypes = [
     { title: 'My first bitchin card', image: 'img/pic.png' },
+=======
+  var cardTypes = [
+    { title: 'Swipe down to clear the card', image: 'img/pic.png' },
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
     { title: 'Where is this?', image: 'img/pic.png' },
     { title: 'What kind of grass is this?', image: 'img/pic2.png' },
     { title: 'What beach is this?', image: 'img/pic3.png' },
@@ -572,6 +666,7 @@ $scope.circle = {
   ];
 
   $scope.cards = Array.prototype.slice.call(cardTypes, 0, 0);
+<<<<<<< HEAD
 **/
 
 $scope.radius = parseFloat(localStorage.getItem('localNewRadius'));
@@ -635,12 +730,15 @@ var R = 6371; // Radius of the earth in km
   return (d* 0.621371).toFixed(2);
   
   }
+=======
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 
   $scope.cardSwiped = function(index) {
     $scope.addCard();
   };
 
   $scope.cardDestroyed = function(index) {
+<<<<<<< HEAD
     // $scope.cards.splice(index, 1);
     $scope.chatCards.splice(index, 1);
   };
@@ -655,10 +753,20 @@ var R = 6371; // Radius of the earth in km
     //newCard.id = Math.random();
     $scope.chatCards.push(angular.extend({}, newCard));
    //$scope.chatCards.push(newCard);
+=======
+    $scope.cards.splice(index, 1);
+  };
+
+  $scope.addCard = function() {
+    var newCard = cardTypes[Math.floor(Math.random() * cardTypes.length)];
+    newCard.id = Math.random();
+    $scope.cards.push(angular.extend({}, newCard));
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
   }
 })
 
 .controller('CardCtrl', function($scope, $ionicSwipeCardDelegate) {
+<<<<<<< HEAD
 
   connieDrag=false;
 
@@ -668,8 +776,14 @@ var R = 6371; // Radius of the earth in km
   };
 
 
+=======
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
   $scope.goAway = function() {
     var card = $ionicSwipeCardDelegate.getSwipebleCard($scope);
     card.swipe();
   };
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7

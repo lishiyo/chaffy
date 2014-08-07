@@ -188,8 +188,13 @@ function userAgreed(){
   localStorage.setItem("agreed", "true");
 }
 
+<<<<<<< HEAD
 // Chaffy's main module
 angular.module('chatRoom', ['ionic', 'ngRoute', 'ngAnimate', 'chatRoom.services', 'chatRoom.controllers', 'firebase', 'google-maps', 'chatRoom.filters', 'ngTouch', 'ionic.contrib.ui.cards'])
+=======
+
+angular.module('chatRoom', ['ionic', 'ngRoute', 'ngAnimate', 'chatRoom.services', 'chatRoom.controllers', 'firebase', 'google-maps', 'ionic.contrib.ui.cards'])
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 
 .config(function ($compileProvider){
   $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
@@ -229,13 +234,18 @@ angular.module('chatRoom', ['ionic', 'ngRoute', 'ngAnimate', 'chatRoom.services'
 
   $routeProvider.when('/swipe', {
     templateUrl: 'templates/swipe.html',
+<<<<<<< HEAD
     controller: 'CardCtrl'
+=======
+    controller: 'CardsCtrl'
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
   });     
   
   $routeProvider.otherwise({
     redirectTo: '/home'
   });
 
+<<<<<<< HEAD
 })
 
 .directive('noScroll', function($document) {
@@ -289,6 +299,9 @@ angular.module('chatRoom', ['ionic', 'ngRoute', 'ngAnimate', 'chatRoom.services'
 });
 **/
 
+=======
+});
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 /**
 .service('getLoc', function () {
         $scope.getUserLocation = function(){
@@ -317,7 +330,11 @@ angular.module('chatRoom', ['ionic', 'ngRoute', 'ngAnimate', 'chatRoom.services'
 });
 
 **/
+<<<<<<< HEAD
 angular.module('chatRoom.filters', [])
+=======
+angular.module('myApp.filters', [])
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
    .filter('interpolate', ['version', function(version) {
       return function(text) {
          return String(text).replace(/\%VERSION\%/mg, version);
@@ -343,6 +360,7 @@ angular.module('chatRoom.filters', [])
          return toArray(items).slice().reverse();
       };
    });
+<<<<<<< HEAD
 /**
    .filter('withinRadius', function(){
 
@@ -385,3 +403,5 @@ return function(item) {
 
 })
 **/
+=======
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7

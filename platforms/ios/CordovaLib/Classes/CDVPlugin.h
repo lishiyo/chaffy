@@ -27,6 +27,11 @@ extern NSString* const CDVPageDidLoadNotification;
 extern NSString* const CDVPluginHandleOpenURLNotification;
 extern NSString* const CDVPluginResetNotification;
 extern NSString* const CDVLocalNotification;
+<<<<<<< HEAD
+=======
+extern NSString* const CDVRemoteNotification;
+extern NSString* const CDVRemoteNotificationError;
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 
 @interface CDVPlugin : NSObject {}
 

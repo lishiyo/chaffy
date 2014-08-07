@@ -1,5 +1,9 @@
 // Platform: ios
+<<<<<<< HEAD
 // 3.1.0
+=======
+// 3.4.0
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 /*
  Licensed to the Apache Software Foundation (ASF) under one
  or more contributor license agreements.  See the NOTICE file
@@ -19,8 +23,16 @@
  under the License.
 */
 ;(function() {
+<<<<<<< HEAD
 var CORDOVA_JS_BUILD_LABEL = '3.1.0';
 // file: lib/scripts/require.js
+=======
+var CORDOVA_JS_BUILD_LABEL = '3.4.0';
+// file: src/scripts/require.js
+
+/*jshint -W079 */
+/*jshint -W020 */
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 
 var require,
     define;
@@ -31,7 +43,11 @@ var require,
         requireStack = [],
     // Map of module ID -> index into requireStack of modules currently being built.
         inProgressModules = {},
+<<<<<<< HEAD
         SEPERATOR = ".";
+=======
+        SEPARATOR = ".";
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 
 
 
@@ -41,7 +57,11 @@ var require,
                 var resultantId = id;
                 //Its a relative path, so lop off the last portion and add the id (minus "./")
                 if (id.charAt(0) === ".") {
+<<<<<<< HEAD
                     resultantId = module.id.slice(0, module.id.lastIndexOf(SEPERATOR)) + SEPERATOR + id.slice(2);
+=======
+                    resultantId = module.id.slice(0, module.id.lastIndexOf(SEPARATOR)) + SEPARATOR + id.slice(2);
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
                 }
                 return require(resultantId);
             };
@@ -95,7 +115,11 @@ if (typeof module === "object" && typeof require === "function") {
     module.exports.define = define;
 }
 
+<<<<<<< HEAD
 // file: lib/cordova.js
+=======
+// file: src/cordova.js
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 define("cordova", function(require, exports, module) {
 
 
@@ -313,7 +337,11 @@ module.exports = cordova;
 
 });
 
+<<<<<<< HEAD
 // file: lib/common/argscheck.js
+=======
+// file: src/common/argscheck.js
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 define("cordova/argscheck", function(require, exports, module) {
 
 var exec = require('cordova/exec');
@@ -379,7 +407,11 @@ moduleExports.enableChecks = true;
 
 });
 
+<<<<<<< HEAD
 // file: lib/common/base64.js
+=======
+// file: src/common/base64.js
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 define("cordova/base64", function(require, exports, module) {
 
 var base64 = exports;
@@ -435,7 +467,11 @@ function uint8ToBase64(rawData) {
 
 });
 
+<<<<<<< HEAD
 // file: lib/common/builder.js
+=======
+// file: src/common/builder.js
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 define("cordova/builder", function(require, exports, module) {
 
 var utils = require('cordova/utils');
@@ -504,7 +540,11 @@ function include(parent, objects, clobber, merge) {
                 include(result, obj.children, clobber, merge);
             }
         } catch(e) {
+<<<<<<< HEAD
             utils.alert('Exception building cordova JS globals: ' + e + ' for key "' + key + '"');
+=======
+            utils.alert('Exception building Cordova JS globals: ' + e + ' for key "' + key + '"');
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
         }
     });
 }
@@ -548,7 +588,11 @@ exports.replaceHookForTesting = function() {};
 
 });
 
+<<<<<<< HEAD
 // file: lib/common/channel.js
+=======
+// file: src/common/channel.js
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 define("cordova/channel", function(require, exports, module) {
 
 var utils = require('cordova/utils'),
@@ -789,27 +833,54 @@ module.exports = channel;
 
 });
 
+<<<<<<< HEAD
 // file: lib/ios/exec.js
+=======
+// file: src/ios/exec.js
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 define("cordova/exec", function(require, exports, module) {
 
 /**
  * Creates a gap bridge iframe used to notify the native code about queued
  * commands.
+<<<<<<< HEAD
  *
  * @private
+=======
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
  */
 var cordova = require('cordova'),
     channel = require('cordova/channel'),
     utils = require('cordova/utils'),
     base64 = require('cordova/base64'),
+<<<<<<< HEAD
+=======
+    // XHR mode does not work on iOS 4.2.
+    // XHR mode's main advantage is working around a bug in -webkit-scroll, which
+    // doesn't exist only on iOS 5.x devices.
+    // IFRAME_NAV is the fastest.
+    // IFRAME_HASH could be made to enable synchronous bridge calls if we wanted this feature.
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
     jsToNativeModes = {
         IFRAME_NAV: 0,
         XHR_NO_PAYLOAD: 1,
         XHR_WITH_PAYLOAD: 2,
+<<<<<<< HEAD
         XHR_OPTIONAL_PAYLOAD: 3
     },
     bridgeMode,
     execIframe,
+=======
+        XHR_OPTIONAL_PAYLOAD: 3,
+        IFRAME_HASH_NO_PAYLOAD: 4,
+        // Bundling the payload turns out to be slower. Probably since it has to be URI encoded / decoded.
+        IFRAME_HASH_WITH_PAYLOAD: 5
+    },
+    bridgeMode,
+    execIframe,
+    execHashIframe,
+    hashToggle = 1,
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
     execXhr,
     requestCount = 0,
     vcHeaderValue = null,
@@ -823,11 +894,26 @@ function createExecIframe() {
     return iframe;
 }
 
+<<<<<<< HEAD
 function shouldBundleCommandJson() {
     if (bridgeMode == jsToNativeModes.XHR_WITH_PAYLOAD) {
         return true;
     }
     if (bridgeMode == jsToNativeModes.XHR_OPTIONAL_PAYLOAD) {
+=======
+function createHashIframe() {
+    var ret = createExecIframe();
+    // Hash changes don't work on about:blank, so switch it to file:///.
+    ret.contentWindow.history.replaceState(null, null, 'file:///#');
+    return ret;
+}
+
+function shouldBundleCommandJson() {
+    if (bridgeMode === jsToNativeModes.XHR_WITH_PAYLOAD) {
+        return true;
+    }
+    if (bridgeMode === jsToNativeModes.XHR_OPTIONAL_PAYLOAD) {
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
         var payloadLength = 0;
         for (var i = 0; i < commandQueue.length; ++i) {
             payloadLength += commandQueue[i].length;
@@ -888,11 +974,19 @@ function convertMessageToArgsNativeToJs(message) {
 }
 
 function iOSExec() {
+<<<<<<< HEAD
     // XHR mode does not work on iOS 4.2, so default to IFRAME_NAV for such devices.
     // XHR mode's main advantage is working around a bug in -webkit-scroll, which
     // doesn't exist in 4.X devices anyways.
     if (bridgeMode === undefined) {
         bridgeMode = navigator.userAgent.indexOf(' 4_') == -1 ? jsToNativeModes.XHR_NO_PAYLOAD : jsToNativeModes.IFRAME_NAV;
+=======
+    // Use XHR for iOS 5 to work around a bug in -webkit-scroll.
+    // Use IFRAME_NAV elsewhere since it's faster and XHR bridge
+    // seems to have bugs in newer OS's (CB-3900, CB-3359, CB-5457, CB-4970, CB-4998, CB-5134)
+    if (bridgeMode === undefined) {
+        bridgeMode = navigator.userAgent.indexOf(' 5_') == -1 ? jsToNativeModes.IFRAME_NAV: jsToNativeModes.XHR_NO_PAYLOAD;
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
     }
 
     var successCallback, failCallback, service, action, actionArgs, splitCommand;
@@ -947,7 +1041,14 @@ function iOSExec() {
     // Also, if there is already a command in the queue, then we've already
     // poked the native side, so there is no reason to do so again.
     if (!isInContextOfEvalJs && commandQueue.length == 1) {
+<<<<<<< HEAD
         if (bridgeMode != jsToNativeModes.IFRAME_NAV) {
+=======
+        switch (bridgeMode) {
+        case jsToNativeModes.XHR_NO_PAYLOAD:
+        case jsToNativeModes.XHR_WITH_PAYLOAD:
+        case jsToNativeModes.XHR_OPTIONAL_PAYLOAD:
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
             // This prevents sending an XHR when there is already one being sent.
             // This should happen only in rare circumstances (refer to unit tests).
             if (execXhr && execXhr.readyState != 4) {
@@ -968,8 +1069,33 @@ function iOSExec() {
                 execXhr.setRequestHeader('cmds', iOSExec.nativeFetchMessages());
             }
             execXhr.send(null);
+<<<<<<< HEAD
         } else {
             execIframe = execIframe || createExecIframe();
+=======
+            break;
+        case jsToNativeModes.IFRAME_HASH_NO_PAYLOAD:
+        case jsToNativeModes.IFRAME_HASH_WITH_PAYLOAD:
+            execHashIframe = execHashIframe || createHashIframe();
+            // Check if they've removed it from the DOM, and put it back if so.
+            if (!execHashIframe.contentWindow) {
+                execHashIframe = createHashIframe();
+            }
+            // The delegate method is called only when the hash changes, so toggle it back and forth.
+            hashToggle = hashToggle ^ 3;
+            var hashValue = '%0' + hashToggle;
+            if (bridgeMode === jsToNativeModes.IFRAME_HASH_WITH_PAYLOAD) {
+                hashValue += iOSExec.nativeFetchMessages();
+            }
+            execHashIframe.contentWindow.location.hash = hashValue;
+            break;
+        default:
+            execIframe = execIframe || createExecIframe();
+            // Check if they've removed it from the DOM, and put it back if so.
+            if (!execIframe.contentWindow) {
+                execIframe = createExecIframe();
+            }
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
             execIframe.src = "gap://ready";
         }
     }
@@ -1021,7 +1147,41 @@ module.exports = iOSExec;
 
 });
 
+<<<<<<< HEAD
 // file: lib/common/init.js
+=======
+// file: src/common/exec/proxy.js
+define("cordova/exec/proxy", function(require, exports, module) {
+
+
+// internal map of proxy function
+var CommandProxyMap = {};
+
+module.exports = {
+
+    // example: cordova.commandProxy.add("Accelerometer",{getCurrentAcceleration: function(successCallback, errorCallback, options) {...},...);
+    add:function(id,proxyObj) {
+        console.log("adding proxy for " + id);
+        CommandProxyMap[id] = proxyObj;
+        return proxyObj;
+    },
+
+    // cordova.commandProxy.remove("Accelerometer");
+    remove:function(id) {
+        var proxy = CommandProxyMap[id];
+        delete CommandProxyMap[id];
+        CommandProxyMap[id] = null;
+        return proxy;
+    },
+
+    get:function(service,action) {
+        return ( CommandProxyMap[service] ? CommandProxyMap[service][action] : null );
+    }
+};
+});
+
+// file: src/common/init.js
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 define("cordova/init", function(require, exports, module) {
 
 var channel = require('cordova/channel');
@@ -1135,7 +1295,11 @@ channel.join(function() {
 
 });
 
+<<<<<<< HEAD
 // file: lib/common/modulemapper.js
+=======
+// file: src/common/modulemapper.js
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 define("cordova/modulemapper", function(require, exports, module) {
 
 var builder = require('cordova/builder'),
@@ -1236,7 +1400,11 @@ exports.reset();
 
 });
 
+<<<<<<< HEAD
 // file: lib/ios/platform.js
+=======
+// file: src/ios/platform.js
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 define("cordova/platform", function(require, exports, module) {
 
 module.exports = {
@@ -1249,10 +1417,18 @@ module.exports = {
 
 });
 
+<<<<<<< HEAD
 // file: lib/common/pluginloader.js
 define("cordova/pluginloader", function(require, exports, module) {
 
 var modulemapper = require('cordova/modulemapper');
+=======
+// file: src/common/pluginloader.js
+define("cordova/pluginloader", function(require, exports, module) {
+
+var modulemapper = require('cordova/modulemapper');
+var urlutil = require('cordova/urlutil');
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 
 // Helper function to inject a <script> tag.
 function injectScript(url, onload, onerror) {
@@ -1321,11 +1497,22 @@ function handlePluginsObject(path, moduleList, finishPluginLoading) {
 }
 
 function injectPluginScript(pathPrefix, finishPluginLoading) {
+<<<<<<< HEAD
     injectScript(pathPrefix + 'cordova_plugins.js', function(){
         try {
             var moduleList = require("cordova/plugin_list");
             handlePluginsObject(pathPrefix, moduleList, finishPluginLoading);
         } catch (e) {
+=======
+    var pluginPath = pathPrefix + 'cordova_plugins.js';
+
+    injectScript(pluginPath, function() {
+        try {
+            var moduleList = require("cordova/plugin_list");
+            handlePluginsObject(pathPrefix, moduleList, finishPluginLoading);
+        }
+        catch (e) {
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
             // Error loading cordova_plugins.js, file not found or something
             // this is an acceptable error, pre-3.0.0, so we just move on.
             finishPluginLoading();
@@ -1362,16 +1549,23 @@ exports.load = function(callback) {
 
 });
 
+<<<<<<< HEAD
 // file: lib/common/urlutil.js
 define("cordova/urlutil", function(require, exports, module) {
 
 var urlutil = exports;
 var anchorEl = document.createElement('a');
+=======
+// file: src/common/urlutil.js
+define("cordova/urlutil", function(require, exports, module) {
+
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 
 /**
  * For already absolute URLs, returns what is passed in.
  * For relative URLs, converts them to absolute ones.
  */
+<<<<<<< HEAD
 urlutil.makeAbsolute = function(url) {
   anchorEl.href = url;
   return anchorEl.href;
@@ -1380,6 +1574,18 @@ urlutil.makeAbsolute = function(url) {
 });
 
 // file: lib/common/utils.js
+=======
+exports.makeAbsolute = function makeAbsolute(url) {
+    var anchorEl = document.createElement('a');
+    anchorEl.href = url;
+    return anchorEl.href;
+};
+
+
+});
+
+// file: src/common/utils.js
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 define("cordova/utils", function(require, exports, module) {
 
 var utils = exports;
@@ -1550,7 +1756,11 @@ function UUIDcreatePart(length) {
 });
 
 window.cordova = require('cordova');
+<<<<<<< HEAD
 // file: lib/scripts/bootstrap.js
+=======
+// file: src/scripts/bootstrap.js
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 
 require('cordova/init');
 

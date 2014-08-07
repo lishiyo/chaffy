@@ -34,6 +34,11 @@
 }
 
 - (id)initWithDelegate:(NSObject <UIWebViewDelegate>*)delegate;
+<<<<<<< HEAD
 - (BOOL)request:(NSURLRequest*)newRequest isFragmentIdentifierToRequest:(NSURLRequest*)originalRequest;
+=======
+- (BOOL)request:(NSURLRequest*)newRequest isFragmentIdentifierToRequest:(NSURLRequest*)originalRequest __attribute__((deprecated("Deprecated Since 3.5.0 -Use request:isEqualToRequestAfterStrippingFragments: instead.")));
+- (BOOL)request:(NSURLRequest*)newRequest isEqualToRequestAfterStrippingFragments:(NSURLRequest*)originalRequest;
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 
 @end

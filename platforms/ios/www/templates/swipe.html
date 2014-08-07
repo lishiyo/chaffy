@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <head>
 <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
 <link href="css/cards.css" rel="stylesheet">
@@ -52,6 +53,27 @@
               <!--
               <button class="button button-clear button-negative" ng-click="goAway()">SKIP</button>
               -->
+=======
+<body ng-app="starter" animation="slide-left-right-ios7" no-scroll>
+    <pane ng-controller="CardsCtrl">
+      <header-bar type="bar-transparent" title="'Help out'"></header-bar>
+
+      <swipe-cards>
+        <swipe-card on-swipe="cardSwiped()" id="start-card">
+          Swipe down for a new card
+        </swipe-card>
+        <swipe-card ng-repeat="card in cards" on-destroy="cardDestroyed($index)" on-swipe="cardSwiped($index)">
+          <div ng-controller="CardCtrl">
+            <div class="title">
+              {{card.title}}
+            </div>
+            <div class="image">
+              <img ng-src="{{card.image}}">
+            </div>
+            <div class="button-bar">
+              <button class="button button-clear button-positive" ng-click="goAway()">Answer</button>
+              <button class="button button-clear button-positive" ng-click="goAway()">Decline</button>
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
             </div>
           </div>
         </swipe-card>

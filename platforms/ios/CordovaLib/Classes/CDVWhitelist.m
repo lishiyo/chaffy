@@ -44,6 +44,15 @@ NSString* const kCDVDefaultSchemeName = @"cdv-default-scheme";
 
     if (allowWildcards) {
         regex = [regex stringByReplacingOccurrencesOfString:@"\\*" withString:@".*"];
+<<<<<<< HEAD
+=======
+        /* [NSURL path] has the peculiarity that a trailing slash at the end of a path
+         * will be omitted. This regex tweak compensates for that.
+         */
+        if ([regex hasSuffix:@"\\/.*"]) {
+            regex = [NSString stringWithFormat:@"%@(\\/.*)?", [regex substringToIndex:([regex length]-4)]];
+        }
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
     }
     return [NSString stringWithFormat:@"%@$", regex];
 }
@@ -55,14 +64,24 @@ NSString* const kCDVDefaultSchemeName = @"cdv-default-scheme";
         if ((scheme == nil) || [scheme isEqualToString:@"*"]) {
             _scheme = nil;
         } else {
+<<<<<<< HEAD
             _scheme = [NSRegularExpression regularExpressionWithPattern:[CDVWhitelistPattern regexFromPattern:scheme allowWildcards:NO] options:0 error:nil];
+=======
+            _scheme = [NSRegularExpression regularExpressionWithPattern:[CDVWhitelistPattern regexFromPattern:scheme allowWildcards:NO] options:NSRegularExpressionCaseInsensitive error:nil];
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
         }
         if ([host isEqualToString:@"*"]) {
             _host = nil;
         } else if ([host hasPrefix:@"*."]) {
+<<<<<<< HEAD
             _host = [NSRegularExpression regularExpressionWithPattern:[NSString stringWithFormat:@"([a-z0-9.-]*\\.)?%@", [CDVWhitelistPattern regexFromPattern:[host substringFromIndex:2] allowWildcards:false]] options:0 error:nil];
         } else {
             _host = [NSRegularExpression regularExpressionWithPattern:[CDVWhitelistPattern regexFromPattern:host allowWildcards:NO] options:0 error:nil];
+=======
+            _host = [NSRegularExpression regularExpressionWithPattern:[NSString stringWithFormat:@"([a-z0-9.-]*\\.)?%@", [CDVWhitelistPattern regexFromPattern:[host substringFromIndex:2] allowWildcards:false]] options:NSRegularExpressionCaseInsensitive error:nil];
+        } else {
+            _host = [NSRegularExpression regularExpressionWithPattern:[CDVWhitelistPattern regexFromPattern:host allowWildcards:NO] options:NSRegularExpressionCaseInsensitive error:nil];
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
         }
         if ((port == nil) || [port isEqualToString:@"*"]) {
             _port = nil;
@@ -162,7 +181,11 @@ NSString* const kCDVDefaultSchemeName = @"cdv-default-scheme";
         self.whitelist = nil;
         self.permittedSchemes = nil;
     } else { // specific access
+<<<<<<< HEAD
         NSRegularExpression* parts = [NSRegularExpression regularExpressionWithPattern:@"^((\\*|[a-z-]+)://)?(((\\*\\.)?[^*/:]+)|\\*)?(:(\\d+))?(/.*)?" options:0 error:nil];
+=======
+        NSRegularExpression* parts = [NSRegularExpression regularExpressionWithPattern:@"^((\\*|[A-Za-z-]+)://)?(((\\*\\.)?[^*/:]+)|\\*)?(:(\\d+))?(/.*)?" options:0 error:nil];
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
         NSTextCheckingResult* m = [parts firstMatchInString:origin options:NSMatchingAnchored range:NSMakeRange(0, [origin length])];
         if (m != nil) {
             NSRange r;
@@ -239,7 +262,11 @@ NSString* const kCDVDefaultSchemeName = @"cdv-default-scheme";
     }
 
     // Shortcut rejection: Check that the scheme is supported
+<<<<<<< HEAD
     NSString* scheme = [url scheme];
+=======
+    NSString* scheme = [[url scheme] lowercaseString];
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
     if (![self schemeIsAllowed:scheme]) {
         if (logFailure) {
             NSLog(@"%@", [self errorStringForURL:url]);
@@ -249,7 +276,11 @@ NSString* const kCDVDefaultSchemeName = @"cdv-default-scheme";
 
     // http[s] and ftp[s] should also validate against the common set in the kCDVDefaultSchemeName list
     if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"] || [scheme isEqualToString:@"ftp"] || [scheme isEqualToString:@"ftps"]) {
+<<<<<<< HEAD
         NSURL* newUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@://%@%@", kCDVDefaultSchemeName, [url host], [url path]]];
+=======
+        NSURL* newUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@://%@%@", kCDVDefaultSchemeName, [url host], [[url path] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
         // If it is allowed, we are done.  If not, continue to check for the actual scheme-specific list
         if ([self URLIsAllowed:newUrl logFailure:NO]) {
             return YES;

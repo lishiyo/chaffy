@@ -2,5 +2,9 @@
 *.perspectivev3
 *.pbxuser
 .DS_Store
+<<<<<<< HEAD
 build
 www/phonegap.js
+=======
+build/
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7

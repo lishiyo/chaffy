@@ -1,1 +1,5 @@
 *.keystore
+<<<<<<< HEAD
+=======
+*.sw*
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7

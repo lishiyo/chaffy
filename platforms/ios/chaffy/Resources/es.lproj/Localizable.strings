@@ -24,4 +24,8 @@
 // notification spoken by VoiceOver when timed recording finishes
 "timed recording complete" = "tiempo de grabación completo";
 // accessibility hint for display of recorded elapsed time
+<<<<<<< HEAD
 "recorded time in minutes and seconds" = "tiempo registrado en minutos y segundos";
+=======
+"recorded time in minutes and seconds" = "tiempo registrado en minutos y segundos";
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7

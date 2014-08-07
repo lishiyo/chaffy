@@ -17,4 +17,8 @@
 # under the License.
 #
 
+<<<<<<< HEAD
 Put the .h and .m files of your plugin here. The .js files of your plugin belong in the www folder.
+=======
+Put the .h and .m files of your plugin here. The .js files of your plugin belong in the www folder.
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7

@@ -26,8 +26,18 @@
 @interface CDVCommandDelegateImpl : NSObject <CDVCommandDelegate>{
     @private
     __weak CDVViewController* _viewController;
+<<<<<<< HEAD
     @protected
     __weak CDVCommandQueue* _commandQueue;
 }
 - (id)initWithViewController:(CDVViewController*)viewController;
+=======
+    NSRegularExpression *_callbackIdPattern;
+    @protected
+    __weak CDVCommandQueue* _commandQueue;
+    BOOL _delayResponses;
+}
+- (id)initWithViewController:(CDVViewController*)viewController;
+- (void)flushCommandQueueWithDelayedJs;
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 @end

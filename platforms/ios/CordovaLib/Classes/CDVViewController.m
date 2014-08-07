@@ -116,6 +116,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+<<<<<<< HEAD
 
     NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
     [nc removeObserver:self name:UIKeyboardWillShowNotification object:nil];
@@ -204,6 +205,8 @@ CGFloat gAccessoryBarHeight = 0.0;
     CGRect newFrame = self.view.bounds;
     self.webView.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.webView.frame = newFrame;
+=======
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 }
 
 - (void)printDeprecationNotice
@@ -303,10 +306,21 @@ CGFloat gAccessoryBarHeight = 0.0;
             self.loadFromString = YES;
             appURL = nil;
         } else {
+<<<<<<< HEAD
             // CB-3005 we know that the page exists : reconstruct full path from bundle
             NSURL* relativeURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
             NSString* localURL = [NSString stringWithFormat:@"%@/%@", self.wwwFolderName, self.startPage];
             appURL = [NSURL URLWithString:localURL relativeToURL:relativeURL];
+=======
+            appURL = [NSURL fileURLWithPath:startFilePath];
+            // CB-3005 Add on the query params or fragment.
+            NSString* startPageNoParentDirs = self.startPage;
+            NSRange r = [startPageNoParentDirs rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"?#"] options:0];
+            if (r.location != NSNotFound) {
+                NSString* queryAndOrFragment = [self.startPage substringFromIndex:r.location];
+                appURL = [NSURL URLWithString:queryAndOrFragment relativeToURL:appURL];
+            }
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
         }
     }
 
@@ -326,7 +340,20 @@ CGFloat gAccessoryBarHeight = 0.0;
 
     // // Instantiate the WebView ///////////////
 
+<<<<<<< HEAD
     [self createGapView];
+=======
+    if (!self.webView) {
+        [self createGapView];
+    }
+
+    // Configure WebView
+    _webViewDelegate = [[CDVWebViewDelegate alloc] initWithDelegate:self];
+    self.webView.delegate = _webViewDelegate;
+
+    // register this viewcontroller with the NSURLProtocol, only after the User-Agent is set
+    [CDVURLProtocol registerViewController:self];
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 
     // /////////////////
 
@@ -336,14 +363,18 @@ CGFloat gAccessoryBarHeight = 0.0;
     if ([self settingForKey:@"MediaPlaybackRequiresUserAction"]) {
         mediaPlaybackRequiresUserAction = [(NSNumber*)[self settingForKey:@"MediaPlaybackRequiresUserAction"] boolValue];
     }
+<<<<<<< HEAD
     BOOL hideKeyboardFormAccessoryBar = NO;  // default value
     if ([self settingForKey:@"HideKeyboardFormAccessoryBar"]) {
         hideKeyboardFormAccessoryBar = [(NSNumber*)[self settingForKey:@"HideKeyboardFormAccessoryBar"] boolValue];
     }
+=======
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 
     self.webView.scalesPageToFit = [enableViewportScale boolValue];
 
     /*
+<<<<<<< HEAD
      * Fire up the GPS Service right away as it takes a moment for data to come back.
      */
     __weak CDVViewController* weakSelf = self;
@@ -378,6 +409,8 @@ CGFloat gAccessoryBarHeight = 0.0;
     }];
 
     /*
+=======
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
      * Fire up CDVLocalStorage to work-around WebKit storage limitations: on all iOS 5.1+ versions for local-only backups, but only needed on iOS 5.1 for cloud backup.
      */
     if (IsAtLeastiOSVersion(@"5.1") && (([backupWebStorageType isEqualToString:@"local"]) ||
@@ -420,6 +453,14 @@ CGFloat gAccessoryBarHeight = 0.0;
         }
     }
 
+<<<<<<< HEAD
+=======
+    NSString* decelerationSetting = [self settingForKey:@"UIWebViewDecelerationSpeed"];
+    if (![@"fast" isEqualToString : decelerationSetting]) {
+        [self.webView.scrollView setDecelerationRate:UIScrollViewDecelerationRateNormal];
+    }
+
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
     /*
      * iOS 6.0 UIWebView properties
      */
@@ -614,8 +655,13 @@ CGFloat gAccessoryBarHeight = 0.0;
 {
     // First, ask the webview via JS if it supports the new orientation
     NSString* jsCall = [NSString stringWithFormat:
+<<<<<<< HEAD
         @"window.shouldRotateToOrientation && window.shouldRotateToOrientation(%d);"
         , [self mapIosOrientationToJsOrientation:interfaceOrientation]];
+=======
+        @"window.shouldRotateToOrientation && window.shouldRotateToOrientation(%ld);"
+        , (long)[self mapIosOrientationToJsOrientation:interfaceOrientation]];
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
     NSString* res = [webView stringByEvaluatingJavaScriptFromString:jsCall];
 
     if ([res length] > 0) {
@@ -677,6 +723,7 @@ CGFloat gAccessoryBarHeight = 0.0;
 
     webViewBounds.origin = self.view.bounds.origin;
 
+<<<<<<< HEAD
     if (!self.webView) {
         self.webView = [self newCordovaViewWithFrame:webViewBounds];
         self.webView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
@@ -690,6 +737,13 @@ CGFloat gAccessoryBarHeight = 0.0;
         // register this viewcontroller with the NSURLProtocol, only after the User-Agent is set
         [CDVURLProtocol registerViewController:self];
     }
+=======
+    self.webView = [self newCordovaViewWithFrame:webViewBounds];
+    self.webView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+
+    [self.view addSubview:self.webView];
+    [self.view sendSubviewToBack:self.webView];
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
 }
 
 - (void)didReceiveMemoryWarning
@@ -776,6 +830,36 @@ CGFloat gAccessoryBarHeight = 0.0;
      */
     if ([[url scheme] isEqualToString:@"gap"]) {
         [_commandQueue fetchCommandsFromJs];
+<<<<<<< HEAD
+=======
+        // The delegate is called asynchronously in this case, so we don't have to use
+        // flushCommandQueueWithDelayedJs (setTimeout(0)) as we do with hash changes.
+        [_commandQueue executePending];
+        return NO;
+    }
+
+    if ([[url fragment] hasPrefix:@"%01"] || [[url fragment] hasPrefix:@"%02"]) {
+        // Delegate is called *immediately* for hash changes. This means that any
+        // calls to stringByEvaluatingJavascriptFromString will occur in the middle
+        // of an existing (paused) call stack. This doesn't cause errors, but may
+        // be unexpected to callers (exec callbacks will be called before exec() even
+        // returns). To avoid this, we do not do any synchronous JS evals by using
+        // flushCommandQueueWithDelayedJs.
+        NSString* inlineCommands = [[url fragment] substringFromIndex:3];
+        if ([inlineCommands length] == 0) {
+            // Reach in right away since the WebCore / Main thread are already synchronized.
+            [_commandQueue fetchCommandsFromJs];
+        } else {
+            inlineCommands = [inlineCommands stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            [_commandQueue enqueueCommandBatch:inlineCommands];
+        }
+        // Switch these for minor performance improvements, and to really live on the wild side.
+        // Callbacks will occur in the middle of the location.hash = ... statement!
+        [(CDVCommandDelegateImpl*)_commandDelegate flushCommandQueueWithDelayedJs];
+        // [_commandQueue executePending];
+
+        // Although we return NO, the hash change does end up taking effect.
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
         return NO;
     }
 
@@ -786,7 +870,11 @@ CGFloat gAccessoryBarHeight = 0.0;
         CDVPlugin* plugin = [pluginObjects objectForKey:pluginName];
         SEL selector = NSSelectorFromString(@"shouldOverrideLoadWithRequest:navigationType:");
         if ([plugin respondsToSelector:selector]) {
+<<<<<<< HEAD
             if ((BOOL)objc_msgSend(plugin, selector, request, navigationType) == YES) {
+=======
+            if (((BOOL (*)(id, SEL, id, int))objc_msgSend)(plugin, selector, request, navigationType) == YES) {
+>>>>>>> 1d745dce7cd98402ab804922fac1e4f6ac6186d7
                 return NO;
             }
         }
