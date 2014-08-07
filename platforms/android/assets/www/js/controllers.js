@@ -470,12 +470,7 @@ if (isReady) {
   connieDrag = false;
   $scope.newMessage = "";
   $scope.messages = [];
-
 /**
-setTimeout(function() {
-
-},10);
-**/
 
 var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/' + $routeParams.roomId);
 
@@ -485,7 +480,13 @@ ref.once('value', function(dataSnapshot) {
   var snapshot = dataSnapshot.val();
   $scope.isReady = true;
 
+  if ($scope.isReady) {
+
+  }
+
 }); //ref
+
+**/
 
 //if ($scope.isReady) {
 /**
@@ -501,19 +502,19 @@ ref.once('value', function(dataSnapshot) {
 //};
 
 
-// connie - for android
+// connie - for android's keyboard issue
 //if ($scope.isReady) {
   /**
-  $('#mainInput').on('focus', function(){
-    $scope.androidHt = parseInt($('.scroll').css('height'))-150;
-    var androidTr = 'translate3d(0px, '+$scope.androidHt+"px" + ', 0px)';
-
+$('#mainInput').on('focus', function(){
+    var androidHt = (parseInt($('.card.item-message:last').css('height'))-390);
+    var androidTr = 'translate3d(0px, '+androidHt+"px" + ', 0px)';
     console.log(androidTr);
 
-     $("#withScroll .scroll-content").css('-webkit-transform', androidTr);
+    //$(".card").css('-webkit-transform', androidTr);
+    $(".card").css('-webkit-transform', androidTr);
      
   }); //mainINput
-**/
+
 //}
 
 /**
@@ -593,16 +594,27 @@ $scope.checkCount = function(){
 
   $scope.submitAddMessage = function() {
   
+/** mike
+setTimeout(function(){
 
+placeToGo = (parseInt($('.scroll:first').css('height'))-250);
+
+alert(placeToGo);
+ $(".scroll:first").css('-webkit-transform','translate3d(0px, '+ placeToGo+', 0px)');
+ 
+ //console.log("called withscroll");
+
+    },500);
+
+**/
     //for users who don't input a name
       if(typeof this.username =="undefined"){
         this.username = 'Chaffer ' + Math.floor(Math.random() * 501);
       }
-  
       //for legacy users to get update
       if(this.username =="undefined"){
-      this.username = 'Chaffer ' + Math.floor(Math.random() * 501);
-    }
+        this.username = 'Chaffer ' + Math.floor(Math.random() * 501);
+      }
 
     $scope.messages.push({
       created_by: this.username,
@@ -631,13 +643,13 @@ $scope.checkCount = function(){
 
 $scope.addMyRoom = function() {
   $scope.roomToAdd = parseFloat($routeParams.roomId);
-  console.log("\n\n roomToAdd: " + $scope.roomToAdd);
-  //var promise = angularFire(myRooms, $scope, "myRooms");
+  console.log("\n roomToAdd: " + $scope.roomToAdd);
 
 //retrieve current rooms
 var isReady = false;
 $scope.thisUser.child("myRooms").on("value", function (snapshot) {
   $scope.myRooms = snapshot.val(); //current myRooms
+  console.log("$scope.myRooms is:" + $scope.myRooms);
   isReady = true;
 }, function (errorObject) {
   console.log(errorObject);
