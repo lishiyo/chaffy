@@ -6,24 +6,27 @@
 
 <style>
   .has-footer{
-    bottom:100px !important;
+    bottom: 100px !important;
   }
 
+  [scroll-glue]{
+    height: 77%;
+    overflow-y: hidden;
+  }
 
 </style>
 
-  <content 
+
+  <content scroll-glue
     has-header="true"
     has-footer="true"
-    scroll="true"
     padding="true"
     paging="true"
     on-refresh="onRefresh()"
     on-refresh-opening="onRefreshOpening(amount)"
     refresh-complete="refreshComplete"
-     animate-nav="true"
-     delegate-handle="myScroll"
-    >
+    animate-nav="true"
+    > <!--delegate-handle="myScroll", scroll="true"-->
 
     <!-- for pull to refresh -->
     <refresher></refresher>
@@ -32,7 +35,7 @@
   -->
   
     <div ng-repeat="message in messages" type="item-text-wrap">    
-      <div class="card item-message" ng-class-odd="'message-odd'" ng-class-even="'message-even'">
+      <div class="card item-message" ng-class-odd="'message-odd scroll'" ng-class-even="'message-even scroll'">
         <div class="item-message-header">
           <div class="row">
             <small class="col">{{message.created_by}} | {{message.userAge}}, {{message.userGender}}</small>
@@ -46,6 +49,7 @@
     </div>
   
   </content>
+
 
   <div class="bar bar-footer bar-stable" id="bar-footer-message-box">
     <div class="list list-inset">

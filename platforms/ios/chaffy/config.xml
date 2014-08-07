@@ -18,6 +18,7 @@
     
     
     <access origin="*" />
+    <preference name="AutoHideSplashScreen" value="false" />
     <preference name="KeyboardDisplayRequiresUserAction" value="true" />
     <preference name="SuppressesIncrementalRendering" value="false" />
     <preference name="UIWebViewBounce" value="false" />

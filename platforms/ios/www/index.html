@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>chaffy</title>
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" height=device-height>
 
     <!-- ionic css -->
     <link href="css/ionic.css" rel="stylesheet">
@@ -11,6 +11,7 @@
     <!-- your app's css -->
     <link href="css/app.css" rel="stylesheet">
     <link href="css/sidemenu.css" rel="stylesheet">
+    <link href="css/roomeffects.css" rel="stylesheet">
 
     <!-- ionic/angularjs scripts -->
     <script src="js/ionic.js"></script>
@@ -21,13 +22,14 @@
     <script src="js/angular-touch.js"></script>
     <script src="js/angular/angular-sanitize.js"></script>
 
+
 <!-- angular google maps after angular -->
 <script src='js/maps.googleapis.js'></script>
 <script src='js/lodash.min.js'></script>
 <script src='js/angular-google-maps.min.js'></script>
 
     <script src="js/ionic-angular.js"></script>
-    <script src="js/rsvp.min.js"></script>
+  <!--<script src="js/rsvp.min.js"></script>-->
 
     <script src="js/firebase.js"></script>
     <script src="js/angularfire.min.js"></script>
@@ -44,13 +46,14 @@
     <script src="js/ionic.swipecards.v3.js"></script>
     <script src="js/services.js"></script>
     <script src="js/controllers.js"></script>
+    <script src="js/scrollglue.js"></script>
 
   </head>
 
   <body ng-app="chatRoom" ng-controller="AppCtrl" id="main">
     <side-menus>
       <pane side-menu-content>
-        <pane nav-router animation="slide-left-right-ios7" class="withScroll">
+        <pane nav-router animation="slide-left-right-ios7">
           <ng-view></ng-view>
         </pane>
       </pane>
