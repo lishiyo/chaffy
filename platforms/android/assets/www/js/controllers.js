@@ -48,7 +48,6 @@ angular.module('chatRoom.controllers', [])
   connieDrag= false;
   clearInterval(cInt);
 
-
 //  create or retrieve users in testUsers
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com');  
   var usersRef = ref.child("testUsers");
@@ -469,7 +468,6 @@ if (isReady) {
 .controller('RoomCtrl', function($scope, $routeParams, $timeout, angularFire) {
 
   connieDrag = false;
-  roomUpdated = false;
   $scope.newMessage = "";
   $scope.messages = [];
 
@@ -479,21 +477,69 @@ setTimeout(function() {
 },10);
 **/
 
-  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/' + $routeParams.roomId);
-   ref.on('value', function(dataSnapshot) {
+var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/' + $routeParams.roomId);
+
+ref.once('value', function(dataSnapshot) {
   // code to handle new value.
+  var isReady = false;
+  var snapshot = dataSnapshot.val();
+  isReady = true;
+
+if (isReady) {
 
   setTimeout(function(){
- $(".withScroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-250)+"px"+', 0px)');
+
+  var thisHeight = parseInt($('.scroll').css('height'))-250;
+  var translateHeight = 'translate3d(0px, '+thisHeight+"px" + ', 0px)';
+  console.log(translateHeight);
+  
+  $(".scroll-content").css('-webkit-transform', translateHeight);
+}, 500);
+
+  };
+
+}); //ref
+
+// connie - for android
+//if ($scope.isReady) {
+  $('#mainInput').on('focus', function(){
+    $scope.androidHt = parseInt($('.scroll').css('height'))-300;
+    var androidTr = 'translate3d(0px, '+$scope.androidHt+"px" + ', 0px)';
+
+    console.log(androidTr);
+
+     $("#withScroll .scroll-content").css('-webkit-transform', androidTr);
+     
+  }); //mainINput
+//}
+
+/**
+$scope.$on('$viewContentLoaded', function(){
+// do something
+$(".withScroll .scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-250)+"px"+', 0px)');
+ 
+ console.log("content loaded");
+});
+
+  setTimeout(function(){
+
+ $(".withScroll .scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-250)+"px"+', 0px)');
+ 
+ console.log("called withscroll");
+
     },500);
 
 // connie - for android
   $('#mainInput').on('focus', function(){
-     $(".withScroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-190)+"px"+', 0px)');
-  });
-});
+   
+     $(".withScroll .scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-190)+"px"+', 0px)');
+     
+  }); //mainINput
 
-  
+});
+  **/
+
+
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/' + $routeParams.roomId);
   var promise = angularFire(ref, $scope, "messages");
   
@@ -544,6 +590,17 @@ $scope.checkCount = function(){
 
   $scope.submitAddMessage = function() {
   
+
+    //for users who don't input a name
+      if(typeof this.username =="undefined"){
+        this.username = 'Chaffer ' + Math.floor(Math.random() * 501);
+      }
+  
+      //for legacy users to get update
+      if(this.username =="undefined"){
+      this.username = 'Chaffer ' + Math.floor(Math.random() * 501);
+    }
+
     $scope.messages.push({
       created_by: this.username,
       content: this.newMessage,
