@@ -3,7 +3,7 @@ var jGlob;
 //for the map drag interval below for map
 var cInt;
 
-angular.module('chatRoom.controllers', [])
+angular.module('chatRoom.controllers', ['luegg.directives'])
 /**
 .factory('getLoc', function ($scope, $timeout, angularFire) {
         $scope.getUserLocation = function(){
@@ -481,29 +481,31 @@ var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/' + $r
 
 ref.once('value', function(dataSnapshot) {
   // code to handle new value.
-  var isReady = false;
+  $scope.isReady = false;
   var snapshot = dataSnapshot.val();
-  isReady = true;
+  $scope.isReady = true;
 
-if (isReady) {
+}); //ref
 
+//if ($scope.isReady) {
+/**
   setTimeout(function(){
 
   var thisHeight = parseInt($('.scroll').css('height'))-250;
   var translateHeight = 'translate3d(0px, '+thisHeight+"px" + ', 0px)';
   console.log(translateHeight);
   
-  $(".scroll-content").css('-webkit-transform', translateHeight);
+  $("#withScroll .scroll-content").css('-webkit-transform', translateHeight);
 }, 500);
+**/
+//};
 
-  };
-
-}); //ref
 
 // connie - for android
 //if ($scope.isReady) {
+  /**
   $('#mainInput').on('focus', function(){
-    $scope.androidHt = parseInt($('.scroll').css('height'))-300;
+    $scope.androidHt = parseInt($('.scroll').css('height'))-150;
     var androidTr = 'translate3d(0px, '+$scope.androidHt+"px" + ', 0px)';
 
     console.log(androidTr);
@@ -511,6 +513,7 @@ if (isReady) {
      $("#withScroll .scroll-content").css('-webkit-transform', androidTr);
      
   }); //mainINput
+**/
 //}
 
 /**

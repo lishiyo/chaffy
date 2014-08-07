@@ -477,6 +477,10 @@ setTimeout(function() {
 },10);
 **/
 
+ 
+
+
+
 var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/' + $routeParams.roomId);
 
 ref.once('value', function(dataSnapshot) {
@@ -485,7 +489,13 @@ ref.once('value', function(dataSnapshot) {
   var snapshot = dataSnapshot.val();
   $scope.isReady = true;
 
+  if ($scope.isReady) {
+
+  }
+
 }); //ref
+
+
 
 //if ($scope.isReady) {
 /**
@@ -593,6 +603,21 @@ $scope.checkCount = function(){
 
   $scope.submitAddMessage = function() {
   
+
+
+
+setTimeout(function(){
+
+
+placeToGo = (parseInt($('.scroll:first').css('height'))-250);
+
+alert(placeToGo);
+ $(".scroll:first").css('-webkit-transform','translate3d(0px, '+ placeToGo+', 0px)');
+ 
+ //console.log("called withscroll");
+
+    },500);
+
 
     //for users who don't input a name
       if(typeof this.username =="undefined"){

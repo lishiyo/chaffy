@@ -317,6 +317,7 @@ c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\js
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\js\lodash.min.js \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\js\maps.googleapis.js \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\js\rsvp.min.js \
+c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\js\scrollglue.js \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\js\services.js \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\js\zepto.min.js \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\js\angular\angular-animate.js \
