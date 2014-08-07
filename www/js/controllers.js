@@ -277,7 +277,6 @@ for (var idx in $scope.myRooms) { //loop through all of users' rooms
 return false; //room wasn't found in users' rooms
 } //userHasRoom
 
-
 $scope.lastMessageAdded = function (room){
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/');
   var roomRef = ref.child(room.id);
@@ -321,6 +320,7 @@ $scope.roomHotness = function(room){
 **/
 
 //roomPopularity checks whether room's total num of messages is greater than some number
+
 $scope.roomPopularity = function(room) {
 
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/');
@@ -328,7 +328,7 @@ $scope.roomPopularity = function(room) {
   
   ref.child(room.id).once('value', function(snapshot) {
     $scope.nodesLength = Object.keys(snapshot.val()).length;
-    console.log("data is: " + $scope.nodesLength); 
+    $scope.totalMessages = $scope.nodesLength;
   });
 
   if ($scope.nodesLength > 25) {
@@ -338,6 +338,7 @@ $scope.roomPopularity = function(room) {
   }
 
 };
+
 /**
   if ($scope.count > 3) {
     return true;
