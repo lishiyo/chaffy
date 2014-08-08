@@ -521,6 +521,9 @@ $(".withScroll .scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt(
 });
   **/
 
+setTimeout(function(){
+ $(".scroll:first").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll:first').css('height'))-250)+"px"+', 0px)');
+    },500);
 
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/' + $routeParams.roomId);
   var promise = angularFire(ref, $scope, "messages");
