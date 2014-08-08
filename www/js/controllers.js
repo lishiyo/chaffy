@@ -81,6 +81,9 @@ if (localStorage.getItem('localUserID') != null) {
 
  var userID = newUserRef.name(); //user's unique ID
  localStorage.setItem('localUserID', userID);
+	
+	// order users in Firebase by time created
+	newUserRef.setPriority(Firebase.ServerValue.TIMESTAMP);
 
  console.log("\n\n new user created: " + userID);
 }
@@ -341,10 +344,33 @@ $scope.roomPopularity = function(room) {
 
 };
 
+// click to remove this room (room.id) from My Chats view
+/**
+$scope.leaveRoom = function(room){
+	var usersRef = new Firebase('https://blistering-fire-5269.firebaseio.com/testUsers');  
+	var userID = localStorage.getItem('localUserID');
+	$scope.thisUser = usersRef.child(userID);
+	
+	$scope.thisUser.child('myRooms').once('value', function(snap){
+		var data = snap.val();
+		
+    for (var idx in data) { //loop through all of users' rooms
+      var roomId = $scope.myRooms[idx]; 
+      if (roomId == room.id) {
+		  console.log("found room in " + $scope.myRooms + " : " + roomId);
+		  $scope.myRooms.splice(idx, 1);
+		  console.log("myRooms now: " + $scope.myRooms);
+		}
+    } // for loop
+		
+	}); // firebase
+} //leaveRoom
+**/
+	
 }) //MainCtrl
 
 .controller('NewRoomCtrl', function($scope, $location, angularFire) {      
-  // connie added
+  
   connieDrag= false;
 
   $scope.rooms = [];
@@ -386,7 +412,7 @@ $scope.addMyRoom = function() {
   $scope.thisUser = usersRef.child(userID);
   
   $scope.roomToAdd = parseFloat(localStorage.getItem('lastRoomAdded'));
-  console.log("\n\n roomToAdd: " + $scope.roomToAdd);
+  //console.log("\n\n roomToAdd: " + $scope.roomToAdd);
 
   //var promise = angularFire(myRooms, $scope, "myRooms");
 
