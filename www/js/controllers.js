@@ -279,13 +279,12 @@ return false; //room wasn't found in users' rooms
 
 // show the room's last message
 $scope.lastMessageAdded = function (room){
-  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/');
-  var roomRef = ref.child(room.id);
-
+  var roomRef = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/').child(room.id);
+  
   var lastMessage = roomRef.endAt().limit(1);
-  lastMessage.on('child_added', function(snapshot) {
-    var message = snapshot.val();
-    $scope.content = message.content;
+	
+  lastMessage.once('child_added', function(snapshot) {
+    $scope.content = snapshot.val().content;
   });
 
   return $scope.content;
@@ -326,13 +325,11 @@ $scope.roomHotness = function(room) {
 $scope.roomPopularity = function(room) {
 
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/');
-  //var lastInRoom = ref.child(roomId).endAt().limit(1); //last node in this room - doesn't seem to work
   
   ref.child(room.id).endAt().limit(1).once('value', function(snap) {
-    // refactored from taking all nodes of room.id
+    // refactored from taking all nodes (messages) in room
     // $scope.nodesLength = Object.keys(snap.val()).length;
     var lastNode = Object.keys(snap.val())[0];
-	// console.log("lastNode is: " + $scope.lastNode);
     $scope.totalMessages = lastNode;
   });
 
