@@ -77,9 +77,9 @@ if (localStorage.getItem('localUserID') != null) {
 
  var userID = newUserRef.name(); //user's unique ID
  localStorage.setItem('localUserID', userID);
-	
-	// order users in Firebase by time created
-	newUserRef.setPriority(Firebase.ServerValue.TIMESTAMP);
+  
+  // order users in Firebase by time created
+  newUserRef.setPriority(Firebase.ServerValue.TIMESTAMP);
 
  console.log("\n\n new user created: " + userID);
 }
@@ -143,25 +143,26 @@ clearInterval(cInt);
   $scope.rooms = [];
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/open_rooms');  
   var promise = angularFire(ref, $scope, "rooms");
-	
-	// legacy - reset all rooms timeLastMsg
-	/**
-	var totalRefresh = function() {
-		var allRooms = new Firebase('https://blistering-fire-5269.firebaseio.com/open_rooms/');
-	  allRooms.once('value', function(snap){
-		  var data = snap.val();	  
-		  for (var idx in data) { 
-				//console.log("allRooms called!");
-			  //if (data[idx].timeLastMsg==undefined) {
-				  console.log("timelastMsg: " + data[idx].timeLastMsg + " at key: " + idx);
-				  allRooms.child(idx).update({
-					  timeLastMsg: Firebase.ServerValue.TIMESTAMP
-				  });
-				//} end if
-			  } // end for
-	  });
-	}
-	**/
+  
+  // legacy - reset all rooms timeLastMsg
+  /**
+  var totalRefresh = function() {
+    var allRooms = new Firebase('https://blistering-fire-5269.firebaseio.com/open_rooms/');
+    allRooms.once('value', function(snap){
+      var data = snap.val();    
+      for (var idx in data) { 
+        //console.log("allRooms called!");
+        //if (data[idx].timeLastMsg==undefined) {
+          console.log("timelastMsg: " + data[idx].timeLastMsg + " at key: " + idx);
+          allRooms.child(idx).update({
+            timeLastMsg: Firebase.ServerValue.TIMESTAMP
+          });
+        //} end if
+        } // end for
+    });
+  }
+  **/
+  
   
   $scope.sortLoc = {
 /*
@@ -224,19 +225,19 @@ clearInterval(cInt);
 // sort rooms by largest to smallest timestamp (youngest to oldest)
 /**
 $scope.whenLastMessage = function(room) {
-	
-	if (room.timeLastMsg==undefined) {
-		var timeZero = new Date().getTime();
-		console.log("last message at: " + timeZero);
-		return timeZero;
-	} else {
-		console.log("last message at: " + room.timeLastMsg);
-		return room.timeLastMsg;
-	}
-	
+  
+  if (room.timeLastMsg==undefined) {
+    var timeZero = new Date().getTime();
+    console.log("last message at: " + timeZero);
+    return timeZero;
+  } else {
+    console.log("last message at: " + room.timeLastMsg);
+    return room.timeLastMsg;
+  }
+  
 }
 **/
-	
+  
 $scope.distanceFromHere = function (_item, _startPoint) {
 
 lat2 = $scope.getUserLocation()[0];
@@ -315,7 +316,7 @@ $scope.lastMessageAdded = function (room){
   var roomRef = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/').child(room.id);
   
   var lastMessage = roomRef.endAt().limit(1);
-	
+  
   lastMessage.once('child_added', function(snapshot) {
     $scope.content = snapshot.val().content;
   });
@@ -334,24 +335,19 @@ function calcTimes() {
 $scope.roomHotness = function(room) {
   calcTimes();
 
-  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/').child(room.id).endAt().limit(10).once('value', function(snap){
+ var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/').child(room.id).endAt().limit(10).once('value', function(snap){
 
     var firstOfLast = Object.keys(snap.val())[0];
     //console.log("keys: " + firstOfLast);
-    var data = parseFloat(snap.val()[firstOfLast].created_at);
+    $scope.data = parseFloat(snap.val()[firstOfLast].created_at);
     //console.log("data created at: " + data);
 
-    $scope.isHot = function () {
-      if (data > $scope.startTime) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  }); // ref
-
-  return $scope.isHot();
-
+}); // ref
+  if ($scope.data > $scope.startTime) {
+    return true;
+  } else {
+    return false;
+  }   
 } //roomHotness
 
 //roomPopularity checks whether room's total num of messages is greater than some number
@@ -378,26 +374,26 @@ $scope.roomPopularity = function(room) {
 // click to remove this room (room.id) from My Chats view
 /**
 $scope.leaveRoom = function(room){
-	var usersRef = new Firebase('https://blistering-fire-5269.firebaseio.com/testUsers');  
-	var userID = localStorage.getItem('localUserID');
-	$scope.thisUser = usersRef.child(userID);
-	
-	$scope.thisUser.child('myRooms').once('value', function(snap){
-		var data = snap.val();
-		
+  var usersRef = new Firebase('https://blistering-fire-5269.firebaseio.com/testUsers');  
+  var userID = localStorage.getItem('localUserID');
+  $scope.thisUser = usersRef.child(userID);
+  
+  $scope.thisUser.child('myRooms').once('value', function(snap){
+    var data = snap.val();
+    
     for (var idx in data) { //loop through all of users' rooms
       var roomId = $scope.myRooms[idx]; 
       if (roomId == room.id) {
-		  console.log("found room in " + $scope.myRooms + " : " + roomId);
-		  $scope.myRooms.splice(idx, 1);
-		  console.log("myRooms now: " + $scope.myRooms);
-		}
+      console.log("found room in " + $scope.myRooms + " : " + roomId);
+      $scope.myRooms.splice(idx, 1);
+      console.log("myRooms now: " + $scope.myRooms);
+    }
     } // for loop
-		
-	}); // firebase
+    
+  }); // firebase
 } //leaveRoom
 **/
-	
+  
 }) //MainCtrl
 
 .controller('NewRoomCtrl', function($scope, $location, angularFire) {      
@@ -419,7 +415,7 @@ $scope.leaveRoom = function(room){
 
     $scope.roomId = Math.floor(Math.random() * 5000001);
 
-	  //timeLastMsg initialized as current time so this new room appears at top
+    //timeLastMsg initialized as current time so this new room appears at top
     $scope.rooms.push({
       id: $scope.roomId,
       title: $scope.newRoomName,
@@ -428,7 +424,7 @@ $scope.leaveRoom = function(room){
       longitude: userPosition[1],
       latitude: userPosition[0],
       description: $scope.newRoomDescription,
-			timeLastMsg: new Date.getTime()
+      timeLastMsg: new Date.getTime()
     });
 
     localStorage.setItem("lastRoomAdded", $scope.roomId);
@@ -657,7 +653,7 @@ function checkLastMsg() {
 
     this.newMessage = "";
     
-	//order messages based on timestamp
+  //order messages based on timestamp
     var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/' + $routeParams.roomId);
     ref.child(MsgNo).setPriority(Firebase.ServerValue.TIMESTAMP); 
 
@@ -665,22 +661,22 @@ function checkLastMsg() {
 
 // update room's timeLastMsg in opened_rooms with this message's timestamp
 
-	  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/open_rooms/');
-	  
-	  ref.once('value', function(snap){
-		  var data = snap.val();
-		  //console.log("data is: " + data);
-		  for (var idx in data) { 
-			  if (data[idx].id==($routeParams.roomId)) {
-				  console.log("idx called: " + data[idx].id + " at key: " + idx);
-				  ref.child(idx).update({
-					  timeLastMsg: Firebase.ServerValue.TIMESTAMP
-				  });
-			  }
-		  } // end for loop 
-	  });
-	  
-	  
+    var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/open_rooms/');
+    
+    ref.once('value', function(snap){
+      var data = snap.val();
+      //console.log("data is: " + data);
+      for (var idx in data) { 
+        if (data[idx].id==($routeParams.roomId)) {
+          console.log("idx called: " + data[idx].id + " at key: " + idx);
+          ref.child(idx).update({
+            timeLastMsg: Firebase.ServerValue.TIMESTAMP
+          });
+        }
+      } // end for loop 
+    });
+    
+    
     setTimeout(function(){
       $('#mainInput').blur();
     }, 10);
@@ -1129,7 +1125,6 @@ var R = 6371; // Radius of the earth in km
 
   connieDrag=false;
 
-  
   $scope.goToIt = function(theUrl){
     window.location=theUrl;
 

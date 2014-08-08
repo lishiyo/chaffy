@@ -85,6 +85,7 @@ catch(errrr){
       // jGlob.onRefresh();
 
         var element = document.getElementById('geolocation');
+        
         console.log ( 'Latitude: '           + position.coords.latitude              + '<br />' +
                             'Longitude: '          + position.coords.longitude             + '<br />' +
                             'Altitude: '           + position.coords.altitude              + '<br />' +
@@ -93,7 +94,6 @@ catch(errrr){
                             'Heading: '            + position.coords.heading               + '<br />' +
                             'Speed: '              + position.coords.speed                 + '<br />' +
                             'Timestamp: '          + position.timestamp                    + '<br />');
-
 
 
     }
