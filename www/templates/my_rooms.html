@@ -25,7 +25,7 @@
     
       <link-item ng-repeat="room in rooms | orderBy:'id':true | limitTo:30 |  orderBy:distanceFromHere: false" type="item-text-wrap" ng-click="goToIt('#/rooms/{{room.id}}');" style="z-index:50000" ng-controller="MainCtrl">
 --> 
-<link-item ng-repeat="room in rooms | orderBy:'id':true | limitTo:30 |  orderBy:distanceFromHere: false" type="item-text-wrap" ng-click="goToIt('#/rooms/{{room.id}}');" style="z-index:50000" ng-controller="MainCtrl" ng-show="{{userHasRoom(room)}}" ng-class="{'roomhot': roomHotness(room), 'roompopular': roomPopularity(room)}">
+<link-item ng-repeat="room in rooms | limitTo:30 | orderBy:['distanceFromHere']" type="item-text-wrap" ng-click="goToIt('#/rooms/{{room.id}}');" style="z-index:50000" ng-controller="MainCtrl" ng-show="{{userHasRoom(room)}}" ng-class="{'roomhot': roomHotness(room), 'roompopular': roomPopularity(room)}">
           <h3>{{room.title}} ({{actualDistanceFromHere(room)}} mi.) </h3>
           <p style="font-style:italic">{{room.description}}</p>
           <p style="margin-left:10px;" class="text-right">{{lastMessageAdded(room)}}</p>
