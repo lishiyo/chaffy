@@ -260,7 +260,7 @@ function getRoomMessages(room) {
 // show the room's last message
 $scope.lastMessageAdded = function (room){
   var roomRef = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/' + room.id).endAt().limit(1).once('child_added', function(snapshot) {
-     console.log("content!: " + snapshot.val().content);
+     //console.log("content!: " + snapshot.val().content);
       $scope.content = snapshot.val().content;
   });
 
