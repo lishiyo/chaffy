@@ -129,7 +129,7 @@ if (localStorage.getItem('localUserID') != null) {
 
 })
 
-.controller('MainCtrl', function($scope, $timeout, angularFire) {
+.controller('MainCtrl', function($scope, $timeout, $firebase) {
 
   connieDrag= false;
   console.log("\n\n $scope.map center is " + userPosition[0] + ", " + userPosition[1]);
@@ -141,10 +141,11 @@ clearInterval(cInt);
 
  $scope.radius = parseFloat(localStorage.getItem('localNewRadius'));
  
-  $scope.rooms = [];
+  //$scope.rooms = [];
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/open_rooms');  
-  var promise = angularFire(ref, $scope, "rooms");
-
+  //var promise = angularFire(ref, $scope, "rooms");
+  var promise = $firebase(ref);
+  $scope.rooms = promise.$asArray();
   
   $scope.sortLoc = {
 /*
@@ -260,10 +261,10 @@ var usersRef = new Firebase('https://blistering-fire-5269.firebaseio.com/testUse
 var userID = localStorage.getItem('localUserID');
 $scope.thisUser = usersRef.child(userID);
 
-var isReady = false;
+//var isReady = false;
 $scope.thisUser.child("myRooms").on("value", function (snapshot) {
   $scope.myRooms = snapshot.val(); //current myRooms
-  isReady = true;
+  //isReady = true;
 }, function (errorObject) {
   console.log(errorObject);
 });
@@ -295,31 +296,84 @@ $scope.lastMessageAdded = function (room){
 function calcTimes() {
   var day = new Date();
   var dayBefore = new Date().setDate(day.getDate() - 1);
+
   $scope.endTime = day.getTime();
   $scope.startTime = dayBefore; //yesterday
+  $scope.startTimeSec = (parseFloat($scope.endTime) - 10000) //10 sec ago
 }
+
+//var defer = $.Deferred();
+
+function calcHotorActive (room) {
+/**
+ var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/').child(room.id).endAt().limit(10).once('value', function(snap){
+
+    var firstOfLast = Object.keys(snap.val())[0];
+    var lastKey = Object.keys(snap.val()).length;
+    var lastOfLast = lastKey - 1;
+    //console.log("keys: " + lastOfLast);
+    $scope.isHot = parseFloat(snap.val()[firstOfLast].created_at);
+    $scope.isActive = parseFloat(snap.val()[lastOfLast].created_at);
+    console.log("last message created at: " + $scope.isActive);
+    //defer.resolve();
+  });
+**/
+
+var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/').child(room.id).endAt().limit(10);
+
+var object = $firebase(ref).$asArray();
+
+object.$loaded().then(function(snap){
+
+    var firstOfLast = Object.keys(snap.val())[0];
+    var lastKey = Object.keys(snap.val()).length;
+    var lastOfLast = lastKey - 1;
+    //console.log("keys: " + lastOfLast);
+    $scope.isHot = parseFloat(snap.val()[firstOfLast].created_at);
+    $scope.isActive = parseFloat(snap.val()[lastOfLast].created_at);
+    console.log("last message created at: " + $scope.isActive);
+    //defer.resolve();
+  }) //obj loaded
+
+.then(function() {
+  if ($scope.isHot > $scope.startTime) {
+      $scope.isHot == true;
+    } else {
+      $scope.isHot == false;
+  }
+
+  if ($scope.isActive > $scope.startTimeSec) {
+      console.log("room is active, show icon!");
+      $scope.isActive == false;
+    } else {
+      console.log("room isn't active!");
+      $scope.isActive == true;
+  }
+});
+
+};
 
 $scope.roomHotness = function(room) {
   calcTimes();
+  calcHotorActive(room);
 
-  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/').child(room.id).endAt().limit(10).once('value', function(snap){
-
-    var firstOfLast = Object.keys(snap.val())[0];
-    //console.log("keys: " + firstOfLastTen);
-    $scope.isHot = parseFloat(snap.val()[firstOfLast].created_at);
-    //console.log("data created at: " + data);
-
-  }); //ref
-
-
-  if ($scope.isHot > $scope.startTime) {
-      return true;
-  } else {
-      return false;
-  }
-
-
+  return $scope.isHot;
 } //roomHotness
+
+// roomActive checks whether the room is active RIGHT now (a message within last 10 seconds)
+$scope.roomActive = function(room) {
+  calcTimes();
+  calcHotorActive(room);
+
+  var diff = $scope.endTime - $scope.isActive;
+  console.log("diff bt start and end: " + diff);
+  //console.log("diff bt last message and 10 sec before now: " + ($scope.isActive - parseFloat($scope.endTime)));
+
+  return $scope.isActive;
+
+}; //roomActive
+
+
 
 //roomPopularity checks whether room's total num of messages is greater than some number
 

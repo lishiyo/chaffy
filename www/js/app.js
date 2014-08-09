@@ -177,7 +177,7 @@ function userAgreed(){
 }
 
 // Chaffy's main module
-angular.module('chatRoom', ['ionic', 'ngRoute', 'ngAnimate', 'chatRoom.services', 'chatRoom.controllers', 'firebase', 'google-maps', 'chatRoom.filters', 'ngTouch', 'ionic.contrib.ui.cards'])
+angular.module('chatRoom', ['ionic', 'ngRoute', 'ngAnimate', 'firebase', 'chatRoom.services', 'chatRoom.controllers', 'google-maps', 'chatRoom.filters', 'ngTouch', 'ionic.contrib.ui.cards'])
 
 .config(function ($compileProvider){
   $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);

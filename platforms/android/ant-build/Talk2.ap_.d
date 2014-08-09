@@ -274,6 +274,8 @@ c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\cs
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\css\app.css \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\css\cards.css \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\css\ionic.css \
+c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\css\ionicons.css \
+c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\css\ionicons.min.css \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\css\launch.css \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\css\roomeffects.css \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\css\sidemenu.css \
@@ -293,6 +295,7 @@ c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\im
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\img\pic2.png \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\img\pic3.png \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\img\pic4.png \
+c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\img\raw-icons-flame.jpg \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\img\swipedown01.jpg \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\img\swipedown02.jpg \
 c:\Users\Shiyo\Google Drive\(CODE)\(SEEDS)\Talk2\platforms\android\assets\www\img\swipedown03.jpg \

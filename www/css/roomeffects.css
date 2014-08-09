@@ -43,3 +43,7 @@ newmessages {
 	-moz-box-shadow: inset 10px 10px 27px -3px rgba(105,102,102,1);
 	box-shadow: inset 0px 0px 15px -1px rgba(105,102,102,1);
 }
+
+.roomnotactive {
+  display:none;
+}

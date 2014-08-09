@@ -306,19 +306,18 @@ $scope.roomHotness = function(room) {
 
     var firstOfLast = Object.keys(snap.val())[0];
     //console.log("keys: " + firstOfLastTen);
-    var data = parseFloat(snap.val()[firstOfLast].created_at);
-    console.log("data created at: " + data);
+    $scope.isHot = parseFloat(snap.val()[firstOfLast].created_at);
+    //console.log("data created at: " + data);
 
-    $scope.isHot = function () {
-      if (data > $scope.startTime) {
-        return true;
-      } else {
-        return false;
-      }
-    }
   }); //ref
 
-  return $scope.isHot();
+
+  if ($scope.isHot > $scope.startTime) {
+      return true;
+  } else {
+      return false;
+  }
+
 
 } //roomHotness
 
