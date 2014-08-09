@@ -1,36 +1,10 @@
-var jGlob;
+//var jGlob;
 
 //for the map drag interval below for map
-var cInt;
+//var cInt;
 
 angular.module('chatRoom.controllers', ['luegg.directives'])
-/**
-.factory('getLoc', function ($scope, $timeout, angularFire) {
-        $scope.getUserLocation = function(){
-          return [parseFloat(localStorage.getItem('lat')), parseFloat(localStorage.getItem('lon'))]; 
-        }
 
-        $scope.currentLocation=$scope.getUserLocation();
-
-        return {
-            getLat: function() {
-              if($scope.currentLocation) {
-        // =[position.coords.latitude, position.coords.longitude]
-                return $scope.getUserLocation()[0];
-              } else {
-                return 40.777225004040009;
-              }
-            },
-            getLon: function() {
-              if($scope.currentLocation) {
-                return $scope.getUserLocation()[1];
-              } else {
-                return -73.95218489597806;
-            }
-        }
-  }
-})
-**/
 .controller('LoadingCtrl', function($scope, $ionicLoading) {
   connieDrag= false;
   $scope.show = function() {
@@ -46,28 +20,31 @@ angular.module('chatRoom.controllers', ['luegg.directives'])
 .controller('AppCtrl', function($scope, $location) {
   //for chaffy to work with map not dragging all over
   connieDrag= false;
-  clearInterval(cInt);
+  //clearInterval(cInt);
 
 //  create or retrieve users in testUsers
-  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com');  
-  var usersRef = ref.child("testUsers");
+  
   //$scope.users = [];
-  //var promise = angularFire(userRef, $scope, "users");
+  //var promise = angularFire(usersRef, $scope, "users");
 
 // check if already has localUserID (i.e. launched before)
 if (localStorage.getItem('localUserID') != null) {
+  // don't need to do anything
+  /**
   var userID = localStorage.getItem('localUserID');
   var thisUser = usersRef.child(userID);
 
   thisUser.on('value', function(snapshot) {
     var profile = snapshot.val();
-    console.log("\n\n username in AppCtrl: " + profile.username);
-    console.log("\n\n myRooms in AppCtrl: " + profile.myRooms);
+    console.log("\n username in AppCtrl: " + profile.username);
+    console.log("\n myRooms in AppCtrl: " + profile.myRooms);
   });
- 
+**/
 } else { // totally new user, push userId to Firebase
 
 // everything initialized as empty
+var usersRef = new Firebase('https://blistering-fire-5269.firebaseio.com').child("testUsers");
+
   var newUserRef = usersRef.push({
       username: "",
       gender: "",
@@ -75,11 +52,11 @@ if (localStorage.getItem('localUserID') != null) {
       myRooms: ""
     });
 
+// order users in Firebase by time created
+ newUserRef.setPriority(Firebase.ServerValue.TIMESTAMP);
+
  var userID = newUserRef.name(); //user's unique ID
  localStorage.setItem('localUserID', userID);
-  
-  // order users in Firebase by time created
-  newUserRef.setPriority(Firebase.ServerValue.TIMESTAMP);
 
  console.log("\n\n new user created: " + userID);
 }
@@ -131,19 +108,21 @@ if (localStorage.getItem('localUserID') != null) {
 .controller('MainCtrl', function($scope, $timeout, angularFire) {
 
   connieDrag= false;
-  console.log("\n\n $scope.map center is " + userPosition[0] + ", " + userPosition[1]);
+  //console.log("\n\n $scope.map center is " + userPosition[0] + ", " + userPosition[1]);
+
+
+// sets $scope as rooms
+$scope.rooms = [];
+var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/open_rooms');  
+angularFire(ref, $scope, "rooms");
 
   // set localNewRadius whenever switch view to MainCtrl
   // localStorage.setItem('localNewRadius', (parseFloat(angular.element(document.getElementById('firstElem')).scope().circle.radius) / 1609));
 
-clearInterval(cInt);
+//clearInterval(cInt);
 
  $scope.radius = parseFloat(localStorage.getItem('localNewRadius'));
  
-  $scope.rooms = [];
-  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/open_rooms');  
-  var promise = angularFire(ref, $scope, "rooms");
-  
   // legacy - reset all rooms timeLastMsg
   /**
   var totalRefresh = function() {
@@ -163,48 +142,6 @@ clearInterval(cInt);
   }
   **/
   
-  
-  $scope.sortLoc = {
-/*
-    distanceFromHere :function (_item, _startPoint) {
-    var start = null;
-
-    var radiansTo = function (start, end) {
-      var d2r = Math.PI / 180.0;
-      var lat1rad = start.latitude * d2r;
-      var long1rad = start.longitude * d2r;
-      var lat2rad = end.latitude * d2r;
-      var long2rad = end.longitude * d2r;
-      var deltaLat = lat1rad - lat2rad;
-      var deltaLong = long1rad - long2rad;
-      var sinDeltaLatDiv2 = Math.sin(deltaLat / 2);
-      var sinDeltaLongDiv2 = Math.sin(deltaLong / 2);
-      // Square of half the straight line chord distance between both points.
-      var a = ((sinDeltaLatDiv2 * sinDeltaLatDiv2) +
-              (Math.cos(lat1rad) * Math.cos(lat2rad) *
-                      sinDeltaLongDiv2 * sinDeltaLongDiv2));
-      a = Math.min(1.0, a);
-      return 2 * Math.asin(Math.sqrt(a));
-    };
-
-    if ($scope.currentLocation) {
-      start = {
-        longitude: $scope.currentLocation[0],
-        latitude: $scope.currentLocation[1]
-      };
-    }
-    start = _startPoint || start;
-
-    var end = {
-      longitude: _item.location.lng,
-      latitude: _item.location.lat
-    };
-
-    var num = radiansTo(start, end) * 3958.8;
-    return Math.round(num * 100) / 100;
-  }
-*/
-  }
   $scope.currentLocation=userPosition;
 
   $scope.booyah= function(){
@@ -279,13 +216,14 @@ var R = 6371; // Radius of the earth in km
   
   } //actualDistanceFromHere
 
-jGlob = $scope; 
+//jGlob = $scope; 
 
 $scope.onRefresh = function() { 
   var stop = $timeout(function() {            
     $scope.$broadcast('scroll.refreshComplete');
   }, 1000);
 }; //onRefresh
+
 
 //for My Chats view - show all rooms in user's myRooms
 $scope.userHasRoom = function(room) {
@@ -297,7 +235,7 @@ $scope.thisUser = usersRef.child(userID);
 var isReady = false; //only run after all data retrieved
 $scope.thisUser.child("myRooms").on("value", function (snapshot) {
   $scope.myRooms = snapshot.val(); //current myRooms
-  isReady = true;
+ isReady = true;
 }, function (errorObject) {
   console.log(errorObject);
 });
@@ -310,15 +248,20 @@ for (var idx in $scope.myRooms) { //loop through all of users' rooms
 }
 return false; //room wasn't found in users' rooms
 } // userHasRoom()
+/**
+function getRoomMessages(room) {
 
+  var roomRef = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/').child(room.id).endAt().limit(10).once('child_added', function(snapshot) {
+      $scope.content = snapshot.val().content;
+  });
+
+}
+**/
 // show the room's last message
 $scope.lastMessageAdded = function (room){
-  var roomRef = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/').child(room.id);
-  
-  var lastMessage = roomRef.endAt().limit(1);
-  
-  lastMessage.once('child_added', function(snapshot) {
-    $scope.content = snapshot.val().content;
+  var roomRef = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/' + room.id).endAt().limit(1).once('child_added', function(snapshot) {
+     console.log("content!: " + snapshot.val().content);
+      $scope.content = snapshot.val().content;
   });
 
   return $scope.content;
@@ -338,7 +281,7 @@ $scope.roomHotness = function(room) {
  var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/').child(room.id).endAt().limit(10).once('value', function(snap){
 
     var firstOfLast = Object.keys(snap.val())[0];
-    //console.log("keys: " + firstOfLast);
+    //console.log("keys: " + Object.keys(snap.val()).length);
     $scope.data = parseFloat(snap.val()[firstOfLast].created_at);
     //console.log("data created at: " + data);
 
@@ -496,21 +439,6 @@ if (isReady) {
   $scope.messages = [];
 /**
 
-var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/' + $routeParams.roomId);
-
-ref.once('value', function(dataSnapshot) {
-  // code to handle new value.
-  $scope.isReady = false;
-  var snapshot = dataSnapshot.val();
-  $scope.isReady = true;
-
-  if ($scope.isReady) {
-
-  }
-
-}); //ref
-
-**/
 
 //if ($scope.isReady) {
 /**
