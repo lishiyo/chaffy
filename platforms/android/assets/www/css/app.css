@@ -54,6 +54,15 @@
   opacity: 0.65;
 }
 
+.list .item:nth-child(odd) .item-content{
+  color: rgba(0,0,0,0.75); !important;
+}
+
+
+.create-convo.list .item:nth-child(odd){
+  background-color: white !important;
+}
+
 .list .item {
   border: 0px;
   border-radius: 3px;
@@ -80,7 +89,7 @@
   margin: 10px 5px;
 }
 
-.list .item.item-input {
+#msgLabel {
   background-color: #ebebeb !important;
 }
 

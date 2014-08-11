@@ -54,7 +54,7 @@
   <div class="bar bar-footer bar-stable" id="bar-footer-message-box">
     <div class="list list-inset">
       <form ui-keypress="{13:'submitAddMessage($event)'}" data-ng-submit="submitAddMessage()" >
-        <label class="item item-input">
+        <label class="item item-input" id="msgLabel">
           <input type="text" placeholder="your message ..." data-ng-model="newMessage" id="mainInput">
           <button class="button button-positive">Send</button>
         </label>

@@ -612,8 +612,6 @@ $(".withScroll .scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt(
   var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/' + $routeParams.roomId);
   var promise = angularFire(ref, $scope, "messages");
 **/
-
-
   $scope.newMessage = "";
   $scope.messages = [];
 
@@ -627,12 +625,9 @@ $(".withScroll .scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt(
   $scope.localUserID = localStorage.getItem('localUserID');
 
   //check if current Room is in myRooms; if not, var firstMessage=true
-var isFirstMessage = function() {
 
-$scope.usersRef = new Firebase('https://blistering-fire-5269.firebaseio.com/testUsers');
-var userID = localStorage.getItem('localUserID');
-$scope.thisUser = $scope.usersRef.child(userID);
 
+/**
 var isReady = false;
 $scope.thisUser.child("myRooms").on("value", function (snapshot) {
   $scope.myRooms = snapshot.val(); //current myRooms
@@ -653,8 +648,9 @@ if (isReady) {
   console.log("first message!");
   return true; //room wasn't found in users' rooms, so first message
 } //isReady
+**/
 
-} //isFirstMessage
+//} isFirstMessage
 
 /**
 
@@ -740,11 +736,39 @@ setTimeout(function(){
 //$scope.checkCount();
 
 // add to thisUser's myRooms if not already in myRooms
-    if (isFirstMessage()) {
+
+var isFirstMessage = function() {
+
+$scope.usersRef = new Firebase('https://blistering-fire-5269.firebaseio.com/testUsers');
+var userID = localStorage.getItem('localUserID');
+$scope.thisUser = $scope.usersRef.child(userID);
+var userPromise = $firebase($scope.thisUser.child("myRooms")).$asArray();
+
+userPromise.$loaded().then(function(arr) {
+  $scope.isFirstMessage = true;
+  for (idx=0; idx < arr.length; idx ++) {
+    var roomId = arr[idx].$value;
+    //console.log("roomId at " + idx + " is: " + roomId + " vs " + $routeParams.roomId);
+    if ($routeParams.roomId == roomId) {
+      console.log("found the room: " + roomId);
+      return $scope.isFirstMessage = false;
+      break;
+    }
+  } // for
+}).then(function() {
+console.log("isFirstMessage is: " + $scope.isFirstMessage);
+    if ($scope.isFirstMessage==true) {
       addMyRoom();
     } else {
       console.log("not first message, didn't run addMyRoom");
     }
+
+});
+
+} //isFirstMessage
+
+isFirstMessage();
+
 
   }; //submitAddMessage
 
