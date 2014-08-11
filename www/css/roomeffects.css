@@ -44,6 +44,9 @@ newmessages {
 	box-shadow: inset 0px 0px 15px -1px rgba(105,102,102,1);
 }
 
-.roomnotactive {
-  display:none;
+.roomactive {
+  -webkit-box-shadow: inset 0px 0px 3px 4px rgba(67,206,230,1);
+-moz-box-shadow: inset 0px 0px 3px 4px rgba(67,206,230,1);
+box-shadow: inset 0px 0px 3px 4px rgba(67,206,230,1);
+border: 0px solid rgba(255,255,255,1) !important;
 }

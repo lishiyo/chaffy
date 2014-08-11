@@ -25,13 +25,13 @@
     
       <link-item ng-repeat="room in rooms | orderBy:'id':true | limitTo:30 |  orderBy:distanceFromHere: false" type="item-text-wrap" ng-click="goToIt('#/rooms/{{room.id}}');" style="z-index:50000" ng-controller="MainCtrl">
 --> 
-<link-item ng-repeat="room in rooms | limitTo:30 | orderBy:['distanceFromHere']" type="item-text-wrap" ng-click="goToIt('#/rooms/{{room.id}}');" style="z-index:50000" ng-controller="MainCtrl" ng-hide="{{distanceFromHere(room) > radius}}" ng-class="{'roomhot': roomHotness(room), 'roompopular': roomPopularity(room)}"> <!--
+<link-item ng-repeat="room in rooms | limitTo:30 | orderBy: room.id :false" type="item-text-wrap" ng-click="goToIt('#/rooms/{{room.id}}');" style="z-index:50000" ng-controller="MainCtrl" ng-init="init(room)" ng-hide="{{distanceFromHere(room) > radius}}" ng-class="{'roomhot': room.isHot, 'roompopular': roomPopularity(room)}"> <!--
           <h3>{{room.title}}</h3>
           <p style="margin-left:10px;">{{actualDistanceFromHere(room)}} mi. ~ {{room.description}}</p>
           -->
           <h3>{{room.title}} ({{actualDistanceFromHere(room)}} mi.)</h3>
           <p style="font-size:0.8rem;">{{room.description}}</p>
-          <p style="margin-left:10px; font-style:italic; text-align:right;">{{lastMessageAdded(room)}}</p>
+          <p style="margin-left:10px; font-style:italic; text-align:right;">{{room.lastMessage}}</p>
       </link-item>
     </list>
   </content>

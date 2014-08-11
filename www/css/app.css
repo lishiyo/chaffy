@@ -38,16 +38,33 @@
 }
 
 .list .item:nth-child(odd){
-  background-color:#FFDC96;
+  /**background-color:#FFDC96;**/
+  background-color: #333333 !important;
+  color: white !important;
+  opacity: 1;
+}
+
+.list .item:nth-child(odd) h3{
+  color: white;
+  
+}
+
+.list .item:nth-child(odd) p{
+  color: white;
+  opacity: 0.65;
 }
 
 .list .item {
   border: 0px;
   border-radius: 3px;
-  margin-bottom: 3px;
+  margin-bottom: 4px;
   opacity: 0.9;
 }
 
+.list .item h3{
+  font-weight: bold;
+  opacity: 0.87;
+}
 
 .scroll .message-even{
   width: 90%;
@@ -61,6 +78,10 @@
   width: 90%;
   float: right;
   margin: 10px 5px;
+}
+
+.list .item.item-input {
+  background-color: #ebebeb !important;
 }
 
 /**
