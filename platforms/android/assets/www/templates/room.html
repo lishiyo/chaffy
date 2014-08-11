@@ -34,7 +34,7 @@
     <ion-refresher pulling-text="Pull to refresh..." on-refresh="onRefresh()"></ion-refresher>
   -->
   
-    <div ng-repeat="message in messages" type="item-text-wrap">    
+    <div ng-repeat="message in messages | orderBy:['message.created_at']" type="item-text-wrap">    
       <div class="card item-message" ng-class-odd="'message-odd scroll'" ng-class-even="'message-even scroll'">
         <div class="item-message-header">
           <div class="row">

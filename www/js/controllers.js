@@ -309,7 +309,7 @@ function calcTimes() {
 
   $scope.endTime = day.getTime();
   $scope.startTime = dayBefore; //yesterday
-  $scope.startTimeSec = (parseFloat($scope.endTime) - 100000) //100 sec ago
+  $scope.startTimeSec = (parseFloat($scope.endTime) - 60000) //60 sec ago
 }
 
 $scope.calcHotorActive = function(room) {

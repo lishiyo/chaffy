@@ -26,9 +26,12 @@ newmessages {
   -webkit-box-shadow: 0px 0px 10px #888888;
   -moz-box-shadow: 0px 0px 10px #888888;
   box-shadow: 0px 0px 10px #888888;
-  **/
-  -webkit-animation: pulse 0.8s infinite; /* Chrome, Safari, Opera */
-  animation: pulse 0.8s infinite;
+  
+   -webkit-box-shadow: inset 0px 0px 3px 4px rgba(67,206,230,1);
+-moz-box-shadow: inset 0px 0px 3px 4px rgba(67,206,230,1);
+box-shadow: inset 0px 0px 3px 4px rgba(67,206,230,1);
+border: 0px solid rgba(255,255,255,1) !important;
+**/
 }
 
 .roompopular h3, .roompopular p {
@@ -45,6 +48,8 @@ newmessages {
 }
 
 .roomactive {
+ -webkit-animation: pulse 0.8s infinite; /* Chrome, Safari, Opera */
+  animation: pulse 0.8s infinite;
   -webkit-box-shadow: inset 0px 0px 3px 4px rgba(67,206,230,1);
 -moz-box-shadow: inset 0px 0px 3px 4px rgba(67,206,230,1);
 box-shadow: inset 0px 0px 3px 4px rgba(67,206,230,1);
