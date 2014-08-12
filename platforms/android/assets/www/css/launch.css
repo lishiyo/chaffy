@@ -80,19 +80,19 @@
 }
 
 .item-radio input:checked ~ .item-content {
-	background-color: #B37EDE;
-	opacity: 0.8;
-	color: white;
+	background-color: #CD99F7 !important;
+	opacity: 1.0;
+	color: white !important;
 }
 
 #radio-male input:checked ~ .item-content {
-	background-color: #0BA4F7;
-	opacity: 0.6;
-	color: white;
+	background-color: #79D4F2 !important;
+	opacity: 1.0;
+	color: white !important;
 }
 
 #radio-fem input:checked ~ .item-content {
-	background-color: #FF103C;
+	background-color: #FF103C !important;
 	opacity: 0.6;
 	color: white;
 }
@@ -109,8 +109,8 @@
 
 #radio-age-sec input:checked ~ .item-content {
 	background-color: #999999;
-	opacity: 0.7;
-	color: white;
+	opacity: 1;
+	color: white !important;
 }
 .bar-age-item {
 	display:inline-block;

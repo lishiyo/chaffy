@@ -3,7 +3,7 @@ var jGlob;
 //for the map drag interval below for map
 var cInt;
 
-angular.module('chatRoom.controllers', ['luegg.directives'])
+angular.module('chatRoom.controllers', [])
 /**
 .factory('getLoc', function ($scope, $timeout, angularFire) {
         $scope.getUserLocation = function(){
@@ -534,6 +534,15 @@ if (isReady) {
 
   connieDrag = false;
 
+$('#mainInput').on('focus', function(){
+    var androidHt = (parseInt($('.card.item-message:last').css('height'))-390);
+    var androidTr = 'translate3d(0px, '+androidHt+"px" + ', 0px)';
+    console.log(androidTr);
+
+    //$(".card").css('-webkit-transform', androidTr);
+    $(".card").css('-webkit-transform', androidTr);
+     
+  }); //mainINput
 
 /**
 
@@ -695,7 +704,6 @@ this.newMessage = "";
 setTimeout(function(){
   $('#mainInput').blur();
 }, 10);
-
 
 
 /**
