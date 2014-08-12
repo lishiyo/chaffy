@@ -387,20 +387,13 @@ if (isReady) {
   var promise = $firebase($scope.roomRef);
   $scope.messages = promise.$asObject();
 
-/**
-window.blur();
-$('#mainScroll .message-even').blur();
-$('#mainScroll .message-odd').blur();
-**/
   $scope.messages.$loaded().then(function() {
-
-$('#mainScroll').blur();
-
+/**
  $(".scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-250)+"px"+', 0px)');
-
+**/
 // connie
   $('#mainInput').on('focus', function(){
-     $(".scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-190)+"px"+', 0px)');
+     $("#mainScroll .scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-190)+"px"+', 0px)');
   });
 
     /**
