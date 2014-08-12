@@ -396,26 +396,6 @@ if (isReady) {
      $("#mainScroll .scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-190)+"px"+', 0px)');
   });
 
-    /**
-    window.blur();
-    $('#mainScroll .message-even').blur();
-$('#mainScroll .message-odd').blur();
-/**
-    $("#mainScroll.overflow-scroll").css('-webkit-transform','translate3d(0px, -'+((parseInt($('.scroll-content').css('height')))-250)+"px"+', 0px)');
-    console.log("scroll called! " + 'translate3d(0px, -'+((parseInt($('.scroll-content').css('height')))-250)+"px"+', 0px)');
-
-    $('#mainInput').on('focus', function(){
-      var androidHt = ((parseInt($('.scroll-content').css('height')))-190);
-      var androidTr = 'translate3d(0px, -'+androidHt+"px" + ', 0px)';
-      console.log(androidTr);
-
-    //$(".card").css('-webkit-transform', androidTr);
-    //$("#mainScroll.scroll-content").css('-webkit-transform', androidTr);
-    $("#mainScroll.scroll-content").css('padding-bottom', '300px');
-     
-    }); // on focus
-
-    **/
 
   }); //promise loaded
   
