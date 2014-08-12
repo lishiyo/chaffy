@@ -1,0 +1,87 @@
+<nav-page id="app-page">
+  <header class="bar bar-header bar-calm">
+    <button class="button button-icon" ng-click="goToHome()"><i class="icon ion-home"></i></button>
+    <h1 class="title">Sign in</h1>
+  </header>
+
+
+    <link href="http://code.ionicframework.com/1.0.0-beta.11/css/ionic.css" rel="stylesheet">
+    <script src="http://code.ionicframework.com/1.0.0-beta.11/js/ionic.bundle.js"></script>
+	<script src="/Users/ageem/Desktop/www/js/sign-in.js"></script>
+  </head>
+  
+
+
+  <body>
+    
+    <ion-nav-bar class="bar-positive nav-title-slide-ios7">
+      <ion-nav-back-button class="button-icon ion-arrow-left-c">
+      </ion-nav-back-button>
+    </ion-nav-bar>
+             
+    <ion-nav-view animation="slide-left-right"></ion-nav-view>
+
+    <script id="sign-in.html" type="text/ng-template">
+      <ion-view title="Sign-In">
+        <ion-content>
+          <div class="list">
+            <label class="item item-input">
+              <span class="input-label">Username</span>
+              <input type="text" ng-model="user.username">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Password</span>
+              <input type="password" ng-model="user.password">
+            </label>
+          </div>
+          <div class="padding">
+            <button class="button button-block button-positive" ng-click="signIn(user)">
+              Sign-In
+            </button>
+            <p class="text-center">
+              <a href="#/forgot-password">Forgot password</a>
+            </p>
+          </div>
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <script id="forgot-password.html" type="text/ng-template">
+      <ion-view title="Forgot Password">
+        <ion-content padding="true">
+          <p>
+            Yeah this is just a demo showing how views can be shown without tabs, then you can navigate
+            to views within tabs. Additionally, only one set of tabs needs to be written for all of the different views that should go inside the tabs. (Compared to written the same tab links in the footer of every view that's in a tab.)
+          </p>
+          <p>
+            There's no username/password, just click
+            the Sign-In button back a the sign-in view.
+          </p>
+          <p>
+            Return to <a href="#/sign-in">Sign-In</a>.
+          </p>
+        </ion-content>
+      </ion-view>
+    </script>
+    
+    <script id="tabs.html" type="text/ng-template">
+      <ion-tabs class="tabs-icon-top tabs-positive">
+
+        <ion-tab title="Home" icon="ion-home" href="#/tab/home">
+          <ion-nav-view name="home-tab"></ion-nav-view>
+        </ion-tab>
+
+        <ion-tab title="About" icon="ion-ios7-information" href="#/tab/about">
+          <ion-nav-view name="about-tab"></ion-nav-view>
+        </ion-tab>
+
+        <ion-tab title="Sign-Out" icon="ion-log-out" href="#/sign-in">
+        </ion-tab>
+
+      </ion-tabs>
+    </script>
+
+   
+
+  </body>
+</html>

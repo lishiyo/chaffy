@@ -11,24 +11,22 @@
 
   [scroll-glue]{
     height: 77%;
-    overflow-y: scroll;
     overflow-y: hidden;
   }
 
 </style>
 
+
   <content scroll-glue
     has-header="true"
     has-footer="true"
-    scroll="true"
     padding="true"
     paging="true"
     on-refresh="onRefresh()"
     on-refresh-opening="onRefreshOpening(amount)"
     refresh-complete="refreshComplete"
-     animate-nav="true"
-     delegate-handle="myScroll"
-    >
+    animate-nav="true"
+    > <!--delegate-handle="myScroll", scroll="true"-->
 
     <!-- for pull to refresh -->
     <refresher></refresher>
@@ -51,6 +49,7 @@
     </div>
   
   </content>
+
 
   <div class="bar bar-footer bar-stable" id="bar-footer-message-box">
     <div class="list list-inset">

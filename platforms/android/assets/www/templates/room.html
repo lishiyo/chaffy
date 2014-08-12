@@ -1,4 +1,3 @@
-
 <nav-bar animation="nav-title-slide-ios7" class="nav-title-slide-ios7" type="bar-calm" back-button-type="button-icon" back-button-icon="icon ion-arrow-left-c">
 
 </nav-bar>
@@ -10,20 +9,24 @@
     bottom: 100px !important;
   }
 
+  [scroll-glue]{
+    height: 77%;
+    overflow-y: hidden;
+  }
+
 </style>
 
-  <content 
+
+  <content scroll-glue
     has-header="true"
     has-footer="true"
-    scroll="true"
     padding="true"
     paging="true"
     on-refresh="onRefresh()"
     on-refresh-opening="onRefreshOpening(amount)"
     refresh-complete="refreshComplete"
-     animate-nav="true"
-     delegate-handle="myScroll"
-    >
+    animate-nav="true"
+    > <!--delegate-handle="myScroll", scroll="true"-->
 
     <!-- for pull to refresh -->
     <refresher></refresher>
@@ -46,6 +49,7 @@
     </div>
   
   </content>
+
 
   <div class="bar bar-footer bar-stable" id="bar-footer-message-box">
     <div class="list list-inset">

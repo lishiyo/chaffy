@@ -1,0 +1,45 @@
+/*
+ * animations for hot, popular, new messages added, etc.
+ */
+
+@-webkit-keyframes pulse { 
+    0% { -webkit-transform: scale(1); } 
+    50% { -webkit-transform: scale(0.96); } 
+    100% { -webkit-transform: scale(1); } 
+} 
+@keyframes pulse { 
+    0% { transform: scale(1); } 
+    50% { transform: scale(0.96); } 
+    100% { transform: scale(1); } 
+} 
+.pulse { 
+    -webkit-animation-name: pulse; 
+    animation-name: pulse; 
+}
+
+newmessages {
+  background-color: black !important;
+}
+
+.roomhot {
+  /**
+  -webkit-box-shadow: 0px 0px 10px #888888;
+  -moz-box-shadow: 0px 0px 10px #888888;
+  box-shadow: 0px 0px 10px #888888;
+  **/
+  -webkit-animation: pulse 0.8s infinite; /* Chrome, Safari, Opera */
+  animation: pulse 0.8s infinite;
+}
+
+.roompopular h3, .roompopular p {
+  color: white !important;
+}
+
+.roompopular {
+	background-color: #FF1F44 !important;
+	/**border: 3px dashed #0DCBFF !important;**/
+	border: 4px dotted rgba(138,239,255,0.8) !important;
+	-webkit-box-shadow: inset 10px 10px 27px -3px rgba(105,102,102,1);
+	-moz-box-shadow: inset 10px 10px 27px -3px rgba(105,102,102,1);
+	box-shadow: inset 0px 0px 15px -1px rgba(105,102,102,1);
+}
