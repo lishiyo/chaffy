@@ -3,7 +3,7 @@ var jGlob;
 //for the map drag interval below for map
 var cInt;
 
-angular.module('chatRoom.controllers', ['luegg.directives'])
+angular.module('chatRoom.controllers', [])
 /**
 .factory('getLoc', function ($scope, $timeout, angularFire) {
         $scope.getUserLocation = function(){
@@ -535,6 +535,7 @@ if (isReady) {
   connieDrag = false;
 
 
+
 /**
 
 var ref = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/' + $routeParams.roomId);
@@ -618,6 +619,22 @@ $(".withScroll .scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt(
   $scope.roomRef = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/' + $routeParams.roomId);  
   var promise = $firebase($scope.roomRef);
   $scope.messages = promise.$asObject();
+
+  $scope.messages.$loaded().then(function() {
+
+    $("#mainScroll .scroll").css('-webkit-transform','translate3d(0px, '+(-(parseInt($('.scroll-content').css('height')))-250)+"px"+', 0px)');
+    console.log("scroll called! " + 'translate3d(0px, '+(-(parseInt($('.scroll-content').css('height')))-250)+"px"+', 0px)');
+
+    $('#mainInput').on('focus', function(){
+      var androidHt = (-(parseInt($('.scroll-content').css('height')))-150);
+      var androidTr = 'translate3d(0px, '+androidHt+"px" + ', 0px)';
+      //console.log(androidTr);
+
+    //$(".card").css('-webkit-transform', androidTr);
+    $("#mainScroll .scroll").css('-webkit-transform', androidTr);
+     
+    }); // on focus
+  }); //promise loaded
   
   $scope.username = localStorage.getItem("localusername");
   $scope.userGender = localStorage.getItem("localuserGender");
@@ -693,9 +710,10 @@ $scope.roomRef.push().setWithPriority({
 this.newMessage = "";
 
 setTimeout(function(){
+  
   $('#mainInput').blur();
+  //$('#mainInput').off('focus');
 }, 10);
-
 
 
 /**
