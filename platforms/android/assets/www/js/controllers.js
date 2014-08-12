@@ -534,15 +534,7 @@ if (isReady) {
 
   connieDrag = false;
 
-$('#mainInput').on('focus', function(){
-    var androidHt = (parseInt($('.card.item-message:last').css('height'))-390);
-    var androidTr = 'translate3d(0px, '+androidHt+"px" + ', 0px)';
-    console.log(androidTr);
 
-    //$(".card").css('-webkit-transform', androidTr);
-    $(".card").css('-webkit-transform', androidTr);
-     
-  }); //mainINput
 
 /**
 
@@ -627,6 +619,18 @@ $(".withScroll .scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt(
   $scope.roomRef = new Firebase('https://blistering-fire-5269.firebaseio.com/rooms/' + $routeParams.roomId);  
   var promise = $firebase($scope.roomRef);
   $scope.messages = promise.$asObject();
+
+  $scope.messages.$loaded().then(function() {
+    $('#mainInput').on('focus', function(){
+      var androidHt = (parseInt($('.card.item-message:last').css('height'))-390);
+      var androidTr = 'translate3d(0px, '+androidHt+"px" + ', 0px)';
+      console.log(androidTr);
+
+    //$(".card").css('-webkit-transform', androidTr);
+    $(".scroll").css('-webkit-transform', androidTr);
+     
+    }); //mainINput
+  }); //promise loaded
   
   $scope.username = localStorage.getItem("localusername");
   $scope.userGender = localStorage.getItem("localuserGender");
@@ -702,6 +706,7 @@ $scope.roomRef.push().setWithPriority({
 this.newMessage = "";
 
 setTimeout(function(){
+  //$('#mainInput').off('focus');
   $('#mainInput').blur();
 }, 10);
 

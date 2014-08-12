@@ -1,5 +1,4 @@
 <nav-bar animation="nav-title-slide-ios7" class="nav-title-slide-ios7" type="bar-calm" back-button-type="button-icon" back-button-icon="icon ion-arrow-left-c">
-
 </nav-bar>
 
 <nav-page title="{{room.title}}">
@@ -26,6 +25,7 @@
     on-refresh-opening="onRefreshOpening(amount)"
     refresh-complete="refreshComplete"
     animate-nav="true"
+    scroll="true"
     > <!--delegate-handle="myScroll", scroll="true"-->
 
     <!-- for pull to refresh -->
@@ -35,7 +35,7 @@
   -->
   
     <div ng-repeat="message in messages | orderBy:['message.created_at']" type="item-text-wrap">    
-      <div class="card item-message" ng-class-odd="'message-odd scroll'" ng-class-even="'message-even scroll'">
+      <div class="card item-message" ng-class-odd="'message-odd'" ng-class-even="'message-even'">
         <div class="item-message-header">
           <div class="row">
             <small class="col">{{message.created_by}} | {{message.userAge}}, {{message.userGender}}</small>
