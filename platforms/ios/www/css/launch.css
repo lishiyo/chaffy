@@ -2,9 +2,9 @@
 
 .angular-google-map-container{ 
 	height: 250px;
-	width: 250px;
-  border-radius: 4px;
-  margin: 0 auto;
+	width: 98%;
+    border-radius: 4px;
+    margin: 0 auto;
 }
 
 /** form **/
@@ -112,9 +112,10 @@
 	opacity: 0.7;
 	color: white;
 }
+
 .bar-age-item {
 	display:inline-block;
-	width: 24%;
+	width: 32%;
 	border: 1px solid #dddddd !important;
 }
 
@@ -122,6 +123,23 @@
 	margin-bottom: 3px !important;
 }
 
+
+
+.button-go {
+	width: 60%;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  border-right-width: auto;
+  border-left-width: auto;
+  border-radius: 4px; }
+
+
+
+
+
+ .padding-go {
+  padding: 0px 5px 5px 5px; }
 
 /**
 .button-bar {
