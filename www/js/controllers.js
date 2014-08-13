@@ -214,6 +214,7 @@ obj.$loaded().then(function(){
   var lastIndex = (obj.length - 1);
   var lastOfLast = obj[lastIndex];
   $scope.room.lastMessage = lastOfLast.content;
+  $scope.room.lastMessageTime = lastOfLast.created_at;
 
   $scope.firstCreated = parseFloat(firstOfLast.created_at);
   $scope.lastCreated = parseFloat(lastOfLast.created_at);
