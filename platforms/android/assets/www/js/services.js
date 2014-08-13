@@ -119,6 +119,70 @@ userPromise.$loaded().then(function(arr) {
     }
   }; //return
 
+})
+
+.factory('DistanceCalc', function() {
+
+  function getUserLocation() {
+    // selected circle center (lat, lon)
+    return [parseFloat(localStorage.getItem('lat')), parseFloat(localStorage.getItem('lon'))]; 
+  }
+
+  function distanceFromHere(_item) {
+    // compare selected circle center versus room location
+    var lat2 = getUserLocation()[0];
+    var lon2 = getUserLocation()[1];
+    var lat1 =_item.latitude;
+    var lon1 = _item.longitude;
+
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = deg2rad(lon2-lon1);  
+    var a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2)
+    ; 
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    var d = R * c; // Distance in km
+    return (d* 0.621371).toFixed(2);
+  } //distanceFromHere
+
+
+function actualDistanceFromHere(_item) {
+  // compare your actual center versus room location
+    var lat2 = userPosition[0];
+    var lon2 = userPosition[1];
+    var lat1 = _item.latitude;
+    var lon1 = _item.longitude;
+
+    //console.log("userPosition 0: " + lat2 + " userPosition 1: " + lon2);
+
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = deg2rad(lon2-lon1);  
+    var a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2)
+    ; 
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    var d = R * c; // Distance in km
+    return (d* 0.621371).toFixed(2);
+} //actualDistanceFromHere
+
+  return {
+    getUserLocation: function() {
+      return getUserLocation();
+    },
+    distanceFromHere: function(_item) {
+      return distanceFromHere(_item);
+    },
+    actualDistanceFromHere: function(_item) {
+      return actualDistanceFromHere(_item);
+    }
+  }; //return
+
 });
 
 /**

@@ -114,20 +114,21 @@ if (localStorage.getItem('localUserID') != null) {
   var promise = $firebase(ref);
   $scope.rooms = promise.$asArray();
 
-  $scope.currentLocation=userPosition;
+  //$scope.currentLocation=userPosition;
 
   $scope.booyah= function(){
     return 2;
   }
 
 // now in services
+/**
   $scope.getUserLocation = function(){
     //return [parseFloat(localStorage.getItem('lat')), parseFloat(localStorage.getItem('lon'))]; 
     return DistanceCalc.getUserLocation();
   }
 
-  //$scope.currentLocation = $scope.getUserLocation();
-
+  $scope.currentLocation = $scope.getUserLocation();
+**/
   $scope.goToIt = function(theUrl){
     window.location=theUrl;
   }
@@ -584,7 +585,7 @@ $scope.map.isReady = true;
 
 })
 
-.controller('CardsCtrl', function($scope, $ionicSwipeCardDelegate, $firebase) {
+.controller('CardsCtrl', function($scope, $ionicSwipeCardDelegate, $firebase, DistanceCalc) {
 
 connieDrag=false;
 
@@ -626,54 +627,25 @@ promise.$loaded().then(function(data) {
 
 $scope.chatCards = Array.prototype.slice.call(chatCards, 0, 0);
 
-// distance between chat and selected circle center - for checking within radius
+// distance between chat and selected circle center (lat, lon) - for checking within radius
+/**
 $scope.getUserLocation = function(){
   return [parseFloat(localStorage.getItem('lat')), parseFloat(localStorage.getItem('lon'))]; 
   }
 
 //$scope.currentLocation=$scope.getUserLocation();
+**/
 
 $scope.distanceFromHere = function (_item, _startPoint) {
-lat2 = $scope.getUserLocation()[0];
-lon2 = $scope.getUserLocation()[1];
-lat1 =_item.latitude;
-lon1 = _item.longitude;
-// console.log(lon1);
-var R = 6371; // Radius of the earth in km
-   var dLat = deg2rad(lat2-lat1);  // deg2rad below
-  var dLon = deg2rad(lon2-lon1);  
-   var a = 
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2)
-    ; 
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-  var d = R * c; // Distance in km
-  return (d* 0.621371).toFixed(2);
+  return DistanceCalc.distanceFromHere(_item);
   
-  } //distanceFromHere
+} //distanceFromHere
 
 // distance between chat and real user position
 $scope.actualDistanceFromHere = function (_item, _startPoint) {
-lat2 = userPosition[0];
-lon2 = userPosition[1];
-lat1 =_item.latitude;
-lon1 = _item.longitude;
-// console.log(lon1);
-var R = 6371; // Radius of the earth in km
-   var dLat = deg2rad(lat2-lat1);  // deg2rad below
-  var dLon = deg2rad(lon2-lon1);  
-   var a = 
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2)
-    ; 
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-  var d = R * c; // Distance in km
-  return (d* 0.621371).toFixed(2);
+  return DistanceCalc.actualDistanceFromHere(_item);
   
-  } //actualDistanceFromHere
-
+} //actualDistanceFromHere
 
 
   $scope.cardSwiped = function(index) {

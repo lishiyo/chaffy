@@ -124,11 +124,12 @@ userPromise.$loaded().then(function(arr) {
 .factory('DistanceCalc', function() {
 
   function getUserLocation() {
-    //console.log("local storage lat: " + parseFloat(localStorage.getItem('lat')));
+    // selected circle center (lat, lon)
     return [parseFloat(localStorage.getItem('lat')), parseFloat(localStorage.getItem('lon'))]; 
   }
 
   function distanceFromHere(_item) {
+    // compare selected circle center versus room location
     var lat2 = getUserLocation()[0];
     var lon2 = getUserLocation()[1];
     var lat1 =_item.latitude;
@@ -149,6 +150,7 @@ userPromise.$loaded().then(function(arr) {
 
 
 function actualDistanceFromHere(_item) {
+  // compare your actual center versus room location
     var lat2 = userPosition[0];
     var lon2 = userPosition[1];
     var lat1 = _item.latitude;
