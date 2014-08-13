@@ -51,12 +51,12 @@ userPromise.$loaded().then(function(arr) {
     userPromise.$loaded().then(function(arr) {
       var myRooms = arr;
 
-      if (myRooms=""){ //myRooms empty
+      if (myRooms=""){ // myRooms empty
         var roomsArray = [];
         roomsArray.push(roomToAdd);
         
         console.log("myRooms empty, init with: " + roomsArray);
-      } else { //has rooms already 
+      } else { // myRooms has rooms already 
         var roomsArray = [];
         
         for (var idx=0; idx < arr.length; idx ++) {
@@ -67,7 +67,7 @@ userPromise.$loaded().then(function(arr) {
         roomsArray.push(roomToAdd);
       } // else
 
-      return roomsArray
+      return roomsArray;
     })
 
     .then(function(roomsArray) {
@@ -82,7 +82,45 @@ userPromise.$loaded().then(function(arr) {
 
   } // this.addMyRoom();
 
+})
+
+.factory('Flushing', function ($firebase) {
+
+  function flushMessages(roomId) {
+    var roomsRef = new Firebase('https://chaffy.firebaseio.com/rooms/' + roomId);
+   
+    roomsRef.endAt().limit(2).once('value', function(snap){
+      var data = snap.val();
+      roomsRef.setWithPriority(data, Firebase.ServerValue.TIMESTAMP);
+    });
+
+  } //flushMessages()
+
+  function flushAll() {
+    var allRooms = new Firebase('https://chaffy.firebaseio.com/rooms');
+    var promise = $firebase(allRooms).$asArray();
+
+    promise.$loaded().then(function(arr) {
+      for (var idx=0; idx < arr.length; idx ++) {
+        var roomId = arr.$keyAt(idx);
+        console.log("roomId is: " + roomId);
+        flushMessages(roomId);
+      }
+    });
+      
+  } // flushAll();
+
+  return {
+    thisRoom: function (roomId) {
+      flushMessages(roomId);
+    },
+    allRooms: function() {
+      flushAll();
+    }
+  }; //return
+
 });
+
 /**
 .factory('Rooms', function() {
   // Might use a resource here that returns a JSON array

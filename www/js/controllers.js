@@ -102,7 +102,7 @@ if (localStorage.getItem('localUserID') != null) {
   connieDrag= false;
   console.log("\n\n $scope.map center is " + userPosition[0] + ", " + userPosition[1]);
 
-  // set localNewRadius whenever switch view to MainCtrl
+  // set localNewRadius whenever switch view to MainCtrl - below doesn't work, however
   // localStorage.setItem('localNewRadius', (parseFloat(angular.element(document.getElementById('firstElem')).scope().circle.radius) / 1609));
 
 //clearInterval(cInt);
@@ -149,7 +149,8 @@ var R = 6371; // Radius of the earth in km
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
   var d = R * c; // Distance in km
   return (d* 0.621371).toFixed(2);
-  } //distanceFromHere
+
+} //distanceFromHere
 
 // distance between chat and real user position
 $scope.actualDistanceFromHere = function (_item, _startPoint) {
@@ -203,7 +204,7 @@ for (var idx in $scope.myRooms) { //loop through all of users' rooms
 return false; //room wasn't found in users' rooms
 } //userHasRoom
 
-// roomHotness refers to how many posts in certain time period
+
 
 $scope.init = function(room){
   calcHotorActive(room);
@@ -242,12 +243,14 @@ obj.$loaded().then(function(){
 
 .then(function() {
 
+// room is Hot refers to at least 10 posts since yesterday
   if ($scope.firstCreated > $scope.startTime) {
       $scope.room.isHot = true;
     } else {
       $scope.room.isHot = false;
   }
 
+// room is Active means a message within last 60 seconds 
   if ($scope.lastCreated > $scope.startTimeSec) {
       //console.log("room is active, show icon!");
       $scope.room.isActive = true;
@@ -256,6 +259,7 @@ obj.$loaded().then(function(){
       $scope.room.isActive = false;
   }
 
+// room is Popular refers to total messages being more than X; we should flush rooms every week
   if ($scope.totalMessages > 25) {
     $scope.room.isPopular = true;
   } else {
@@ -329,6 +333,7 @@ obj.$loaded().then(function(){
 
   connieDrag = false;
 
+
   $scope.newMessage = "";
   $scope.messages = [];
 
@@ -365,7 +370,7 @@ obj.$loaded().then(function(){
         this.username = 'Chaffer ' + Math.floor(Math.random() * 501);
       }
 
-
+// setWithPriority is important if we want to flush messages before a certain time
 $scope.roomRef.push().setWithPriority({
       userID: $scope.localUserID,
       created_by: this.username,
@@ -639,7 +644,7 @@ promise.$loaded().then(function(data) {
       id: theCards[i].id,
       description: theCards[i].description,
       latitude: theCards[i].latitude,
-      longitude: theCards[i].longitude
+      longitude: theCards[i].longitude,
     };
 
     //console.log('\n new Card with desc: ' + theCards[i].description);
@@ -700,6 +705,8 @@ var R = 6371; // Radius of the earth in km
   return (d* 0.621371).toFixed(2);
   
   } //actualDistanceFromHere
+
+
 
   $scope.cardSwiped = function(index) {
     $scope.addCard();
