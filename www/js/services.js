@@ -1,5 +1,89 @@
+// Note that using angularFire with $scope properties should be avoided
+
 angular.module('chatRoom.services', [])
 
+.service('CheckUserHasRoom', function ($firebase, UserAddRoom) {
+// this service checks if this room is already in user's myRooms
+  this.hasRoom = function(routeParamsId) {
+
+    var usersRef = new Firebase('https://chaffy.firebaseio.com/users');
+    var userID = localStorage.getItem('localUserID');
+    var thisUser = usersRef.child(userID);
+    var userPromise = $firebase(thisUser.child("myRooms")).$asArray();
+
+var hasRoom = false;
+userPromise.$loaded().then(function(arr) {
+  for (var idx=0; idx < arr.length; idx ++) {
+    var roomId = arr[idx].$value;
+    if (routeParamsId == roomId) {
+      //console.log("found the room: " + roomId);
+      return hasRoom = true;
+      break;
+    }
+  } // for
+}).then(function() {
+  //console.log("CheckUserHasRoom's hasRoom is: " + hasRoom);
+  return hasRoom;
+}).then(function(hasRoom) {
+  if (hasRoom == false) {
+    var roomToAdd = parseFloat(routeParamsId);
+    console.log("hasRoom is " + hasRoom + " so calling roomToAdd: " + roomToAdd);
+    UserAddRoom.addMyRoom(roomToAdd);
+  } else {
+    console.log("hasRoom is " + hasRoom + " so didn't run UserAddRoom!");
+  }
+}); // userPromise
+
+} // this.hasRoom
+
+})
+
+.service('UserAddRoom', function ($firebase) {
+  //this service adds a roomId to the user's myRooms array
+
+  this.addMyRoom = function(roomToAdd) {
+
+    var usersRef = new Firebase('https://chaffy.firebaseio.com/users');
+    var userID = localStorage.getItem('localUserID');
+    var thisUser = usersRef.child(userID);
+    var userPromise = $firebase(thisUser.child("myRooms")).$asArray();
+
+    userPromise.$loaded().then(function(arr) {
+      var myRooms = arr;
+
+      if (myRooms=""){ //myRooms empty
+        var roomsArray = [];
+        roomsArray.push(roomToAdd);
+        
+        console.log("myRooms empty, init with: " + roomsArray);
+      } else { //has rooms already 
+        var roomsArray = [];
+        
+        for (var idx=0; idx < arr.length; idx ++) {
+          var roomId = arr[idx].$value;
+          roomsArray.push(roomId);
+        }
+
+        roomsArray.push(roomToAdd);
+      } // else
+
+      return roomsArray
+    })
+
+    .then(function(roomsArray) {
+
+      var thisUserPromise = $firebase(thisUser);
+      thisUserPromise.$update({
+          myRooms: roomsArray
+      });
+      
+      console.log("myRooms updated to: " + roomsArray);
+    });
+
+  } // this.addMyRoom();
+
+});
+/**
 .factory('Rooms', function() {
   // Might use a resource here that returns a JSON array
 
@@ -31,3 +115,4 @@ angular.module('chatRoom.services', [])
     }
   }
 });
+**/

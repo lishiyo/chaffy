@@ -3,7 +3,7 @@
 //for the map drag interval below for map
 //var cInt;
 
-angular.module('chatRoom.controllers', [])
+angular.module('chatRoom.controllers', ['chatRoom.services'])
 
 .controller('LoadingCtrl', function($scope, $ionicLoading) {
   connieDrag= false;
@@ -183,14 +183,13 @@ $scope.onRefresh = function() {
 //myrooms view
 $scope.userHasRoom = function(room) {
 
-var usersRef = new Firebase('https://chaffy.firebaseio.com/users');  
+var usersRef = new Firebase('https://chaffy.firebaseio.com/users/');  
 var userID = localStorage.getItem('localUserID');
 $scope.thisUser = usersRef.child(userID);
 
-//var isReady = false;
-$scope.thisUser.child("myRooms").on("value", function (snapshot) {
+$scope.thisUser.child("myRooms").once("value", function (snapshot) {
   $scope.myRooms = snapshot.val(); //current myRooms
-  //isReady = true;
+ 
 }, function (errorObject) {
   console.log(errorObject);
 });
@@ -207,7 +206,7 @@ return false; //room wasn't found in users' rooms
 // roomHotness refers to how many posts in certain time period
 
 $scope.init = function(room){
-  $scope.calcHotorActive(room);
+  calcHotorActive(room);
 }
 
 function calcTimes() {
@@ -219,7 +218,7 @@ function calcTimes() {
   $scope.startTimeSec = (parseFloat($scope.endTime) - 60000) //60 sec ago
 }
 
-$scope.calcHotorActive = function(room) {
+function calcHotorActive(room) {
   calcTimes();
 
 var ref = new Firebase('https://chaffy.firebaseio.com/rooms/').child(room.id);
@@ -237,8 +236,7 @@ obj.$loaded().then(function(){
   $scope.firstCreated = parseFloat(firstOfLast.created_at);
   $scope.lastCreated = parseFloat(lastOfLast.created_at);
 
-  console.log("first and last message created bt: " + $scope.firstCreated + " to " + $scope.lastCreated);
-
+  //console.log("first and last message created bt: " + $scope.firstCreated + " to " + $scope.lastCreated);
 
 }) // first then
 
@@ -273,7 +271,7 @@ obj.$loaded().then(function(){
 
 }) //MainCtrl
 
-.controller('NewRoomCtrl', function($scope, $location, $firebase) {      
+.controller('NewRoomCtrl', function($scope, $location, $firebase, UserAddRoom) {      
   
   connieDrag= false;
 
@@ -312,8 +310,10 @@ obj.$loaded().then(function(){
        $firebase(new Firebase('https://blistering-fire-5269.firebaseio.com/open_rooms/' + roomUIDref)).$update({uid: roomUIDref});
        console.log("ref updated as: " + ref + " with id: " + roomUIDref);
 **/
-       localStorage.setItem("lastRoomAdded", $scope.roomId);
-       $scope.addMyRoom();
+    
+    localStorage.setItem("lastRoomAdded", $scope.roomId);
+    
+    UserAddRoom.addMyRoom($scope.roomId); //run UserAddRoom service
 
     $location.path('/home');
 
@@ -322,61 +322,10 @@ obj.$loaded().then(function(){
    
   }; // createRoom()
 
-$scope.addMyRoom = function() {
-    // add to myRooms for thisUser 
-  var usersRef = new Firebase('https://chaffy.firebaseio.com/users');  
-  var userID = localStorage.getItem('localUserID');
-  $scope.thisUser = usersRef.child(userID);
-  
-  //$scope.roomToAdd = parseFloat(localStorage.getItem('lastRoomAdded'));
-  $scope.roomToAdd = localStorage.getItem('lastRoomAdded');
-  console.log("\n\n roomToAdd: " + $scope.roomToAdd);
-
-  //var promise = angularFire(myRooms, $scope, "myRooms");
-
-//retrieve current rooms
-var isReady = false;
-$scope.thisUser.child("myRooms").once("value", function (snapshot) {
-  $scope.myRooms = snapshot.val(); //current myRooms
-  isReady = true;
-}, function (errorObject) {
-  console.log(errorObject);
-});
-
-//update thisUser's myRooms node with new upon data retrieval
-if (isReady) {
-  if ($scope.myRooms==""){ //oldRooms empty
-    var roomsArray = [];
-    roomsArray.push($scope.roomToAdd);
-    $scope.thisUser.update({
-      myRooms: roomsArray
-    });
-  } else { //has rooms already 
-    $scope.roomsArray = [];
-    for (var idx in $scope.myRooms) { //loop through all of users' rooms
-      var roomId = $scope.myRooms[idx]; 
-      $scope.roomsArray.push(roomId);
-    }
-
-    $scope.roomsArray.push($scope.roomToAdd);
-
-    $scope.thisUser.update({
-      myRooms: $scope.roomsArray
-    });
-
-    console.log("myRooms is now: " + $scope.roomsArray);
-
-  } // else
-  
-} // isReady
-
-
-}; // addMyRoom()
-
 
 })
 
-.controller('RoomCtrl', function($scope, $routeParams, $timeout, $firebase) {
+.controller('RoomCtrl', function($scope, $routeParams, $timeout, $firebase, CheckUserHasRoom) {
 
   connieDrag = false;
 
@@ -397,14 +346,14 @@ if (isReady) {
   });
 
 
-  }); //promise loaded
+  }); // room's messages loaded
   
   $scope.username = localStorage.getItem("localusername");
   $scope.userGender = localStorage.getItem("localuserGender");
   $scope.userAge = localStorage.getItem("localuserAge");
   $scope.localUserID = localStorage.getItem('localUserID');
 
- 
+
   $scope.submitAddMessage = function() {
   
     //for users who don't input a name
@@ -429,84 +378,18 @@ $scope.roomRef.push().setWithPriority({
 this.newMessage = "";
 
 setTimeout(function(){
-  
   $('#mainInput').blur();
   //$('#mainInput').off('focus');
 }, 10);
 
-// add to thisUser's myRooms if not already in myRooms
-var isFirstMessage = function() {
+// run service CheckUserHasRoom, which then runs UserAddRoom if hasRoom is false
+var userHasRoom = function() {
+    CheckUserHasRoom.hasRoom($routeParams.roomId);
+}
 
-$scope.usersRef = new Firebase('https://chaffy.firebaseio.com/users');
-var userID = localStorage.getItem('localUserID');
-$scope.thisUser = $scope.usersRef.child(userID);
-var userPromise = $firebase($scope.thisUser.child("myRooms")).$asArray();
+userHasRoom();
 
-userPromise.$loaded().then(function(arr) {
-  $scope.isFirstMessage = true;
-  for (idx=0; idx < arr.length; idx ++) {
-    var roomId = arr[idx].$value;
-    //console.log("roomId at " + idx + " is: " + roomId + " vs " + $routeParams.roomId);
-    if ($routeParams.roomId == roomId) {
-      console.log("found the room: " + roomId);
-      return $scope.isFirstMessage = false;
-      break;
-    }
-  } // for
-}).then(function() {
-console.log("isFirstMessage is: " + $scope.isFirstMessage);
-    if ($scope.isFirstMessage==true) {
-      addMyRoom();
-    } else {
-      console.log("not first message, didn't run addMyRoom");
-    }
-
-});
-
-} //isFirstMessage
-
-isFirstMessage();
-
-
-  }; //submitAddMessage
-
-
-function addMyRoom () {
-  $scope.roomToAdd = parseFloat($routeParams.roomId);
-  console.log("\n roomToAdd: " + $scope.roomToAdd);
-
-//retrieve current rooms
-$scope.thisUser.child("myRooms").once("value", function (snapshot) {
-  $scope.myRooms = snapshot.val(); //current myRooms
-  console.log("$scope.myRooms is:" + $scope.myRooms);
-}, function (errorObject) {
-  console.log(errorObject);
-});
-
-// callback after retrieving myRooms data
-  if ($scope.myRooms==""){ //myRooms empty
-    $scope.roomsArray = [];
-    $scope.roomsArray.push($scope.roomToAdd);
-    $scope.thisUser.update({
-      myRooms: $scope.roomsArray
-    });
-    console.log("myRooms empty, init with: " + $scope.roomsArray);
-  } else { //has rooms already 
-    $scope.roomsArray = [];
-    for (var idx in $scope.myRooms) { //loop through all of users' rooms
-      var roomId = $scope.myRooms[idx]; 
-      $scope.roomsArray.push(roomId);
-    }
-    $scope.roomsArray.push($scope.roomToAdd);
-
-    $scope.thisUser.update({
-      myRooms: $scope.roomsArray
-    });
-
-    console.log("myRooms updated to: " + $scope.roomsArray);
-  } // else
-}; // addMyRoom()
-
+}; //submitAddMessage
 
 $scope.onRefresh = function() {
     var stop = $timeout(function() {
@@ -527,7 +410,6 @@ $scope.onRefresh = function() {
 
 $scope.checkAlias = function(){
   if (localStorage.getItem('localusername')==null) {
-    //console.log("can't find localusername");
     return;
   } else {
     return localStorage.getItem('localusername');
@@ -544,7 +426,6 @@ $scope.checkGender = function(){
 
 $scope.checkAge = function(){
   if (localStorage.getItem('localuserAge')==null) {
-    console.log("can't find localuserAge");
     return;
   } else {
     return localStorage.getItem('localuserAge');
@@ -558,12 +439,6 @@ $scope.userPro = {
   age: $scope.checkAge()
 }
 
-/**
-$scope.userAlias = function(){
-  console.log("userAlias changed!");
-  localStorage.setItem("localusername", $scope.userProfile.username);
-}
-**/
   $scope.findChats = function() {
 
 // set localNewRadius when user clicks GO
@@ -613,11 +488,10 @@ $scope.userAlias = function(){
     }
     localStorage.setItem("localuserAge", $scope.setUserAge());
 
-//  retrieve Firebase 'users' 
+//  retrieve Firebase 'users' and update
   var usersRef = new Firebase('https://chaffy.firebaseio.com/users'); 
   var userID = localStorage.getItem('localUserID');
   var thisUser = usersRef.child(userID);
-  // var promise = angularFire(userRef, $scope, "userRef");
 
 thisUser.update({
   username: localStorage.getItem("localusername"),
@@ -750,11 +624,11 @@ $scope.radiusInMi = $scope.radius.toFixed(2);
   $scope.chatCards = [];
   var chatCards = [];
   var chatsRef = new Firebase('https://chaffy.firebaseio.com/open_rooms');  
-  var promise = $firebase(chatsRef);
-  var obj = promise.$asArray();
+  var promise = $firebase(chatsRef).$asArray();
+  //var arr = promise.$asArray();
 
 
-obj.$loaded().then(function(data) {
+promise.$loaded().then(function(data) {
   
   var theCards = data;
   
@@ -847,12 +721,9 @@ var R = 6371; // Radius of the earth in km
 
   connieDrag=false;
 
-  
   $scope.goToIt = function(theUrl){
     window.location=theUrl;
-
   };
-
 
   $scope.goAway = function() {
     var card = $ionicSwipeCardDelegate.getSwipebleCard($scope);
