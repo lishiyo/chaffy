@@ -97,7 +97,7 @@ if (localStorage.getItem('localUserID') != null) {
 
 })
 
-.controller('MainCtrl', function($scope, $timeout, $firebase, DistanceCalc) {
+.controller('MainCtrl', function($scope, $timeout, $firebase, DistanceCalc, CheckUserHasRoom) {
 
   connieDrag= false;
   // real user position
@@ -157,7 +157,6 @@ $scope.init = function(room){
   calcHotorActive(room);
   allUsersRooms();
 }
-
 
 //my_rooms view
 

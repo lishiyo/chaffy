@@ -51,14 +51,22 @@
 
 .list .item:nth-child(odd) p{
   color: white;
-  opacity: 0.65;
+  opacity: 0.75;
 }
 
 .list .item:nth-child(odd) .item-content{
-  color: rgba(0,0,0,0.75); !important;
+  color: rgba(0,0,0,0.75) !important;
 }
 
-
+.list .item:nth-child(even) p{
+  color: #131313;
+}
+/**
+.list .item:nth-child(even) {
+  background-color: white !important;
+  opacity: 0.95;
+}
+**/
 .create-convo.list .item:nth-child(odd){
   background-color: white !important;
 }
@@ -76,7 +84,6 @@
 }
 
 .message-even{
-  
   margin: 10px 5px;
 }
 

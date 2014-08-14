@@ -35,7 +35,21 @@ userPromise.$loaded().then(function(arr) {
 }); // userPromise
 
 } // this.hasRoom
+/**
+this.allUsersRooms = function(myRooms) {
+    var usersRef = new Firebase('https://chaffy.firebaseio.com/users/');  
+    var userID = localStorage.getItem('localUserID');
+    var thisUser = usersRef.child(userID);
 
+thisUser.child("myRooms").once("value", function (snapshot) {
+    console.log("allUsersRooms ran! " + snapshot.val());
+    var myRooms = snapshot.val(); //current myRooms
+  }, function (errorObject) {
+    console.log(errorObject);
+  }); // thisUser
+
+} // this.allUserRooms
+**/
 })
 
 .service('UserAddRoom', function ($firebase) {

@@ -30,9 +30,9 @@
           <p style="margin-left:10px;">{{actualDistanceFromHere(room)}} mi. ~ {{room.description}}</p>
           -->
           <h3>{{room.title}} <span style="opacity:0.8;">({{actualDistanceFromHere(room)}} mi.)</span> <span ng-show="room.isHot || room.isActive"><i class="icon ion-flame" style="font-size: 1.6rem; color: #43cee6; float: right;"></i></span></h3>
-          <p style="font-size:0.8rem; font-style:italic; opacity:0.95; margin-top:-10px;"><span style="font-weight:normal; font-style:normal; color:#43cee6; font-size:0.9rem; opacity:1.0; font-family:Pacifico;">{{room.created_by}}: </span> {{room.description}}</p>
+          <p style="font-size:0.8rem; font-style:italic; opacity:0.95;"><span style="font-weight:normal; font-style:normal; color:#43cee6; font-size:0.9rem; opacity:1.0; font-family:Pacifico;">{{room.created_by}}: </span> {{room.description}}</p>
           <p style="font-size:0.8rem;">
-          <span style="color:#43cee6; font-size:0.75rem; float:left;">({{room.lastMessageTime | date: 'short'}})</span>
+          <span style="color:#43cee6; font-size:0.75rem; float:left;">{{room.lastMessageTime | date: 'short'}}</span>
           <span style="margin-left:10px; font-style:italic; text-align:right; float:right; opacity: 1.0;">{{room.lastMessage}}</span>
           </p>
       </link-item>

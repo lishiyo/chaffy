@@ -97,9 +97,10 @@ if (localStorage.getItem('localUserID') != null) {
 
 })
 
-.controller('MainCtrl', function($scope, $timeout, $firebase, DistanceCalc) {
+.controller('MainCtrl', function($scope, $timeout, $firebase, DistanceCalc, CheckUserHasRoom) {
 
   connieDrag= false;
+  // real user position
   console.log("\n\n $scope.map center is " + userPosition[0] + ", " + userPosition[1]);
 
   // set localNewRadius whenever switch view to MainCtrl - below doesn't work, however
@@ -150,34 +151,44 @@ $scope.onRefresh = function() {
   }, 1000);
 }; //onRefresh
 
-//myrooms view
+
+
+$scope.init = function(room){
+  calcHotorActive(room);
+  allUsersRooms();
+}
+
+//my_rooms view
+
+function allUsersRooms() {
+
+  var usersRef = new Firebase('https://chaffy.firebaseio.com/users/');  
+  var userID = localStorage.getItem('localUserID');
+  $scope.thisUser = usersRef.child(userID);
+
+  $scope.thisUser.child("myRooms").once("value", function (snapshot) {
+    $scope.myRooms = snapshot.val(); //current myRooms
+    console.log("allUsersRooms ran!");
+ 
+  }, function (errorObject) {
+    console.log(errorObject);
+  });
+
+} //allUsersRooms
+
+
 $scope.userHasRoom = function(room) {
 
-var usersRef = new Firebase('https://chaffy.firebaseio.com/users/');  
-var userID = localStorage.getItem('localUserID');
-$scope.thisUser = usersRef.child(userID);
-
-$scope.thisUser.child("myRooms").once("value", function (snapshot) {
-  $scope.myRooms = snapshot.val(); //current myRooms
- 
-}, function (errorObject) {
-  console.log(errorObject);
-});
-
-for (var idx in $scope.myRooms) { //loop through all of users' rooms
+  for (var idx in $scope.myRooms) { //loop through all of users' rooms
   var roomId = $scope.myRooms[idx]; 
   if ($scope.room.id == roomId) {
+    //console.log("found room: " + roomId);
     return true; //room found among users rooms
   }
 }
 return false; //room wasn't found in users' rooms
 } //userHasRoom
 
-
-
-$scope.init = function(room){
-  calcHotorActive(room);
-}
 
 function calcTimes() {
   var day = new Date();
@@ -202,6 +213,7 @@ obj.$loaded().then(function(){
   var lastIndex = (obj.length - 1);
   var lastOfLast = obj[lastIndex];
   $scope.room.lastMessage = lastOfLast.content;
+  $scope.room.lastMessageTime = lastOfLast.created_at;
 
   $scope.firstCreated = parseFloat(firstOfLast.created_at);
   $scope.lastCreated = parseFloat(lastOfLast.created_at);
@@ -211,7 +223,7 @@ obj.$loaded().then(function(){
 }) // first then
 
 .then(function() {
-
+console.log("calling isHot, isActive, isPopular!");
 // room is Hot refers to at least 10 posts since yesterday
   if ($scope.firstCreated > $scope.startTime) {
       $scope.room.isHot = true;
