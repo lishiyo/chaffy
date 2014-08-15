@@ -1,28 +1,47 @@
+<head>
+<style>
+
+.scroll-content {
+  background-color: black !important;
+  color: white;
+  word-wrap: normal;
+  padding-top: 15px;
+}
+
+.scroll-content h3 {
+  color: #43cee6 !important;
+}
+
+</style>
+</head>
+
 <nav-page id="app-page">
   <header class="bar bar-header bar-calm">
     <button class="button button-icon" ng-click="goToHome()"><i class="icon ion-home"></i></button>
     <h1 class="title">chaffy</h1>
   </header>
-  <content has-header="true" padding="true">
-    <h3>chaffy is<br> the mobile chatroom</h3>
-    <p style="color:white" >
-      This app was forked<br>
-       from Talk2, <br> an Firebase + Angular project. <br>
-       We added:<br>
-       Location<br>
-       Proximity<br>
-       Swipeable chats<br>
-       Chat Storage<br>
-       Room Hotness<br>
-       Some Color<br>
-       Some Font<br>
-       <br>(everything can be improved!)<br>
-       Help!
-
+  <content has-header="true" padding="true" wrap="true">
+    <h3>chaffy is the anonymous<br> mobile chat app</h3>
+    <div class="item-text-wrap">
+    <p>
+      We sprung out of Talk2, a simple Firebase +
+      Angular project for our awesome NYC bootcamp, App Factory.</p>
+    <p>
+      Our hope is to let you hang out with
+      the people around you,
+      whether you're shy, bored, lonely or
+      just addicted to your phone.
+      </p>
+      <p>
+      There are a lot of chat apps out there, 
+      but we think we're a little different. We're all about location -
+      open up a chatroom right at your cafe - and hanging out with total strangers, rather than just your friends network. We're all about 
+      anyone, anytime, anywhere - just type in a chat to store it in your dash
+       forever, and search for chats anywhere in the world. 
 
     </p>
     <p style="color:white">
-     All chats are 100% anonymous.<br> We will never sell your data.<br> We will never charge you anything.<br> Contribute by forking us<br> on github (lishiyo/chaffy) and sharing your <br>suggestions!
+     Every chat here is 100% anonymous.<br> We will never sell your data.<br> We will never charge you anything.<br> Help us by forking us on github (lishiyo/chaffy) and sharing your ideas!
     </p>
   </content>
 </nav-page>

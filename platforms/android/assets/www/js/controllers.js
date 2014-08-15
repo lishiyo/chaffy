@@ -50,7 +50,7 @@ if (localStorage.getItem('localUserID') != null) {
  var userID = newUserRef.name(); //user's unique ID
  localStorage.setItem('localUserID', userID);
 
- console.log("\n\n new user created: " + userID);
+ //console.log("\n\n new user created: " + userID);
 }
  
 
@@ -101,7 +101,7 @@ if (localStorage.getItem('localUserID') != null) {
 
   connieDrag= false;
   // real user position
-  console.log("\n\n $scope.map center is " + userPosition[0] + ", " + userPosition[1]);
+  //console.log("\n\n $scope.map center is " + userPosition[0] + ", " + userPosition[1]);
 
   // set localNewRadius whenever switch view to MainCtrl - below doesn't work, however
   // localStorage.setItem('localNewRadius', (parseFloat(angular.element(document.getElementById('firstElem')).scope().circle.radius) / 1609));
@@ -168,7 +168,7 @@ function allUsersRooms() {
 
   $scope.thisUser.child("myRooms").once("value", function (snapshot) {
     $scope.myRooms = snapshot.val(); //current myRooms
-    console.log("allUsersRooms ran!");
+    //console.log("allUsersRooms ran!");
  
   }, function (errorObject) {
     console.log(errorObject);
@@ -223,7 +223,6 @@ obj.$loaded().then(function(){
 }) // first then
 
 .then(function() {
-console.log("calling isHot, isActive, isPopular!");
 // room is Hot refers to at least 10 posts since yesterday
   if ($scope.firstCreated > $scope.startTime) {
       $scope.room.isHot = true;
@@ -480,7 +479,7 @@ $('#userAlias').keydown(function(event) {
     
     $scope.setUserGender = function(){
       if ($scope.userPro.gender =='male' || $scope.userPro.gender =='female') {
-        console.log("user gender is: " + $scope.userPro.gender);
+        //console.log("user gender is: " + $scope.userPro.gender);
         return $scope.userPro.gender;
       } else {
         return 'anon';
@@ -490,8 +489,7 @@ $('#userAlias').keydown(function(event) {
 
     $scope.setUserAge = function(){
       if ($scope.userPro.age == '18-29'|| $scope.userPro.age == '30-49' || $scope.userPro.age == '49+') {
-
-        console.log("user age is: " + $scope.userPro.age);
+        //console.log("user age is: " + $scope.userPro.age);
         return $scope.userPro.age;
 
       } else {
@@ -511,7 +509,7 @@ thisUser.update({
   age: $scope.setUserAge()
 });
 
-console.log("\n\n" + "current userID is " + thisUser.name());
+//console.log("\n\n" + "current userID is " + thisUser.name());
 
 $location.path('/swipe');
 
@@ -581,6 +579,7 @@ $scope.map = {
 
 $scope.map.isReady = false;
 
+
 $scope.circle = {
   center: {
       latitude: userPosition[0],
@@ -621,12 +620,14 @@ $scope.circle = {
                },
                radius_changed: function() {
                 localStorage.setItem('localNewRadius', (parseFloat($scope.circle.radius / 1609)));
-                console.log("\n\n\n" + localStorage.getItem('localNewRadius'));
+                //console.log("\n\n\n" + localStorage.getItem('localNewRadius'));
                }
             } //events
 };
 
+$scope.circle.isReady = false;
 $scope.map.isReady = true;
+$scope.circle.isReady = true;
 
 })
 
@@ -638,6 +639,7 @@ $scope.radius = parseFloat(localStorage.getItem('localNewRadius'));
 
 $scope.radiusInMi = $scope.radius.toFixed(2);
 
+$scope.missingCard = false;
  //console.log("\n\n radius in swipe is " + $scope.radius);
 
   $scope.chatCards = [];
@@ -672,6 +674,20 @@ promise.$loaded().then(function(data) {
 
 $scope.chatCards = Array.prototype.slice.call(chatCards, 0, 0);
 
+$scope.noCards = function() {
+//check whether there's at least one within the radius
+  var passed = chatCards.some(atLeastOne);
+  
+  var allFailed = !passed;
+
+  //console.log("allfailed is: " + allFailed);
+  return allFailed;
+}
+
+function atLeastOne(element, index, array) {
+  //console.log("element is: " + element + " in array: " + array);
+  return ($scope.distanceFromHere(element) < $scope.radius);
+}
 // distance between chat and selected circle center (lat, lon) - for checking within radius
 /**
 $scope.getUserLocation = function(){

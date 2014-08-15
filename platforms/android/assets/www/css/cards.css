@@ -1,5 +1,20 @@
 /* Your app's CSS, go crazy, make it your own */
 
+/* card links */
+
+#start-card a:link,
+#start-card a:visited, 
+#start-card a:active { 
+  line-height: 3.5rem;
+  text-decoration: none !important;
+  color:  #FFF00B !important; 
+  font-size: 3.5rem;
+}
+
+#start-card a:hover {
+  color: #BAE1FF !important;
+}
+
 .ionic-logo {
   display: block;
   margin: 15px auto;

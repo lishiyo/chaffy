@@ -1,6 +1,7 @@
 <head>
 <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
 <link href="css/cards.css" rel="stylesheet">
+
 </head>
 
 <!--
@@ -34,7 +35,19 @@
         -->
         </swipe-card>
 
-        <swipe-card ng-repeat="card in chatCards" on-destroy="cardDestroyed($index)" on-swipe="cardSwiped($index)" ng-hide="{{distanceFromHere(card) > radius}}"  ng-init="init(card)">
+        <swipe-card on-swipe="goToIt('#/launch');" ng-show="noCards()" ng-cloak id="start-card" ng-click="goToIt('#/launch');">
+        <p>
+        <span style="font-size:2.8rem; opacity:1.0; color:yellow;">no chats found!</span> <br>
+        <span style="font-size: 1.5rem;">try looking in another area :) </span>
+         </p>
+         <!--
+          <span>
+          <i class="icon ion-android-contact" style="font-size: 1.3rem; color: #43cee6;"></i>
+        </span>
+        -->
+        </swipe-card>
+
+        <swipe-card ng-repeat="card in chatCards" on-destroy="cardDestroyed($index)" on-swipe="cardSwiped($index)" ng-hide="{{distanceFromHere(card) > radius}}">
           <div ng-controller="CardCtrl">
             <div class="title">
               {{actualDistanceFromHere(card)}} mi. away

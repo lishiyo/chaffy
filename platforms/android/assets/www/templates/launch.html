@@ -75,7 +75,7 @@
         <input type="text" placeholder="circle radius" data-ng-model="newRoomDescription" class="convoInput">
         -->
 <div id="map-container" ng-click="blurKeyboard()">
-<div ng-if="map.isReady">
+<div ng-if="map.isReady && circle.isReady">
         <google-map center="map.center" zoom="map.zoom" draggable="true" dragging="map.dragging" id="map_canvas" events="map.events"> 
         <circle center="circle.center" visible="true" radius="circle.radius" fill="circle.fill" draggable="true" editable="true" stroke="circle.stroke" events="circle.events"></circle>
         </google-map>
