@@ -10,8 +10,8 @@
 <content has-header="true" id="firstElem">        
   <!-- <form ng-submit="doNothing()"> form ui-keypress="{13:'findChats()'}" -->
     <div class="list list-inset">
-    <div class="form-bar">
-    <input type="text" ng-model="userPro.username" class="convoInput" id="userAlias" placeholder="my alias">
+    <div class="form-bar" id="username-bar">
+    <input type="text" ng-model="userPro.username" class="convoInput" id="userAlias" placeholder="my alias" ng-keypress="blurOnEnter($event)">
     </div>
     <div class="form-bar">
       <label class="item item-radio bar-gender-item" id="radio-male">
@@ -22,14 +22,14 @@
           <a class="button button-energized button-f">Female</a>
         </div>
         -->
-        <input type="checkbox" data-ng-true-value="male" name="userGender" data-ng-model="userPro.gender" data-ng-false-value="false" value="male"/>
+        <input type="checkbox" data-ng-true-value="male" name="userGender" data-ng-model="userPro.gender" data-ng-false-value="false" value="male" data-ng-change="blurKeyboard()" />
         <div class="item-content">male
         </div>
         <!--<i class="radio-icon ion-checkmark"> data-ng-value="0"</i>-->
       </label>
 
 <label class="item item-radio bar-gender-item" id="radio-fem">
-      <input type="checkbox" name="userGender" data-ng-model="userPro.gender" data-ng-true-value="female" data-ng-false-value="false" value="female" />
+      <input type="checkbox" name="userGender" data-ng-model="userPro.gender" data-ng-true-value="female" data-ng-false-value="false" value="female" data-ng-change="blurKeyboard()"/>
         <div class="item-content">female
         </div>
 </label>     
@@ -47,17 +47,17 @@
         <!--<span class="input-label">Age</span>              
         <input type="text" placeholder="three ranges: 18-29; 30-49; 49+" data-ng-model="newRoomNameId">
         -->
-        <input type="checkbox" name="group-age" data-ng-model="userPro.age" data-ng-true-value="18-29" data-ng-false-value="false">
+        <input type="checkbox" name="group-age" data-ng-model="userPro.age" data-ng-true-value="18-29" data-ng-false-value="false" data-ng-change="blurKeyboard()">
         <div class="item-content">18-29
         </div>
       </label>
       <label class="item item-radio bar-age-item" id="radio-age-1">
-        <input type="checkbox" name="group-age" data-ng-model="userPro.age" data-ng-true-value="30-49" data-ng-false-value="false">
+        <input type="checkbox" name="group-age" data-ng-model="userPro.age" data-ng-true-value="30-49" data-ng-false-value="false" data-ng-change="blurKeyboard()">
         <div class="item-content">30-49
         </div>
       </label>
       <label class="item item-radio bar-age-item" id="radio-age-2">
-        <input type="checkbox" name="group-age" data-ng-model="userPro.age" data-ng-true-value="49+" data-ng-false-value="false">
+        <input type="checkbox" name="group-age" data-ng-model="userPro.age" data-ng-true-value="49+" data-ng-false-value="false" data-ng-change="blurKeyboard()">
         <div class="item-content">49+
         </div>
       </label>
@@ -74,16 +74,19 @@
                       
         <input type="text" placeholder="circle radius" data-ng-model="newRoomDescription" class="convoInput">
         -->
+<div id="map-container" ng-click="blurKeyboard()">
 <div ng-if="map.isReady">
-        <google-map center="map.center" zoom="map.zoom" draggable="true" dragging="map.dragging" id="map_canvas" events="mapevents"> 
-        <circle center="circle.center" visible="true" radius="circle.radius" fill="circle.fill" draggable="true" editable="true" stroke="circle.stroke" events="events"></circle>
+        <google-map center="map.center" zoom="map.zoom" draggable="true" dragging="map.dragging" id="map_canvas" events="map.events"> 
+        <circle center="circle.center" visible="true" radius="circle.radius" fill="circle.fill" draggable="true" editable="true" stroke="circle.stroke" events="circle.events"></circle>
         </google-map>
       <!--</label>-->
+</div>
 </div>
 
     </div>
     <div class="padding" style="padding-top:0px;">
-      <button class="button button-full button-positive" ng-click="findChats()">GO</button>
+      <button class="button button-full button-positive" ng-click="findChats()" id="launch-go">GO</button>
     </div>
+  
   <!--</form>-->
 </content>

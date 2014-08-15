@@ -390,7 +390,7 @@ $scope.onRefresh = function() {
   connieDrag= false;
 })
 
-.controller('LaunchCtrl', function($scope, $location, $rootScope) {
+.controller('LaunchCtrl', function($scope, $location, $rootScope, $timeout) {
 
   connieDrag=true;
 
@@ -416,7 +416,21 @@ $scope.checkAge = function(){
   } else {
     return localStorage.getItem('localuserAge');
   }
+}
 
+$scope.blurKeyboard = function() {
+  $('#userAlias').blur();
+}
+
+$scope.blurOnEnter = function(keyEvent) {
+  if (keyEvent.which === 13) {
+    $('#userAlias').blur();
+  }
+}
+
+$scope.doNothing = function(event) {
+  event.preventDefault();
+  return;
 }
 
 $scope.userPro = {
@@ -425,7 +439,19 @@ $scope.userPro = {
   age: $scope.checkAge()
 }
 
+// keyboard press submit should blur out keyboard
+/**
+$('#userAlias').keydown(function(event) {
+  if (event.keyCode == 13) {
+    event.preventDefault();
+    $('#userAlias').blur();
+  }
+});
+**/
+
   $scope.findChats = function() {
+
+   //for users who don't input a name
 
 // set localNewRadius when user clicks GO
     var newRadius = parseFloat(($scope.circle.radius) / 1609);
@@ -444,7 +470,7 @@ $scope.userPro = {
     // $scope.username = $scope.userAlias;
 
     $scope.setUserName = function(){
-      if ($scope.userPro.username==undefined) {
+      if ($scope.userPro.username==undefined || $scope.userPro.username=="") {
         return 'chaffer' + Math.floor(Math.random() * 999);
       } else {
         return $scope.userPro.username;
@@ -535,19 +561,43 @@ $scope.map = {
       longitude: userPosition[1]
     },
     zoom: 9,
-    refresh:false
+    refresh:false,
+    events: {
+      click: function() {
+
+         $timeout(function() {            
+          $('#userAlias').blur();
+        }, 10);
+        
+      }
+      /**
+      drag: function(){
+        //$scope.map.center = {latitude: userPosition[0], longitude: userPosition[1]};
+        $scope.map.center = $scope.circle.center;
+      }
+      **/
+    }
 };
 
 $scope.map.isReady = false;
-/**
-$scope.mapevents = {
-  drag: function(){
-    //$scope.map.center = {latitude: userPosition[0], longitude: userPosition[1]};
-    $scope.map.center = $scope.circle.center;
-  }
-}
-**/
-$scope.events = {
+
+$scope.circle = {
+  center: {
+      latitude: userPosition[0],
+      longitude: userPosition[1]
+    },
+  fill: {
+    color: "#FF2A58",
+    opacity: 0.40
+  },
+  stroke: {
+    weight: 2,
+    color: "#FF2A58",
+    opacity: 1
+  },
+  radius: 10000,
+  geodesic: true,
+  events: {
                dragend: function (marker) {
                   $rootScope.$apply(function () {
                     /**
@@ -573,24 +623,7 @@ $scope.events = {
                 localStorage.setItem('localNewRadius', (parseFloat($scope.circle.radius / 1609)));
                 console.log("\n\n\n" + localStorage.getItem('localNewRadius'));
                }
-            }
-
-$scope.circle = {
-  center: {
-      latitude: userPosition[0],
-      longitude: userPosition[1]
-    },
-  fill: {
-    color: "#FF2A58",
-    opacity: 0.40
-  },
-  stroke: {
-    weight: 2,
-    color: "#FF2A58",
-    opacity: 1
-  },
-  radius: 10000,
-  geodesic: true
+            } //events
 };
 
 $scope.map.isReady = true;
