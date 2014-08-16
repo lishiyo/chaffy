@@ -325,11 +325,16 @@ obj.$loaded().then(function(){
 /**
  $(".scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-250)+"px"+', 0px)');
 **/
-// connie
+// for android only: move up scroll for keyboard
+var ua = navigator.userAgent.toLowerCase();
+var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+if(isAndroid) {
+  
   $('#mainInput').on('focus', function(){
      $("#mainScroll .scroll").css('-webkit-transform','translate3d(0px, -'+(parseInt($('.scroll').css('height'))-190)+"px"+', 0px)');
   });
 
+}
 
   }); // room's messages loaded
   
