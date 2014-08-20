@@ -209,6 +209,8 @@ var obj = sync.$asArray();
 
 obj.$loaded().then(function(){
 
+  console.log(Object.keys(obj[obj.length-1]));
+
   var firstOfLast = obj[0];
   var lastIndex = (obj.length - 1);
   var lastOfLast = obj[lastIndex];
@@ -516,7 +518,8 @@ thisUser.update({
 
 //console.log("\n\n" + "current userID is " + thisUser.name());
 
-$location.path('/swipe');
+//$location.path('/swipe');
+$location.path('/home');
 
 }; // findChats()
 
@@ -703,6 +706,7 @@ $scope.getUserLocation = function(){
 **/
 
 $scope.distanceFromHere = function (_item, _startPoint) {
+  //console.log("distanceFromhere: " + DistanceCalc.distanceFromHere(_item));
   return DistanceCalc.distanceFromHere(_item);
   
 } //distanceFromHere
@@ -725,8 +729,15 @@ $scope.actualDistanceFromHere = function (_item, _startPoint) {
 
   $scope.addCard = function() {
     var newCard = chatCards[Math.floor(Math.random() * chatCards.length)];
-    //console.log("adding card: " + newCard.title);
-    $scope.chatCards.push(angular.extend({}, newCard));
+    //console.log("adding card: " + newCard.title + " chatcards: " + chatCards.length);
+    if ($scope.distanceFromHere(newCard) <= $scope.radius) {
+      console.log("pushing card! " + $scope.distanceFromHere(newCard));
+      $scope.chatCards.push(angular.extend({}, newCard));
+    } else {
+      console.log("skipping card! " + $scope.distanceFromHere(newCard));
+      $scope.addCard();
+    }
+    
   }
 })
 

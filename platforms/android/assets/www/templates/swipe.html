@@ -25,8 +25,8 @@
       <swipe-cards>
       
         <swipe-card on-swipe="cardSwiped()" id="start-card">
-        <p> searching 'round<br />
-         <span style="font-size:4.5rem; opacity:1.0; font-family: 'Lato'; line-height:70px;">{{ radiusInMi }} </span> <br />miles
+        <p> <span style="font-size:3.5rem; color:yellow">swipe down</span><br />to find chats 'round<br />
+         <span style="font-size:3.0rem; opacity:1.0; font-family: 'Lato'; line-height:70px; color:yellow;">{{ radiusInMi }}</span>  mi.<br />
          </p>
          <!--
           <span>
@@ -47,7 +47,7 @@
         -->
         </swipe-card>
 
-        <swipe-card ng-repeat="card in chatCards" on-destroy="cardDestroyed($index)" on-swipe="cardSwiped($index)" ng-hide="{{distanceFromHere(card) > radius}}">
+        <swipe-card ng-repeat="card in chatCards" on-destroy="cardDestroyed($index)" on-swipe="cardSwiped($index)">
           <div ng-controller="CardCtrl">
             <div class="title">
               {{actualDistanceFromHere(card)}} mi. away
